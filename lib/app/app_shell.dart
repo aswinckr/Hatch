@@ -40,6 +40,7 @@ class _AppShellState extends State<AppShell> {
     key: const Key('app-background'),
     color: CupertinoColors.white,
     child: Stack(
+      fit: StackFit.expand,
       children: [
         IndexedStack(
           index: selectedIndex,

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math' as math;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -201,8 +202,11 @@ class _AddDishScreenState extends State<AddDishScreen> {
             ),
             if (stage == AddDishStage.choosePhoto)
               Positioned(
-                right: 20,
-                bottom: 92,
+                right: math.max(
+                  0,
+                  (MediaQuery.sizeOf(context).width - 236) / 2 - 76,
+                ),
+                bottom: 12,
                 child: _FloatingCameraButton(
                   onPressed: () => _pick(ImageSource.camera),
                 ),

@@ -13,7 +13,7 @@ rounded:
   full: 9999px
 components:
   floating-navbar:
-    backgroundColor: "rgba(255, 255, 255, 0.90)"
+    backgroundColor: "rgba(242, 242, 240, 0.92)"
     rounded: "{rounded.full}"
     height: 72px
     width: 236px
@@ -52,6 +52,7 @@ Use simple geometric silhouettes to make persistent controls feel approachable a
 - Float above the bottom safe area as a narrow centered capsule.
 - Size the bar to provide only comfortable padding around its icons and labels; do not stretch it across the screen.
 - Keep the surface translucent rather than opaque.
+- On a white page, use a subtle neutral-grey tint so the glass surface remains perceptible without becoming heavy.
 - Give persistent destinations equal visual weight unless product hierarchy clearly requires otherwise.
 - Emphasize the selected destination with a softly tinted frosted segment, colored icon, and stronger label.
 - Keep unselected destinations quiet but readable.
@@ -60,7 +61,8 @@ Use simple geometric silhouettes to make persistent controls feel approachable a
 
 ### Floating primary action
 
-- When a screen has one frequent, unmistakable action, place it in a circular floating button above persistent navigation.
+- When a screen has one frequent, unmistakable action, place it in a circular floating button near persistent navigation.
+- When the primary action and persistent navigation belong to the same interaction zone, align them along the bottom edge and place the action immediately beside the navigation with a compact gap.
 - An icon-only action is appropriate when the symbol is widely understood; always provide an accessible semantic label.
 - Use a distinctive accent fill and soft shadow to establish primacy without making the control oversized.
 - Keep related alternatives available but visually secondary and closer to the content they affect.

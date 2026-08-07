@@ -26,7 +26,7 @@ class FloatingTabBar extends StatelessWidget {
         filter: ImageFilter.blur(sigmaX: 22, sigmaY: 22),
         child: DecoratedBox(
           decoration: BoxDecoration(
-            color: const Color(0xE6FFFFFF),
+            color: const Color(0xEBF2F2F0),
             borderRadius: BorderRadius.circular(36),
             border: Border.all(color: const Color(0xBFFFFFFF)),
             boxShadow: const [
