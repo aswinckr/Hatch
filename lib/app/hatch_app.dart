@@ -21,6 +21,7 @@ class HatchApp extends StatelessWidget {
     title: 'Favourite Menu',
     debugShowCheckedModeBanner: false,
     theme: const CupertinoThemeData(
+      brightness: Brightness.light,
       primaryColor: AppColors.terracotta,
       scaffoldBackgroundColor: AppColors.cream,
       textTheme: CupertinoTextThemeData(textStyle: AppTypography.body),
