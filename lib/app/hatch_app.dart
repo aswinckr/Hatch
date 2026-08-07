@@ -24,7 +24,7 @@ class HatchApp extends StatelessWidget {
       brightness: Brightness.light,
       primaryColor: AppColors.forestGreen,
       scaffoldBackgroundColor: AppColors.cream,
-      textTheme: CupertinoTextThemeData(textStyle: AppTypography.body),
+      textTheme: AppTypography.cupertino,
     ),
     home: AppShell(
       controller: controller,

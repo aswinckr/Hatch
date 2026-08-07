@@ -53,7 +53,7 @@ class MenuPage extends StatelessWidget {
             'FAVOURITE PLACES',
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontFamily: 'NotoSerif',
+              fontFamily: 'Outfit',
               letterSpacing: 3,
               fontSize: 12,
               color: visual.accent,
@@ -63,7 +63,7 @@ class MenuPage extends StatelessWidget {
           Text(
             'The Menu',
             style: TextStyle(
-              fontFamily: 'NotoSerif',
+              fontFamily: 'Outfit',
               fontSize: 36,
               fontStyle: FontStyle.italic,
               color: visual.ink,
@@ -145,7 +145,7 @@ class _Section extends StatelessWidget {
                       dish.name,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontFamily: 'NotoSerif',
+                        fontFamily: 'Outfit',
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
                         color: visual.ink,

@@ -20,11 +20,8 @@ class MenuPdfRenderer {
   Future<Uint8List> render(MenuSnapshot snapshot) async {
     if (snapshot.dishes.isEmpty) throw const EmptyMenuException();
     final colors = _PdfPalette.forStyle(snapshot.style);
-    final serif = pw.Font.ttf(
-      await rootBundle.load('assets/fonts/NotoSerif.ttf'),
-    );
-    final sans = pw.Font.ttf(
-      await rootBundle.load('assets/fonts/NotoSans.ttf'),
+    final outfit = pw.Font.ttf(
+      await rootBundle.load('assets/fonts/Outfit.ttf'),
     );
     final document = pw.Document();
     document.addPage(
@@ -32,7 +29,11 @@ class MenuPdfRenderer {
         pageTheme: pw.PageTheme(
           pageFormat: PdfPageFormat.a4,
           margin: const pw.EdgeInsets.all(18 * PdfPageFormat.mm),
-          theme: pw.ThemeData.withFont(base: sans, bold: sans, italic: sans),
+          theme: pw.ThemeData.withFont(
+            base: outfit,
+            bold: outfit,
+            italic: outfit,
+          ),
         ),
         build: (_) => [
           pw.Center(
@@ -49,12 +50,16 @@ class MenuPdfRenderer {
           pw.Center(
             child: pw.Text(
               'The Menu',
-              style: pw.TextStyle(font: serif, fontSize: 30, color: colors.ink),
+              style: pw.TextStyle(
+                font: outfit,
+                fontSize: 30,
+                color: colors.ink,
+              ),
             ),
           ),
           pw.SizedBox(height: 18),
           for (final section in includedSections(snapshot))
-            ..._section(snapshot, section, colors, serif),
+            ..._section(snapshot, section, colors, outfit),
         ],
       ),
     );
@@ -65,7 +70,7 @@ class MenuPdfRenderer {
     MenuSnapshot snapshot,
     MealSection section,
     _PdfPalette colors,
-    pw.Font serif,
+    pw.Font outfit,
   ) {
     final dishes =
         snapshot.dishes.where((dish) => dish.mealSection == section).toList()
@@ -92,7 +97,7 @@ class MenuPdfRenderer {
                 dish.name,
                 textAlign: pw.TextAlign.center,
                 style: pw.TextStyle(
-                  font: serif,
+                  font: outfit,
                   fontWeight: pw.FontWeight.bold,
                   fontSize: 16,
                   color: colors.ink,

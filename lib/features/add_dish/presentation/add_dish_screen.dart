@@ -181,7 +181,7 @@ class AddDishScreenState extends State<AddDishScreen> {
               const SizedBox(height: 18),
               const Text(
                 'Added to your menu',
-                style: TextStyle(fontFamily: 'NotoSerif', fontSize: 26),
+                style: TextStyle(fontFamily: 'Outfit', fontSize: 26),
               ),
               const SizedBox(height: 12),
               const Text('Open My Menu to see it in place.'),
@@ -245,7 +245,7 @@ class _HomeGallery extends StatelessWidget {
                 Text(
                   'Your dishes',
                   style: TextStyle(
-                    fontFamily: 'NotoSerif',
+                    fontFamily: 'Outfit',
                     fontSize: 34,
                     fontWeight: FontWeight.w600,
                   ),
@@ -305,7 +305,7 @@ class _EmptyGallery extends StatelessWidget {
         const SizedBox(height: 14),
         const Text(
           'Your gallery is waiting',
-          style: TextStyle(fontFamily: 'NotoSerif', fontSize: 22),
+          style: TextStyle(fontFamily: 'Outfit', fontSize: 22),
         ),
         const SizedBox(height: 8),
         const Text('Capture your first favourite dish.'),
@@ -343,7 +343,7 @@ class _DishTile extends StatelessWidget {
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
         style: const TextStyle(
-          fontFamily: 'NotoSerif',
+          fontFamily: 'Outfit',
           fontSize: 17,
           fontWeight: FontWeight.w600,
         ),

@@ -68,12 +68,9 @@ flutter:
     - assets/fonts/
 
   fonts:
-    - family: NotoSerif
+    - family: Outfit
       fonts:
-        - asset: assets/fonts/NotoSerif.ttf
-    - family: NotoSans
-      fonts:
-        - asset: assets/fonts/NotoSans.ttf
+        - asset: assets/fonts/Outfit.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:

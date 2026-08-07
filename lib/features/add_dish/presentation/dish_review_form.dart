@@ -31,7 +31,7 @@ class DishReviewForm extends StatelessWidget {
       const Text(
         'Review your dish',
         style: TextStyle(
-          fontFamily: 'NotoSerif',
+          fontFamily: 'Outfit',
           fontSize: 28,
           fontWeight: FontWeight.w600,
         ),
