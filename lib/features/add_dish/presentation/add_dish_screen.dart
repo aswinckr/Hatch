@@ -188,7 +188,7 @@ class _AddDishScreenState extends State<AddDishScreen> {
       navigationBar: const CupertinoNavigationBar(middle: Text('Add Dish')),
       child: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 112),
           child: content,
         ),
       ),

@@ -36,7 +36,7 @@ class MenuScreen extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 10, 20, 12),
+              padding: const EdgeInsets.fromLTRB(20, 10, 20, 102),
               child: SizedBox(
                 width: double.infinity,
                 child: CupertinoButton.filled(
