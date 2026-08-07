@@ -1,0 +1,11 @@
+.worktrees/
+
+# Flutter generated files
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+coverage/
+ios/Flutter/ephemeral/
+ios/Pods/
