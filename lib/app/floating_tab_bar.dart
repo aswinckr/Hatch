@@ -82,7 +82,7 @@ class FloatingTabBar extends StatelessWidget {
                         Expanded(
                           child: _Destination(
                             label: 'Dishes',
-                            icon: material.Icons.restaurant_rounded,
+                            icon: material.Icons.soup_kitchen_rounded,
                             selected: selectedIndex == 0,
                             onTap: () => onSelected(0),
                           ),
