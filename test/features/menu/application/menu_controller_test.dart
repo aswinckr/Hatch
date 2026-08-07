@@ -62,6 +62,39 @@ void main() {
       expect(recovered.style, MenuStyle.editorial);
     },
   );
+
+  test(
+    'preferences repository varies repeated built-in sample dishes',
+    () async {
+      SharedPreferences.setMockInitialValues({});
+      final preferences = await SharedPreferences.getInstance();
+      final repository = PreferencesMenuRepository(preferences);
+      final sample = breakfastDish.copyWith(
+        imagePath: 'assets/demo/truffle_eggs.png',
+      );
+      final duplicate = Dish(
+        id: 'two',
+        imagePath: sample.imagePath,
+        name: sample.name,
+        restaurant: sample.restaurant,
+        description: sample.description,
+        mealSection: sample.mealSection,
+        createdAt: sample.createdAt,
+        updatedAt: sample.updatedAt,
+      );
+      await repository.save(
+        MenuSnapshot(dishes: [sample, duplicate], style: MenuStyle.editorial),
+      );
+
+      final restored = await repository.load();
+
+      expect(
+        restored.dishes.map((dish) => dish.imagePath).toSet(),
+        hasLength(2),
+      );
+      expect(restored.dishes[1].name, 'Shoyu Ramen');
+    },
+  );
 }
 
 class MemoryMenuRepository implements MenuRepository {
