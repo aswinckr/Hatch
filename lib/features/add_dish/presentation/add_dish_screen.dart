@@ -136,7 +136,6 @@ class AddDishScreenState extends State<AddDishScreen> {
     final content = switch (stage) {
       AddDishStage.choosePhoto => _HomeGallery(
         dishes: widget.capturedDishes,
-        onLibrary: () => _pick(ImageSource.gallery),
         onSample: () => _analyze('assets/demo/truffle_eggs.png'),
       ),
       AddDishStage.analyzing => const SizedBox(
@@ -224,13 +223,9 @@ class AddDishScreenState extends State<AddDishScreen> {
 }
 
 class _HomeGallery extends StatelessWidget {
-  const _HomeGallery({
-    required this.dishes,
-    required this.onLibrary,
-    required this.onSample,
-  });
+  const _HomeGallery({required this.dishes, required this.onSample});
   final List<Dish> dishes;
-  final VoidCallback onLibrary, onSample;
+  final VoidCallback onSample;
   @override
   Widget build(BuildContext context) {
     final feed = [...dishes]
@@ -257,12 +252,6 @@ class _HomeGallery extends StatelessWidget {
                   Text('Your latest food memories, in one place.'),
                 ],
               ),
-            ),
-            CupertinoButton(
-              borderRadius: AppShapes.pill,
-              padding: const EdgeInsets.all(10),
-              onPressed: onLibrary,
-              child: const Icon(CupertinoIcons.photo_on_rectangle),
             ),
           ],
         ),

@@ -82,7 +82,7 @@ Use fully rounded, pill-shaped corners for button surfaces. The radius should re
 - Keep deliberate breathing room between the action and navigation so each control reads as an independent layer.
 - An icon-only action is appropriate when the symbol is widely understood; always provide an accessible semantic label.
 - Use a distinctive accent fill and soft shadow to establish primacy without making the control oversized.
-- Keep related alternatives available but visually secondary and closer to the content they affect.
+- Keep headers free of secondary actions when the primary creation path is already clear and persistent.
 
 ### Image-led collections
 
@@ -110,6 +110,7 @@ Use fully rounded, pill-shaped corners for button surfaces. The radius should re
 - Do reserve a floating circular action for one clear, high-frequency primary task.
 - Do let visual content lead when recognition is faster through imagery than text.
 - Do make recency visible in chronological feeds without letting timestamps dominate.
+- Do keep content-feed headers focused on orientation rather than redundant actions.
 - Do carry a screen’s background through every edge and safe area.
 - Do remove redundant chrome when the content already supplies its own title and hierarchy.
 - Do use the same dark green to connect interactive elements across screens.
