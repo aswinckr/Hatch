@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import '../../../core/design/app_shapes.dart';
 import '../../menu/domain/dish.dart';
 
 class DishReviewForm extends StatelessWidget {
@@ -77,7 +78,11 @@ class DishReviewForm extends StatelessWidget {
           ),
         ),
       const SizedBox(height: 18),
-      CupertinoButton.filled(onPressed: onSubmit, child: Text(submitLabel)),
+      CupertinoButton.filled(
+        borderRadius: AppShapes.pill,
+        onPressed: onSubmit,
+        child: Text(submitLabel),
+      ),
     ],
   );
 }

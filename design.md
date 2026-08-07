@@ -45,6 +45,8 @@ Prefer one continuous background color across a primary screen. Use white when t
 
 Use simple geometric silhouettes to make persistent controls feel approachable and self-contained. Horizontal navigation may use a pill with fully rounded ends, with selection communicated by a softer nested shape rather than a hard divider.
 
+Use fully rounded, pill-shaped corners for button surfaces. The radius should resolve to half the control height or greater so the ends remain completely rounded at any supported size. Icon-only floating actions may use a circle as the equivalent fully rounded form.
+
 ## Components
 
 ### Floating navbar
@@ -81,6 +83,7 @@ Use simple geometric silhouettes to make persistent controls feel approachable a
 - Do use fully rounded ends on both the outer bar and selected segment.
 - Do keep the number of destinations minimal.
 - Do keep the capsule compact and content-sized.
+- Do use fully rounded ends consistently across primary, secondary, and destructive buttons.
 - Do reserve a floating circular action for one clear, high-frequency primary task.
 - Do let visual content lead when recognition is faster through imagery than text.
 - Do carry a screen’s background through every edge and safe area.
@@ -90,3 +93,4 @@ Use simple geometric silhouettes to make persistent controls feel approachable a
 - Don’t place multiple competing floating actions on the same screen.
 - Don’t divide a continuous page into differently colored zones without a functional reason.
 - Don’t turn a product-specific label, content type, or workflow into a universal design rule.
+- Don’t mix mildly rounded rectangular buttons with pill-shaped buttons in the same interface.

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import '../../../core/design/app_shapes.dart';
 import '../application/menu_controller.dart' as app_menu;
 import '../data/menu_repository.dart';
 import '../domain/dish.dart';
@@ -40,6 +41,7 @@ class MenuScreen extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 child: CupertinoButton.filled(
+                  borderRadius: AppShapes.pill,
                   onPressed: controller.dishes.isEmpty
                       ? null
                       : () => onExport(controller.snapshot),
@@ -79,6 +81,7 @@ class _StylePicker extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 3),
               child: CupertinoButton(
+                borderRadius: AppShapes.pill,
                 key: Key('theme-${value.name}'),
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 color: value == style

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import '../../../core/design/app_shapes.dart';
 import '../../add_dish/presentation/dish_review_form.dart';
 import '../domain/dish.dart';
 
@@ -106,6 +107,7 @@ class _DishEditorSheetState extends State<DishEditorSheet> {
             ),
             const SizedBox(height: 8),
             CupertinoButton(
+              borderRadius: AppShapes.pill,
               onPressed: _delete,
               child: const Text(
                 'Delete dish',

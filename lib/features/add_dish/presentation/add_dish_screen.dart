@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../core/design/app_colors.dart';
+import '../../../core/design/app_shapes.dart';
 import '../../menu/domain/dish.dart';
 import '../domain/dish_analysis.dart';
 import 'dish_review_form.dart';
@@ -186,6 +187,7 @@ class AddDishScreenState extends State<AddDishScreen> {
               const Text('Open My Menu to see it in place.'),
               const SizedBox(height: 20),
               CupertinoButton(
+                borderRadius: AppShapes.pill,
                 onPressed: _reset,
                 child: const Text('Add another dish'),
               ),
@@ -254,6 +256,7 @@ class _HomeGallery extends StatelessWidget {
             ),
           ),
           CupertinoButton(
+            borderRadius: AppShapes.pill,
             padding: const EdgeInsets.all(10),
             onPressed: onLibrary,
             child: const Icon(CupertinoIcons.photo_on_rectangle),
@@ -304,6 +307,7 @@ class _EmptyGallery extends StatelessWidget {
         const Text('Capture your first favourite dish.'),
         const SizedBox(height: 14),
         CupertinoButton(
+          borderRadius: AppShapes.pill,
           onPressed: onSample,
           child: const Text('Try a sample dish'),
         ),
@@ -361,6 +365,7 @@ class FloatingCameraButton extends StatelessWidget {
     label: 'Take a photo',
     child: CupertinoButton(
       key: key ?? const Key('floating-camera-button'),
+      borderRadius: AppShapes.pill,
       padding: EdgeInsets.zero,
       onPressed: onPressed,
       child: Container(

@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hatch_menu/features/add_dish/domain/dish_analysis.dart';
 import 'package:hatch_menu/features/add_dish/presentation/add_dish_screen.dart';
 import 'package:hatch_menu/features/menu/domain/dish.dart';
+import 'package:hatch_menu/core/design/app_shapes.dart';
 
 void main() {
   testWidgets('home starts with an empty gallery and floating camera action', (
@@ -69,6 +70,10 @@ void main() {
     await tester.tap(find.text('Try a sample dish'));
     await tester.pumpAndSettle();
     expect(find.text('Review your dish'), findsOneWidget);
+    final addButton = tester.widget<CupertinoButton>(
+      find.widgetWithText(CupertinoButton, 'Add to menu'),
+    );
+    expect(addButton.borderRadius, AppShapes.pill);
     await tester.enterText(find.byKey(const Key('dish-name')), 'My Eggs');
     await tester.ensureVisible(find.text('Add to menu'));
     await tester.tap(find.text('Add to menu'));
