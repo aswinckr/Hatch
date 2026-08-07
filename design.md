@@ -1,6 +1,54 @@
-# Floating translucent navigation
+---
+version: alpha
+name: Aswin Visual Taste
+description: A living visual identity built only from explicit design preferences.
+omitted:
+  - section: colors
+    reason: No general color preference has been established yet.
+  - section: typography
+    reason: No general typography preference has been established yet.
+  - section: spacing
+    reason: No general spacing system has been established yet.
+rounded:
+  full: 9999px
+components:
+  floating-navbar:
+    backgroundColor: "rgba(255, 255, 255, 0.90)"
+    rounded: "{rounded.full}"
+    height: 72px
+  floating-navbar-selected:
+    backgroundColor: "rgba(244, 238, 231, 0.87)"
+    rounded: "{rounded.full}"
+---
 
-- Prefer a floating, translucent navbar with a pill silhouette and fully rounded ends.
-- Use a soft frosted segment to emphasize the selected destination.
-- Keep persistent navigation focused; Favourite Menu retains only Add Dish and My Menu.
-- Reference supplied on 2026-08-07: a floating white glass capsule with rounded ends and a softly highlighted active tab.
+## Overview
+
+This file grows only through explicit design choices. It currently describes one approved preference: floating translucent navigation.
+
+## Elevation & Depth
+
+The navigation should read as a floating glass object. Use background blur, a thin luminous border, and a soft diffuse shadow. Content may move behind the bar so the translucency remains visible.
+
+## Shapes
+
+Navigation uses a horizontal pill silhouette with fully rounded ends. The selected destination is emphasized with a second soft frosted pill nested inside the outer capsule.
+
+## Components
+
+### Floating navbar
+
+- Float above the bottom safe area with visible space below and on both sides.
+- Keep the surface translucent rather than opaque.
+- Use two equal-width persistent destinations in Favourite Menu: **Add Dish** and **My Menu**.
+- Emphasize the selected destination with a softly tinted frosted segment, colored icon, and stronger label.
+- Keep unselected destinations quiet but readable.
+- Use a small restrained dot for unseen menu content without changing the component’s alignment.
+- Preserve a minimum interactive height of 56px and expose selected state semantically.
+
+## Do's and Don'ts
+
+- Do use a single floating capsule for persistent navigation.
+- Do use fully rounded ends on both the outer bar and selected segment.
+- Do keep the number of destinations minimal.
+- Don’t replace the translucent glass treatment with a full-width opaque system tab bar.
+- Don’t use separate floating buttons when the elements represent persistent destinations.
