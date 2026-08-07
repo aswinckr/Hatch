@@ -80,8 +80,8 @@ class FloatingTabBar extends StatelessWidget {
                       children: [
                         Expanded(
                           child: _Destination(
-                            label: 'Add Dish',
-                            icon: CupertinoIcons.camera,
+                            label: 'Dishes',
+                            icon: CupertinoIcons.tray_2_fill,
                             selected: selectedIndex == 0,
                             onTap: () => onSelected(0),
                           ),

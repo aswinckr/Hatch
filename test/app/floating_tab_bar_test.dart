@@ -22,7 +22,7 @@ void main() {
       ),
     );
 
-    expect(find.text('Add Dish'), findsOneWidget);
+    expect(find.text('Dishes'), findsOneWidget);
     expect(find.text('My Menu'), findsOneWidget);
     expect(find.byType(BackdropFilter), findsOneWidget);
     expect(tester.getSize(find.byType(FloatingTabBar)).width, 236);
