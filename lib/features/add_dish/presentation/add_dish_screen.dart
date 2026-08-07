@@ -133,10 +133,18 @@ class AddDishScreenState extends State<AddDishScreen> {
 
   @override
   Widget build(BuildContext context) {
+    const samplePaths = [
+      'assets/demo/truffle_eggs.png',
+      'assets/demo/miso_cod.png',
+      'assets/demo/tiramisu.png',
+      'assets/demo/mushroom_pasta.png',
+    ];
     final content = switch (stage) {
       AddDishStage.choosePhoto => _HomeGallery(
         dishes: widget.capturedDishes,
-        onSample: () => _analyze('assets/demo/truffle_eggs.png'),
+        onSample: () => _analyze(
+          samplePaths[widget.capturedDishes.length % samplePaths.length],
+        ),
       ),
       AddDishStage.analyzing => const SizedBox(
         height: 520,

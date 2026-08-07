@@ -13,15 +13,21 @@ class MockDishAnalyzer implements DishAnalyzer {
       mealSection: MealSection.breakfast,
     ),
     'miso_cod': DishAnalysis(
-      name: 'Miso Black Cod',
-      restaurant: 'Sora',
-      description: 'Caramelized miso glaze, pickled cucumber and sesame',
+      name: 'Shoyu Ramen',
+      restaurant: 'Menya Kōji',
+      description: 'Soy broth, chashu pork, soft egg, scallions and nori',
       mealSection: MealSection.lunch,
     ),
     'tiramisu': DishAnalysis(
-      name: 'Classic Tiramisu',
+      name: 'Pistachio Tiramisu',
       restaurant: 'Luna',
-      description: 'Espresso-soaked sponge, mascarpone and dark cocoa',
+      description: 'Espresso-soaked sponge, mascarpone and pistachio',
+      mealSection: MealSection.dinner,
+    ),
+    'mushroom_pasta': DishAnalysis(
+      name: 'Wild Mushroom Tagliatelle',
+      restaurant: 'Osteria Bruno',
+      description: 'Handmade pasta, roasted mushrooms and parmesan',
       mealSection: MealSection.dinner,
     ),
   };
