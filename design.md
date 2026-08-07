@@ -53,7 +53,7 @@ When a screen represents a singular immersive artifact or canvas, let that artif
 
 ## Elevation & Depth
 
-Floating controls should read as lightweight glass objects rather than heavy containers. Approximate Apple’s regular Liquid Glass with strong backdrop blur, a low-opacity adaptive tint, a diagonal specular highlight, a thin luminous border, and a soft diffuse shadow. Allow content to move behind translucent surfaces so colors and forms visibly infuse the material without reducing legibility.
+Floating controls should read as lightweight glass objects rather than heavy containers. Approximate Apple’s regular Liquid Glass with strong backdrop blur, a low-opacity adaptive tint, a diagonal specular highlight, an extremely subtle hairline highlight, and a soft diffuse shadow. Allow content to move behind translucent surfaces so colors and forms visibly infuse the material without reducing legibility.
 
 ## Shapes
 

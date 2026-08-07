@@ -32,7 +32,7 @@ class FloatingTabBar extends StatelessWidget {
               colors: [Color(0x8AFFFFFF), Color(0x3DFFFFFF)],
             ),
             borderRadius: BorderRadius.circular(36),
-            border: Border.all(color: const Color(0x99FFFFFF), width: 1.2),
+            border: Border.all(color: const Color(0x3DFFFFFF), width: 0.7),
             boxShadow: const [
               BoxShadow(
                 color: Color(0x18000000),
@@ -63,8 +63,8 @@ class FloatingTabBar extends StatelessWidget {
                           color: const Color(0x2E1F4D3A),
                           borderRadius: BorderRadius.circular(31),
                           border: Border.all(
-                            color: const Color(0xB8FFFFFF),
-                            width: 1,
+                            color: const Color(0x47FFFFFF),
+                            width: 0.7,
                           ),
                           boxShadow: const [
                             BoxShadow(
