@@ -41,7 +41,11 @@ class _AppShellState extends State<AppShell> {
       IndexedStack(
         index: selectedIndex,
         children: [
-          AddDishScreen(analyzer: widget.analyzer, onDishFinalized: _addDish),
+          AddDishScreen(
+            analyzer: widget.analyzer,
+            onDishFinalized: _addDish,
+            capturedDishes: widget.controller.dishes,
+          ),
           MenuScreen(controller: widget.controller, onExport: widget.onExport),
         ],
       ),

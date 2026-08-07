@@ -5,6 +5,51 @@ import 'package:hatch_menu/features/add_dish/presentation/add_dish_screen.dart';
 import 'package:hatch_menu/features/menu/domain/dish.dart';
 
 void main() {
+  testWidgets('home starts with an empty gallery and floating camera action', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      CupertinoApp(
+        home: AddDishScreen(
+          analyzer: FakeDishAnalyzer(),
+          onDishFinalized: (_) async {},
+        ),
+      ),
+    );
+
+    expect(find.text('Your gallery is waiting'), findsOneWidget);
+    expect(find.byKey(const Key('floating-camera-button')), findsOneWidget);
+  });
+
+  testWidgets('home gallery displays previously captured dishes', (
+    tester,
+  ) async {
+    final now = DateTime(2026);
+    await tester.pumpWidget(
+      CupertinoApp(
+        home: AddDishScreen(
+          analyzer: FakeDishAnalyzer(),
+          onDishFinalized: (_) async {},
+          capturedDishes: [
+            Dish(
+              id: 'dish-1',
+              imagePath: 'assets/demo/truffle_eggs.png',
+              name: 'Truffle Eggs',
+              restaurant: 'Café Morgenrot',
+              description: 'Poached eggs',
+              mealSection: MealSection.breakfast,
+              createdAt: now,
+              updatedAt: now,
+            ),
+          ],
+        ),
+      ),
+    );
+
+    expect(find.text('Truffle Eggs'), findsOneWidget);
+    expect(find.text('Café Morgenrot'), findsOneWidget);
+  });
+
   testWidgets('sample photo becomes an editable finalized dish', (
     tester,
   ) async {

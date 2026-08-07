@@ -15,10 +15,12 @@ class AddDishScreen extends StatefulWidget {
     required this.analyzer,
     required this.onDishFinalized,
     ImagePicker? imagePicker,
+    this.capturedDishes = const [],
   }) : imagePicker = imagePicker ?? ImagePicker();
   final DishAnalyzer analyzer;
   final Future<void> Function(Dish dish) onDishFinalized;
   final ImagePicker imagePicker;
+  final List<Dish> capturedDishes;
   @override
   State<AddDishScreen> createState() => _AddDishScreenState();
 }
@@ -123,8 +125,8 @@ class _AddDishScreenState extends State<AddDishScreen> {
   @override
   Widget build(BuildContext context) {
     final content = switch (stage) {
-      AddDishStage.choosePhoto => _ChoosePhoto(
-        onCamera: () => _pick(ImageSource.camera),
+      AddDishStage.choosePhoto => _HomeGallery(
+        dishes: widget.capturedDishes,
         onLibrary: () => _pick(ImageSource.gallery),
         onSample: () => _analyze('assets/demo/truffle_eggs.png'),
       ),
@@ -185,67 +187,203 @@ class _AddDishScreenState extends State<AddDishScreen> {
       ),
     };
     return CupertinoPageScaffold(
-      navigationBar: const CupertinoNavigationBar(middle: Text('Add Dish')),
+      navigationBar: const CupertinoNavigationBar(middle: Text('Home')),
       child: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(20, 20, 20, 112),
-          child: content,
+        child: Stack(
+          children: [
+            SingleChildScrollView(
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 156),
+              child: content,
+            ),
+            if (stage == AddDishStage.choosePhoto)
+              Positioned(
+                right: 20,
+                bottom: 92,
+                child: _FloatingCameraButton(
+                  onPressed: () => _pick(ImageSource.camera),
+                ),
+              ),
+          ],
         ),
       ),
     );
   }
 }
 
-class _ChoosePhoto extends StatelessWidget {
-  const _ChoosePhoto({
-    required this.onCamera,
+class _HomeGallery extends StatelessWidget {
+  const _HomeGallery({
+    required this.dishes,
     required this.onLibrary,
     required this.onSample,
   });
-  final VoidCallback onCamera, onLibrary, onSample;
+  final List<Dish> dishes;
+  final VoidCallback onLibrary, onSample;
   @override
   Widget build(BuildContext context) => Column(
-    crossAxisAlignment: CrossAxisAlignment.stretch,
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      const SizedBox(height: 38),
-      const Text(
-        'A menu made of\nyour best meals.',
-        style: TextStyle(
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          const Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Your dishes',
+                  style: TextStyle(
+                    fontFamily: 'NotoSerif',
+                    fontSize: 34,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                SizedBox(height: 5),
+                Text('A gallery of meals worth remembering.'),
+              ],
+            ),
+          ),
+          CupertinoButton(
+            padding: const EdgeInsets.all(10),
+            onPressed: onLibrary,
+            child: const Icon(CupertinoIcons.photo_on_rectangle),
+          ),
+        ],
+      ),
+      const SizedBox(height: 24),
+      if (dishes.isEmpty)
+        _EmptyGallery(onSample: onSample)
+      else
+        GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 18,
+            childAspectRatio: .72,
+          ),
+          itemCount: dishes.length,
+          itemBuilder: (_, index) => _DishTile(dish: dishes[index]),
+        ),
+    ],
+  );
+}
+
+class _EmptyGallery extends StatelessWidget {
+  const _EmptyGallery({required this.onSample});
+  final VoidCallback onSample;
+
+  @override
+  Widget build(BuildContext context) => Container(
+    width: double.infinity,
+    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 54),
+    decoration: BoxDecoration(
+      color: CupertinoColors.systemGrey6,
+      borderRadius: BorderRadius.circular(24),
+    ),
+    child: Column(
+      children: [
+        const Icon(CupertinoIcons.photo, size: 38, color: AppColors.terracotta),
+        const SizedBox(height: 14),
+        const Text(
+          'Your gallery is waiting',
+          style: TextStyle(fontFamily: 'NotoSerif', fontSize: 22),
+        ),
+        const SizedBox(height: 8),
+        const Text('Capture your first favourite dish.'),
+        const SizedBox(height: 14),
+        CupertinoButton(
+          onPressed: onSample,
+          child: const Text('Try a sample dish'),
+        ),
+      ],
+    ),
+  );
+}
+
+class _DishTile extends StatelessWidget {
+  const _DishTile({required this.dish});
+  final Dish dish;
+
+  @override
+  Widget build(BuildContext context) => Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Expanded(
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: SizedBox(
+            width: double.infinity,
+            child: _DishImage(path: dish.imagePath),
+          ),
+        ),
+      ),
+      const SizedBox(height: 9),
+      Text(
+        dish.name,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: const TextStyle(
           fontFamily: 'NotoSerif',
-          fontSize: 36,
-          height: 1.1,
+          fontSize: 17,
           fontWeight: FontWeight.w600,
         ),
       ),
-      const SizedBox(height: 12),
-      const Text(
-        'Photograph a favourite dish. We’ll shape the menu copy, and you stay in control.',
-      ),
-      const SizedBox(height: 34),
-      CupertinoButton.filled(
-        onPressed: onCamera,
-        child: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(CupertinoIcons.camera),
-            SizedBox(width: 8),
-            Text('Take a photo'),
-          ],
-        ),
-      ),
-      const SizedBox(height: 10),
-      CupertinoButton(
-        color: CupertinoColors.systemGrey5,
-        onPressed: onLibrary,
-        child: const Text('Choose from library'),
-      ),
-      const SizedBox(height: 12),
-      CupertinoButton(
-        onPressed: onSample,
-        child: const Text('Try a sample dish'),
+      const SizedBox(height: 2),
+      Text(
+        dish.restaurant,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        style: const TextStyle(fontSize: 13, color: CupertinoColors.systemGrey),
       ),
     ],
   );
+}
+
+class _FloatingCameraButton extends StatelessWidget {
+  const _FloatingCameraButton({required this.onPressed});
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) => Semantics(
+    button: true,
+    label: 'Take a photo',
+    child: CupertinoButton(
+      key: const Key('floating-camera-button'),
+      padding: EdgeInsets.zero,
+      onPressed: onPressed,
+      child: Container(
+        width: 64,
+        height: 64,
+        decoration: const BoxDecoration(
+          color: AppColors.terracotta,
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+              color: Color(0x33000000),
+              blurRadius: 18,
+              offset: Offset(0, 8),
+            ),
+          ],
+        ),
+        child: const Icon(
+          CupertinoIcons.camera_fill,
+          color: CupertinoColors.white,
+          size: 27,
+        ),
+      ),
+    ),
+  );
+}
+
+class _DishImage extends StatelessWidget {
+  const _DishImage({required this.path});
+  final String path;
+
+  @override
+  Widget build(BuildContext context) => path.startsWith('assets/')
+      ? Image.asset(path, fit: BoxFit.cover)
+      : Image.file(File(path), fit: BoxFit.cover);
 }
 
 class _FoodPreview extends StatelessWidget {
@@ -254,11 +392,6 @@ class _FoodPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ClipRRect(
     borderRadius: BorderRadius.circular(22),
-    child: AspectRatio(
-      aspectRatio: 1.5,
-      child: path.startsWith('assets/')
-          ? Image.asset(path, fit: BoxFit.cover)
-          : Image.file(File(path), fit: BoxFit.cover),
-    ),
+    child: AspectRatio(aspectRatio: 1.5, child: _DishImage(path: path)),
   );
 }

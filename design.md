@@ -20,6 +20,11 @@ components:
   floating-navbar-selected:
     backgroundColor: "rgba(244, 238, 231, 0.87)"
     rounded: "{rounded.full}"
+  floating-primary-action:
+    backgroundColor: "#B35B42"
+    textColor: "#FFFFFF"
+    rounded: "{rounded.full}"
+    size: 64px
 ---
 
 ## Overview
@@ -47,12 +52,28 @@ Navigation uses a horizontal pill silhouette with fully rounded ends. The select
 - Use a small restrained dot for unseen menu content without changing the component’s alignment.
 - Preserve a minimum interactive height of 56px and expose selected state semantically.
 
+### Floating primary action
+
+- Place the primary **Take photo** action in a circular floating button above the bottom navigation.
+- Use a camera icon without a persistent text label; provide an accessible semantic label.
+- Give the button a warm terracotta fill and a soft shadow so it is visually dominant without becoming oversized.
+- Keep photo-library access secondary in the gallery header.
+
+### Captured-dish gallery
+
+- Make the home screen a visual record of previously captured dishes.
+- Use a two-column image-led grid with rounded photographs, dish name, and restaurant.
+- Show a calm, generous empty state before the first dish is captured.
+
 ## Do's and Don'ts
 
 - Do use a single floating capsule for persistent navigation.
 - Do use fully rounded ends on both the outer bar and selected segment.
 - Do keep the number of destinations minimal.
 - Do keep the capsule compact and content-sized.
+- Do reserve the floating circular action for the single primary capture task.
+- Do let previously captured images lead the home-screen hierarchy.
 - Don’t replace the translucent glass treatment with a full-width opaque system tab bar.
 - Don’t make the floating capsule span the available screen width.
 - Don’t use separate floating buttons when the elements represent persistent destinations.
+- Don’t place multiple competing floating actions on the home screen.

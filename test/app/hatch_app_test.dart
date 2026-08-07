@@ -22,9 +22,7 @@ void main() {
         onExport: (_) async {},
       ),
     );
-    final context = tester.element(
-      find.text('A menu made of\nyour best meals.'),
-    );
+    final context = tester.element(find.text('Your dishes'));
     expect(CupertinoTheme.of(context).brightness, Brightness.light);
   });
 }
