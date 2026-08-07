@@ -53,6 +53,8 @@ void main() {
 
     expect(find.text('Truffle Eggs'), findsOneWidget);
     expect(find.text('Café Morgenrot'), findsOneWidget);
+    expect(find.byKey(const Key('feed-post-dish-1')), findsOneWidget);
+    expect(find.byKey(const Key('posted-time-dish-1')), findsOneWidget);
   });
 
   testWidgets('sample photo becomes an editable finalized dish', (

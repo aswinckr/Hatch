@@ -232,55 +232,51 @@ class _HomeGallery extends StatelessWidget {
   final List<Dish> dishes;
   final VoidCallback onLibrary, onSample;
   @override
-  Widget build(BuildContext context) => Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          const Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Your dishes',
-                  style: TextStyle(
-                    fontFamily: 'Outfit',
-                    fontSize: 34,
-                    fontWeight: FontWeight.w600,
+  Widget build(BuildContext context) {
+    final feed = [...dishes]
+      ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            const Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Your dishes',
+                    style: TextStyle(
+                      fontFamily: 'Outfit',
+                      fontSize: 34,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                ),
-                SizedBox(height: 5),
-                Text('A gallery of meals worth remembering.'),
-              ],
+                  SizedBox(height: 5),
+                  Text('Your latest food memories, in one place.'),
+                ],
+              ),
             ),
-          ),
-          CupertinoButton(
-            borderRadius: AppShapes.pill,
-            padding: const EdgeInsets.all(10),
-            onPressed: onLibrary,
-            child: const Icon(CupertinoIcons.photo_on_rectangle),
-          ),
-        ],
-      ),
-      const SizedBox(height: 24),
-      if (dishes.isEmpty)
-        _EmptyGallery(onSample: onSample)
-      else
-        GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 18,
-            childAspectRatio: .72,
-          ),
-          itemCount: dishes.length,
-          itemBuilder: (_, index) => _DishTile(dish: dishes[index]),
+            CupertinoButton(
+              borderRadius: AppShapes.pill,
+              padding: const EdgeInsets.all(10),
+              onPressed: onLibrary,
+              child: const Icon(CupertinoIcons.photo_on_rectangle),
+            ),
+          ],
         ),
-    ],
-  );
+        const SizedBox(height: 24),
+        if (feed.isEmpty)
+          _EmptyGallery(onSample: onSample)
+        else
+          for (var index = 0; index < feed.length; index++) ...[
+            if (index > 0) const SizedBox(height: 32),
+            _FeedPost(dish: feed[index]),
+          ],
+      ],
+    );
+  }
 }
 
 class _EmptyGallery extends StatelessWidget {
@@ -320,43 +316,110 @@ class _EmptyGallery extends StatelessWidget {
   );
 }
 
-class _DishTile extends StatelessWidget {
-  const _DishTile({required this.dish});
+class _FeedPost extends StatelessWidget {
+  const _FeedPost({required this.dish});
   final Dish dish;
 
   @override
-  Widget build(BuildContext context) => Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Expanded(
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: SizedBox(
-            width: double.infinity,
-            child: _DishImage(path: dish.imagePath),
+  Widget build(BuildContext context) => Semantics(
+    container: true,
+    label: '${dish.name}, posted ${_postedAt(dish.createdAt)}',
+    child: Column(
+      key: Key('feed-post-${dish.id}'),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Container(
+              width: 38,
+              height: 38,
+              decoration: const BoxDecoration(
+                color: Color(0x1A1F4D3A),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                CupertinoIcons.location_solid,
+                color: AppColors.forestGreen,
+                size: 18,
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Text(
+                dish.restaurant,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            Text(
+              _postedAt(dish.createdAt),
+              key: Key('posted-time-${dish.id}'),
+              style: const TextStyle(
+                fontSize: 13,
+                color: CupertinoColors.systemGrey,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(24),
+          child: AspectRatio(
+            aspectRatio: 1,
+            child: SizedBox(
+              width: double.infinity,
+              child: _DishImage(path: dish.imagePath),
+            ),
           ),
         ),
-      ),
-      const SizedBox(height: 9),
-      Text(
-        dish.name,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-        style: const TextStyle(
-          fontFamily: 'Outfit',
-          fontSize: 17,
-          fontWeight: FontWeight.w600,
+        const SizedBox(height: 12),
+        Text(
+          dish.name,
+          style: const TextStyle(fontSize: 19, fontWeight: FontWeight.w700),
         ),
-      ),
-      const SizedBox(height: 2),
-      Text(
-        dish.restaurant,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-        style: const TextStyle(fontSize: 13, color: CupertinoColors.systemGrey),
-      ),
-    ],
+        if (dish.description.trim().isNotEmpty) ...[
+          const SizedBox(height: 4),
+          Text(
+            dish.description,
+            style: const TextStyle(
+              fontSize: 15,
+              height: 1.35,
+              color: CupertinoColors.secondaryLabel,
+            ),
+          ),
+        ],
+      ],
+    ),
   );
+}
+
+String _postedAt(DateTime createdAt, [DateTime? currentTime]) {
+  final now = currentTime ?? DateTime.now();
+  final difference = now.difference(createdAt);
+  if (difference.isNegative || difference.inMinutes < 1) return 'Just now';
+  if (difference.inHours < 1) return '${difference.inMinutes}m';
+  if (difference.inDays < 1) return '${difference.inHours}h';
+  if (difference.inDays < 7) return '${difference.inDays}d';
+  const months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
+  final year = createdAt.year == now.year ? '' : ', ${createdAt.year}';
+  return '${months[createdAt.month - 1]} ${createdAt.day}$year';
 }
 
 class FloatingCameraButton extends StatelessWidget {

@@ -85,7 +85,10 @@ Use fully rounded, pill-shaped corners for button surfaces. The radius should re
 ### Image-led collections
 
 - When saved items are inherently visual, let their imagery lead the home-screen hierarchy.
-- Use a consistent grid, softly rounded imagery, and only the minimum metadata needed for recognition.
+- Prefer a single-column chronological feed when sequence, recency, and the story of each item matter more than rapid comparison.
+- Give each feed item a compact context header, prominent image, clear title, supporting detail, and a quiet timestamp.
+- Place the newest items first so newly created content produces immediate, predictable feedback.
+- Use large, consistently proportioned, softly rounded imagery and only the metadata needed for recognition and context.
 - Treat the empty state as part of the product experience: keep it calm, generous, and focused on the first meaningful action.
 - Preserve clear hierarchy between collection browsing, the primary creation action, and secondary import or management actions.
 
@@ -98,6 +101,7 @@ Use fully rounded, pill-shaped corners for button surfaces. The radius should re
 - Do use fully rounded ends consistently across primary, secondary, and destructive buttons.
 - Do reserve a floating circular action for one clear, high-frequency primary task.
 - Do let visual content lead when recognition is faster through imagery than text.
+- Do make recency visible in chronological feeds without letting timestamps dominate.
 - Do carry a screen’s background through every edge and safe area.
 - Do use the same dark green to connect interactive elements across screens.
 - Do use Outfit consistently for headings, body copy, controls, metadata, and generated outputs.
