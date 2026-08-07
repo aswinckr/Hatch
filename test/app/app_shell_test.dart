@@ -8,6 +8,27 @@ import 'package:hatch_menu/features/menu/data/menu_repository.dart';
 import 'package:hatch_menu/features/menu/domain/menu_style.dart';
 
 void main() {
+  testWidgets('app shell keeps one white surface behind floating navigation', (
+    tester,
+  ) async {
+    final controller = app_menu.MenuController(MemoryRepository());
+    await controller.initialize();
+    await tester.pumpWidget(
+      CupertinoApp(
+        home: AppShell(
+          controller: controller,
+          analyzer: MockDishAnalyzer(delay: Duration.zero),
+          onExport: (_) async {},
+        ),
+      ),
+    );
+
+    final background = tester.widget<ColoredBox>(
+      find.byKey(const Key('app-background')),
+    );
+    expect(background.color, CupertinoColors.white);
+  });
+
   testWidgets('finalized dish appears on persistent My Menu tab', (
     tester,
   ) async {
