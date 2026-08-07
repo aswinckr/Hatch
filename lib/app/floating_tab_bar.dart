@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart' as material;
 import '../core/design/app_colors.dart';
 
 class FloatingTabBar extends StatelessWidget {
@@ -81,7 +82,7 @@ class FloatingTabBar extends StatelessWidget {
                         Expanded(
                           child: _Destination(
                             label: 'Dishes',
-                            icon: CupertinoIcons.tray_2_fill,
+                            icon: material.Icons.restaurant_rounded,
                             selected: selectedIndex == 0,
                             onTap: () => onSelected(0),
                           ),
