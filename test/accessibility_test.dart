@@ -27,9 +27,7 @@ void main() {
               size: size,
               textScaler: const TextScaler.linear(1.6),
             ),
-            child: CupertinoApp(
-              home: MenuScreen(controller: controller, onExport: (_) async {}),
-            ),
+            child: CupertinoApp(home: MenuScreen(controller: controller)),
           ),
         );
         await tester.pumpAndSettle();

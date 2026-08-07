@@ -18,7 +18,6 @@ void main() {
         home: AppShell(
           controller: controller,
           analyzer: MockDishAnalyzer(delay: Duration.zero),
-          onExport: (_) async {},
         ),
       ),
     );

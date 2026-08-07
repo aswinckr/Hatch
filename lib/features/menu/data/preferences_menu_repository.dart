@@ -18,10 +18,7 @@ class PreferencesMenuRepository implements MenuRepository {
       final dishes = (json['dishes']! as List<Object?>)
           .map((item) => Dish.fromJson((item! as Map).cast<String, Object?>()))
           .toList(growable: false);
-      return MenuSnapshot(
-        dishes: dishes,
-        style: MenuStyle.values.byName(json['style']! as String),
-      );
+      return MenuSnapshot(dishes: dishes, style: MenuStyle.editorial);
     } catch (_) {
       return _empty;
     }

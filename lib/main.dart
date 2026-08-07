@@ -3,8 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'app/hatch_app.dart';
 import 'features/add_dish/data/mock_dish_analyzer.dart';
-import 'features/export/menu_export_service.dart';
-import 'features/export/menu_pdf_renderer.dart';
 import 'features/menu/application/menu_controller.dart' as app_menu;
 import 'features/menu/data/preferences_menu_repository.dart';
 
@@ -16,12 +14,5 @@ Future<void> main() async {
     PreferencesMenuRepository(preferences),
   );
   await controller.initialize();
-  final export = MenuExportService(MenuPdfRenderer());
-  runApp(
-    HatchApp(
-      controller: controller,
-      analyzer: MockDishAnalyzer(),
-      onExport: export.preview,
-    ),
-  );
+  runApp(HatchApp(controller: controller, analyzer: MockDishAnalyzer()));
 }

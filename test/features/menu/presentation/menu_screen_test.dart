@@ -8,27 +8,21 @@ import 'package:hatch_menu/features/menu/domain/menu_style.dart';
 import 'package:hatch_menu/features/menu/presentation/menu_screen.dart';
 
 void main() {
-  testWidgets('empty menu shows all sections and disables printing', (
+  testWidgets('empty menu shows all sections with no style or print controls', (
     tester,
   ) async {
     final controller = app_menu.MenuController(MemoryRepository());
     await controller.initialize();
     await tester.pumpWidget(
-      CupertinoApp(
-        home: MenuScreen(controller: controller, onExport: (_) async {}),
-      ),
+      CupertinoApp(home: MenuScreen(controller: controller)),
     );
     expect(find.text('BREAKFAST'), findsOneWidget);
     expect(find.text('LUNCH'), findsOneWidget);
     expect(find.text('DINNER'), findsOneWidget);
-    expect(
-      tester
-          .widget<CupertinoButton>(
-            find.widgetWithText(CupertinoButton, 'Print menu'),
-          )
-          .onPressed,
-      isNull,
-    );
+    expect(find.text('Print menu'), findsNothing);
+    expect(find.text('Editorial'), findsNothing);
+    expect(find.text('Modern'), findsNothing);
+    expect(find.text('Bistro'), findsNothing);
   });
 
   testWidgets('controller update places dish in its meal section', (
@@ -37,9 +31,7 @@ void main() {
     final controller = app_menu.MenuController(MemoryRepository());
     await controller.initialize();
     await tester.pumpWidget(
-      CupertinoApp(
-        home: MenuScreen(controller: controller, onExport: (_) async {}),
-      ),
+      CupertinoApp(home: MenuScreen(controller: controller)),
     );
     await controller.addDish(breakfastDish);
     await tester.pumpAndSettle();

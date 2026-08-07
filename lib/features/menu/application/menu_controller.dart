@@ -7,10 +7,9 @@ class MenuController extends ChangeNotifier {
   MenuController(this._repository);
   final MenuRepository _repository;
   final List<Dish> _dishes = [];
-  MenuStyle _style = MenuStyle.editorial;
 
   List<Dish> get dishes => List.unmodifiable(_dishes);
-  MenuStyle get style => _style;
+  MenuStyle get style => MenuStyle.editorial;
   MenuSnapshot get snapshot => MenuSnapshot(dishes: dishes, style: style);
 
   List<Dish> dishesFor(MealSection section) =>
@@ -24,7 +23,6 @@ class MenuController extends ChangeNotifier {
     _dishes
       ..clear()
       ..addAll(loaded.dishes);
-    _style = loaded.style;
     notifyListeners();
   }
 
@@ -42,11 +40,6 @@ class MenuController extends ChangeNotifier {
 
   Future<void> removeDish(String id) async {
     _dishes.removeWhere((dish) => dish.id == id);
-    await _persist();
-  }
-
-  Future<void> setStyle(MenuStyle style) async {
-    _style = style;
     await _persist();
   }
 

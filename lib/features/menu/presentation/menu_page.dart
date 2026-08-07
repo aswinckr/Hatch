@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import '../../../core/design/app_colors.dart';
 import '../data/menu_repository.dart';
 import '../domain/dish.dart';
-import '../domain/menu_style.dart';
 
 class MenuVisualTheme {
   const MenuVisualTheme({
@@ -11,23 +10,11 @@ class MenuVisualTheme {
     required this.accent,
   });
   final Color paper, ink, accent;
-  static MenuVisualTheme forStyle(MenuStyle style) => switch (style) {
-    MenuStyle.editorial => const MenuVisualTheme(
-      paper: AppColors.cream,
-      ink: AppColors.espresso,
-      accent: AppColors.forestGreen,
-    ),
-    MenuStyle.modern => const MenuVisualTheme(
-      paper: Color(0xFFF7F7F4),
-      ink: Color(0xFF171717),
-      accent: Color(0xFF2855D9),
-    ),
-    MenuStyle.bistro => const MenuVisualTheme(
-      paper: Color(0xFFF3E7D0),
-      ink: Color(0xFF3E191D),
-      accent: Color(0xFF1F5547),
-    ),
-  };
+  static const standard = MenuVisualTheme(
+    paper: AppColors.cream,
+    ink: AppColors.espresso,
+    accent: AppColors.forestGreen,
+  );
 }
 
 class MenuPage extends StatelessWidget {
@@ -43,7 +30,7 @@ class MenuPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final visual = MenuVisualTheme.forStyle(snapshot.style);
+    const visual = MenuVisualTheme.standard;
     return Container(
       color: visual.paper,
       padding: const EdgeInsets.fromLTRB(24, 30, 24, 48),

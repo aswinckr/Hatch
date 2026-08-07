@@ -19,7 +19,6 @@ void main() {
       HatchApp(
         controller: controller,
         analyzer: MockDishAnalyzer(delay: Duration.zero),
-        onExport: (_) async {},
       ),
     );
     final context = tester.element(find.text('Your dishes'));

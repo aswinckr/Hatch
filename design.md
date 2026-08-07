@@ -92,6 +92,12 @@ Use fully rounded, pill-shaped corners for button surfaces. The radius should re
 - Treat the empty state as part of the product experience: keep it calm, generous, and focused on the first meaningful action.
 - Preserve clear hierarchy between collection browsing, the primary creation action, and secondary import or management actions.
 
+### Opinionated presentation
+
+- Prefer one intentional default presentation over exposing cosmetic style selectors.
+- Keep configuration out of the primary experience when it does not change the user’s core outcome.
+- Avoid persistent output actions when viewing and maintaining the content is the primary task.
+
 ## Do's and Don'ts
 
 - Do use a single floating capsule for persistent navigation.
@@ -105,6 +111,7 @@ Use fully rounded, pill-shaped corners for button surfaces. The radius should re
 - Do carry a screen’s background through every edge and safe area.
 - Do use the same dark green to connect interactive elements across screens.
 - Do use Outfit consistently for headings, body copy, controls, metadata, and generated outputs.
+- Do make a clear visual choice on the user’s behalf when alternatives add complexity without meaningful utility.
 - Don’t replace the translucent glass treatment with a full-width opaque system tab bar.
 - Don’t make the floating capsule span the available screen width.
 - Don’t use separate floating buttons when the elements represent persistent destinations.
@@ -114,3 +121,4 @@ Use fully rounded, pill-shaped corners for button surfaces. The radius should re
 - Don’t mix mildly rounded rectangular buttons with pill-shaped buttons in the same interface.
 - Don’t introduce competing warm accent colors for standard actions.
 - Don’t introduce a second display or body typeface for hierarchy alone.
+- Don’t expose multiple cosmetic themes merely to make an interface feel customizable.

@@ -28,22 +28,20 @@ void main() {
       expect(controller.dishesFor(MealSection.breakfast), [breakfastDish]);
       await controller.updateDish(breakfastDish.copyWith(name: 'New name'));
       expect(controller.dishes.single.name, 'New name');
-      await controller.setStyle(MenuStyle.bistro);
-      expect(controller.style, MenuStyle.bistro);
       await controller.removeDish(breakfastDish.id);
       expect(controller.dishes, isEmpty);
-      expect(repository.saveCount, 4);
+      expect(repository.saveCount, 3);
     },
   );
 
-  test('initialize restores saved dishes and style', () async {
+  test('initialize restores saved dishes in the single style', () async {
     final repository = MemoryMenuRepository(
-      MenuSnapshot(dishes: [breakfastDish], style: MenuStyle.modern),
+      MenuSnapshot(dishes: [breakfastDish], style: MenuStyle.editorial),
     );
     final controller = MenuController(repository);
     await controller.initialize();
     expect(controller.dishes, [breakfastDish]);
-    expect(controller.style, MenuStyle.modern);
+    expect(controller.style, MenuStyle.editorial);
   });
 
   test(
@@ -54,7 +52,7 @@ void main() {
       final repository = PreferencesMenuRepository(preferences);
       final snapshot = MenuSnapshot(
         dishes: [breakfastDish],
-        style: MenuStyle.modern,
+        style: MenuStyle.editorial,
       );
       await repository.save(snapshot);
       expect((await repository.load()).dishes, [breakfastDish]);

@@ -8,13 +8,11 @@ import 'package:hatch_menu/features/menu/domain/menu_style.dart';
 import 'package:hatch_menu/features/menu/presentation/menu_screen.dart';
 
 void main() {
-  testWidgets('dish can move section and theme can change', (tester) async {
+  testWidgets('dish can move section', (tester) async {
     final controller = app_menu.MenuController(MemoryRepository(seed));
     await controller.initialize();
     await tester.pumpWidget(
-      CupertinoApp(
-        home: MenuScreen(controller: controller, onExport: (_) async {}),
-      ),
+      CupertinoApp(home: MenuScreen(controller: controller)),
     );
     await tester.tap(find.text('Truffle Eggs'));
     await tester.pumpAndSettle();
@@ -23,18 +21,13 @@ void main() {
     await tester.tap(find.text('Save changes'));
     await tester.pumpAndSettle();
     expect(controller.dishes.single.mealSection, MealSection.lunch);
-    await tester.tap(find.byKey(const Key('theme-bistro')));
-    await tester.pump();
-    expect(controller.style, MenuStyle.bistro);
   });
 
   testWidgets('canceling delete confirmation preserves dish', (tester) async {
     final controller = app_menu.MenuController(MemoryRepository(seed));
     await controller.initialize();
     await tester.pumpWidget(
-      CupertinoApp(
-        home: MenuScreen(controller: controller, onExport: (_) async {}),
-      ),
+      CupertinoApp(home: MenuScreen(controller: controller)),
     );
     await tester.tap(find.text('Truffle Eggs'));
     await tester.pumpAndSettle();

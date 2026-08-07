@@ -1,1 +1,1 @@
-enum MenuStyle { editorial, modern, bistro }
+enum MenuStyle { editorial }

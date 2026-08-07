@@ -3,7 +3,6 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import '../menu/data/menu_repository.dart';
 import '../menu/domain/dish.dart';
-import '../menu/domain/menu_style.dart';
 
 class EmptyMenuException implements Exception {
   const EmptyMenuException();
@@ -19,7 +18,7 @@ class MenuPdfRenderer {
 
   Future<Uint8List> render(MenuSnapshot snapshot) async {
     if (snapshot.dishes.isEmpty) throw const EmptyMenuException();
-    final colors = _PdfPalette.forStyle(snapshot.style);
+    const colors = _PdfPalette.standard;
     final outfit = pw.Font.ttf(
       await rootBundle.load('assets/fonts/Outfit.ttf'),
     );
@@ -134,18 +133,8 @@ class MenuPdfRenderer {
 class _PdfPalette {
   const _PdfPalette(this.ink, this.accent);
   final PdfColor ink, accent;
-  static _PdfPalette forStyle(MenuStyle style) => switch (style) {
-    MenuStyle.editorial => const _PdfPalette(
-      PdfColor.fromInt(0xFF2B211B),
-      PdfColor.fromInt(0xFFB65F46),
-    ),
-    MenuStyle.modern => const _PdfPalette(
-      PdfColor.fromInt(0xFF171717),
-      PdfColor.fromInt(0xFF2855D9),
-    ),
-    MenuStyle.bistro => const _PdfPalette(
-      PdfColor.fromInt(0xFF3E191D),
-      PdfColor.fromInt(0xFF1F5547),
-    ),
-  };
+  static const standard = _PdfPalette(
+    PdfColor.fromInt(0xFF2B211B),
+    PdfColor.fromInt(0xFF1F4D3A),
+  );
 }

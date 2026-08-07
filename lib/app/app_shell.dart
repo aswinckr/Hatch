@@ -2,21 +2,14 @@ import 'package:flutter/cupertino.dart';
 import '../features/add_dish/domain/dish_analysis.dart';
 import '../features/add_dish/presentation/add_dish_screen.dart';
 import '../features/menu/application/menu_controller.dart' as app_menu;
-import '../features/menu/data/menu_repository.dart';
 import '../features/menu/domain/dish.dart';
 import '../features/menu/presentation/menu_screen.dart';
 import 'floating_tab_bar.dart';
 
 class AppShell extends StatefulWidget {
-  const AppShell({
-    super.key,
-    required this.controller,
-    required this.analyzer,
-    required this.onExport,
-  });
+  const AppShell({super.key, required this.controller, required this.analyzer});
   final app_menu.MenuController controller;
   final DishAnalyzer analyzer;
-  final Future<void> Function(MenuSnapshot snapshot) onExport;
   @override
   State<AppShell> createState() => _AppShellState();
 }
@@ -59,10 +52,7 @@ class _AppShellState extends State<AppShell> {
                 }
               },
             ),
-            MenuScreen(
-              controller: widget.controller,
-              onExport: widget.onExport,
-            ),
+            MenuScreen(controller: widget.controller),
           ],
         ),
         Positioned(
