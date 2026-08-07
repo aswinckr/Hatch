@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:math' as math;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -17,16 +16,20 @@ class AddDishScreen extends StatefulWidget {
     required this.onDishFinalized,
     ImagePicker? imagePicker,
     this.capturedDishes = const [],
+    this.showEmbeddedCameraAction = true,
+    this.onHomeStageChanged,
   }) : imagePicker = imagePicker ?? ImagePicker();
   final DishAnalyzer analyzer;
   final Future<void> Function(Dish dish) onDishFinalized;
   final ImagePicker imagePicker;
   final List<Dish> capturedDishes;
+  final bool showEmbeddedCameraAction;
+  final ValueChanged<bool>? onHomeStageChanged;
   @override
-  State<AddDishScreen> createState() => _AddDishScreenState();
+  State<AddDishScreen> createState() => AddDishScreenState();
 }
 
-class _AddDishScreenState extends State<AddDishScreen> {
+class AddDishScreenState extends State<AddDishScreen> {
   AddDishStage stage = AddDishStage.choosePhoto;
   String? imagePath, errorText;
   MealSection section = MealSection.breakfast;
@@ -69,7 +72,10 @@ class _AddDishScreenState extends State<AddDishScreen> {
     }
   }
 
+  Future<void> takePhoto() => _pick(ImageSource.camera);
+
   Future<void> _analyze(String path) async {
+    widget.onHomeStageChanged?.call(false);
     setState(() {
       imagePath = path;
       stage = AddDishStage.analyzing;
@@ -112,6 +118,7 @@ class _AddDishScreenState extends State<AddDishScreen> {
   }
 
   void _reset() {
+    widget.onHomeStageChanged?.call(true);
     setState(() {
       stage = AddDishStage.choosePhoto;
       imagePath = null;
@@ -200,16 +207,12 @@ class _AddDishScreenState extends State<AddDishScreen> {
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 156),
               child: content,
             ),
-            if (stage == AddDishStage.choosePhoto)
+            if (stage == AddDishStage.choosePhoto &&
+                widget.showEmbeddedCameraAction)
               Positioned(
-                right: math.max(
-                  0,
-                  (MediaQuery.sizeOf(context).width - 236) / 2 - 76,
-                ),
+                right: 20,
                 bottom: 12,
-                child: _FloatingCameraButton(
-                  onPressed: () => _pick(ImageSource.camera),
-                ),
+                child: FloatingCameraButton(onPressed: takePhoto),
               ),
           ],
         ),
@@ -348,8 +351,8 @@ class _DishTile extends StatelessWidget {
   );
 }
 
-class _FloatingCameraButton extends StatelessWidget {
-  const _FloatingCameraButton({required this.onPressed});
+class FloatingCameraButton extends StatelessWidget {
+  const FloatingCameraButton({super.key, required this.onPressed});
   final VoidCallback onPressed;
 
   @override
@@ -357,7 +360,7 @@ class _FloatingCameraButton extends StatelessWidget {
     button: true,
     label: 'Take a photo',
     child: CupertinoButton(
-      key: const Key('floating-camera-button'),
+      key: key ?? const Key('floating-camera-button'),
       padding: EdgeInsets.zero,
       onPressed: onPressed,
       child: Container(

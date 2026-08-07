@@ -22,8 +22,10 @@ class AppShell extends StatefulWidget {
 }
 
 class _AppShellState extends State<AppShell> {
+  final addDishKey = GlobalKey<AddDishScreenState>();
   int selectedIndex = 0;
   bool hasNewDish = false;
+  bool showCaptureAction = true;
 
   Future<void> _addDish(Dish dish) async {
     await widget.controller.addDish(dish);
@@ -46,9 +48,16 @@ class _AppShellState extends State<AppShell> {
           index: selectedIndex,
           children: [
             AddDishScreen(
+              key: addDishKey,
               analyzer: widget.analyzer,
               onDishFinalized: _addDish,
               capturedDishes: widget.controller.dishes,
+              showEmbeddedCameraAction: false,
+              onHomeStageChanged: (visible) {
+                if (mounted && showCaptureAction != visible) {
+                  setState(() => showCaptureAction = visible);
+                }
+              },
             ),
             MenuScreen(
               controller: widget.controller,
@@ -63,10 +72,23 @@ class _AppShellState extends State<AppShell> {
           child: SafeArea(
             minimum: const EdgeInsets.only(bottom: 12),
             child: Center(
-              child: FloatingTabBar(
-                selectedIndex: selectedIndex,
-                hasNewMenuItem: hasNewDish,
-                onSelected: _select,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  FloatingTabBar(
+                    key: const Key('floating-tab-bar'),
+                    selectedIndex: selectedIndex,
+                    hasNewMenuItem: hasNewDish,
+                    onSelected: _select,
+                  ),
+                  if (selectedIndex == 0 && showCaptureAction) ...[
+                    const SizedBox(width: 12),
+                    FloatingCameraButton(
+                      onPressed: () => addDishKey.currentState?.takePhoto(),
+                    ),
+                  ],
+                ],
               ),
             ),
           ),

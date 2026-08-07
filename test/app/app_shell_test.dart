@@ -27,6 +27,13 @@ void main() {
       find.byKey(const Key('app-background')),
     );
     expect(background.color, CupertinoColors.white);
+
+    final navRect = tester.getRect(find.byKey(const Key('floating-tab-bar')));
+    final cameraRect = tester.getRect(
+      find.byKey(const Key('floating-camera-button')),
+    );
+    expect(cameraRect.left - navRect.right, 12);
+    expect(cameraRect.bottom, navRect.bottom);
   });
 
   testWidgets('finalized dish appears on persistent My Menu tab', (
