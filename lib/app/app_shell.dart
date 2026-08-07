@@ -46,15 +46,17 @@ class _AppShellState extends State<AppShell> {
         ],
       ),
       Positioned(
-        left: 16,
-        right: 16,
+        left: 0,
+        right: 0,
         bottom: 0,
         child: SafeArea(
           minimum: const EdgeInsets.only(bottom: 12),
-          child: FloatingTabBar(
-            selectedIndex: selectedIndex,
-            hasNewMenuItem: hasNewDish,
-            onSelected: _select,
+          child: Center(
+            child: FloatingTabBar(
+              selectedIndex: selectedIndex,
+              hasNewMenuItem: hasNewDish,
+              onSelected: _select,
+            ),
           ),
         ),
       ),

@@ -12,12 +12,9 @@ void main() {
         home: StatefulBuilder(
           builder: (context, setState) => CupertinoPageScaffold(
             child: Center(
-              child: SizedBox(
-                width: 358,
-                child: FloatingTabBar(
-                  selectedIndex: selected,
-                  onSelected: (index) => setState(() => selected = index),
-                ),
+              child: FloatingTabBar(
+                selectedIndex: selected,
+                onSelected: (index) => setState(() => selected = index),
               ),
             ),
           ),
@@ -28,6 +25,7 @@ void main() {
     expect(find.text('Add Dish'), findsOneWidget);
     expect(find.text('My Menu'), findsOneWidget);
     expect(find.byType(BackdropFilter), findsOneWidget);
+    expect(tester.getSize(find.byType(FloatingTabBar)).width, 236);
     await tester.tap(find.text('My Menu'));
     await tester.pumpAndSettle();
     expect(selected, 1);
@@ -40,13 +38,10 @@ void main() {
       const CupertinoApp(
         home: CupertinoPageScaffold(
           child: Center(
-            child: SizedBox(
-              width: 358,
-              child: FloatingTabBar(
-                selectedIndex: 0,
-                hasNewMenuItem: true,
-                onSelected: _ignore,
-              ),
+            child: FloatingTabBar(
+              selectedIndex: 0,
+              hasNewMenuItem: true,
+              onSelected: _ignore,
             ),
           ),
         ),

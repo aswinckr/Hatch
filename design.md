@@ -16,6 +16,7 @@ components:
     backgroundColor: "rgba(255, 255, 255, 0.90)"
     rounded: "{rounded.full}"
     height: 72px
+    width: 236px
   floating-navbar-selected:
     backgroundColor: "rgba(244, 238, 231, 0.87)"
     rounded: "{rounded.full}"
@@ -37,7 +38,8 @@ Navigation uses a horizontal pill silhouette with fully rounded ends. The select
 
 ### Floating navbar
 
-- Float above the bottom safe area with visible space below and on both sides.
+- Float above the bottom safe area as a narrow centered capsule.
+- Size the bar to provide only comfortable padding around its icons and labels; do not stretch it across the screen.
 - Keep the surface translucent rather than opaque.
 - Use two equal-width persistent destinations in Favourite Menu: **Add Dish** and **My Menu**.
 - Emphasize the selected destination with a softly tinted frosted segment, colored icon, and stronger label.
@@ -50,5 +52,7 @@ Navigation uses a horizontal pill silhouette with fully rounded ends. The select
 - Do use a single floating capsule for persistent navigation.
 - Do use fully rounded ends on both the outer bar and selected segment.
 - Do keep the number of destinations minimal.
+- Do keep the capsule compact and content-sized.
 - Don’t replace the translucent glass treatment with a full-width opaque system tab bar.
+- Don’t make the floating capsule span the available screen width.
 - Don’t use separate floating buttons when the elements represent persistent destinations.
