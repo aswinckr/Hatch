@@ -12,15 +12,26 @@ class MenuScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => CupertinoPageScaffold(
     backgroundColor: AppColors.cream,
-    child: SafeArea(
-      bottom: false,
-      child: AnimatedBuilder(
-        animation: controller,
-        builder: (context, _) => SingleChildScrollView(
-          padding: const EdgeInsets.only(bottom: 112),
-          child: MenuPage(
-            snapshot: controller.snapshot,
-            onDishTap: (dish) => _edit(context, dish),
+    child: ColoredBox(
+      color: AppColors.cream,
+      child: SafeArea(
+        bottom: false,
+        child: AnimatedBuilder(
+          animation: controller,
+          builder: (context, _) => LayoutBuilder(
+            builder: (context, constraints) => SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minWidth: constraints.maxWidth,
+                  minHeight: constraints.maxHeight,
+                ),
+                child: MenuPage(
+                  snapshot: controller.snapshot,
+                  bottomPadding: 140,
+                  onDishTap: (dish) => _edit(context, dish),
+                ),
+              ),
+            ),
           ),
         ),
       ),

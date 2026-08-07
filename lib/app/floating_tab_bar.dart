@@ -23,17 +23,21 @@ class FloatingTabBar extends StatelessWidget {
     child: ClipRRect(
       borderRadius: BorderRadius.circular(36),
       child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 22, sigmaY: 22),
+        filter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
         child: DecoratedBox(
           decoration: BoxDecoration(
-            color: const Color(0xEBF2F2F0),
+            gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [Color(0x8AFFFFFF), Color(0x3DFFFFFF)],
+            ),
             borderRadius: BorderRadius.circular(36),
-            border: Border.all(color: const Color(0xBFFFFFFF)),
+            border: Border.all(color: const Color(0x99FFFFFF), width: 1.2),
             boxShadow: const [
               BoxShadow(
-                color: Color(0x22000000),
-                blurRadius: 28,
-                offset: Offset(0, 10),
+                color: Color(0x18000000),
+                blurRadius: 32,
+                offset: Offset(0, 12),
               ),
             ],
           ),
@@ -56,9 +60,19 @@ class FloatingTabBar extends StatelessWidget {
                       height: height - 10,
                       child: DecoratedBox(
                         decoration: BoxDecoration(
-                          color: const Color(0x1A1F4D3A),
+                          color: const Color(0x2E1F4D3A),
                           borderRadius: BorderRadius.circular(31),
-                          border: Border.all(color: const Color(0xA6FFFFFF)),
+                          border: Border.all(
+                            color: const Color(0xB8FFFFFF),
+                            width: 1,
+                          ),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Color(0x12000000),
+                              blurRadius: 10,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
                         ),
                       ),
                     ),

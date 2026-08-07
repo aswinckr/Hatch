@@ -6,6 +6,7 @@ import 'package:hatch_menu/features/menu/application/menu_controller.dart'
 import 'package:hatch_menu/features/menu/data/menu_repository.dart';
 import 'package:hatch_menu/features/menu/domain/dish.dart';
 import 'package:hatch_menu/features/menu/domain/menu_style.dart';
+import 'package:hatch_menu/features/menu/presentation/menu_page.dart';
 import 'package:hatch_menu/features/menu/presentation/menu_screen.dart';
 
 void main() {
@@ -29,6 +30,10 @@ void main() {
       find.byType(CupertinoPageScaffold),
     );
     expect(page.backgroundColor, AppColors.cream);
+    expect(
+      tester.getSize(find.byType(MenuPage)).width,
+      tester.getSize(find.byType(MenuScreen)).width,
+    );
   });
 
   testWidgets('controller update places dish in its meal section', (

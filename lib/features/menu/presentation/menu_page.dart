@@ -22,18 +22,21 @@ class MenuPage extends StatelessWidget {
     super.key,
     required this.snapshot,
     this.showEmptySections = true,
+    this.bottomPadding = 48,
     this.onDishTap,
   });
   final MenuSnapshot snapshot;
   final bool showEmptySections;
+  final double bottomPadding;
   final ValueChanged<Dish>? onDishTap;
 
   @override
   Widget build(BuildContext context) {
     const visual = MenuVisualTheme.standard;
     return Container(
+      width: double.infinity,
       color: visual.paper,
-      padding: const EdgeInsets.fromLTRB(24, 30, 24, 48),
+      padding: EdgeInsets.fromLTRB(24, 30, 24, bottomPadding),
       child: Column(
         children: [
           Text(

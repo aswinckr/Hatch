@@ -17,12 +17,12 @@ rounded:
   full: 9999px
 components:
   floating-navbar:
-    backgroundColor: "rgba(242, 242, 240, 0.92)"
+    backgroundColor: "rgba(255, 255, 255, 0.32)"
     rounded: "{rounded.full}"
     height: 72px
     width: 236px
   floating-navbar-selected:
-    backgroundColor: "rgba(31, 77, 58, 0.10)"
+    backgroundColor: "rgba(31, 77, 58, 0.18)"
     rounded: "{rounded.full}"
   floating-primary-action:
     backgroundColor: "{colors.primary}"
@@ -53,7 +53,7 @@ When a screen represents a singular immersive artifact or canvas, let that artif
 
 ## Elevation & Depth
 
-Floating controls should read as lightweight glass objects rather than heavy containers. Use background blur, a thin luminous border, and a soft diffuse shadow. Allow content to move behind translucent surfaces when doing so reinforces depth without reducing legibility.
+Floating controls should read as lightweight glass objects rather than heavy containers. Approximate Apple’s regular Liquid Glass with strong backdrop blur, a low-opacity adaptive tint, a diagonal specular highlight, a thin luminous border, and a soft diffuse shadow. Allow content to move behind translucent surfaces so colors and forms visibly infuse the material without reducing legibility.
 
 ## Shapes
 
@@ -67,8 +67,8 @@ Use fully rounded, pill-shaped corners for button surfaces. The radius should re
 
 - Float above the bottom safe area as a narrow centered capsule.
 - Size the bar to provide only comfortable padding around its icons and labels; do not stretch it across the screen.
-- Keep the surface translucent rather than opaque.
-- On a white page, use a subtle neutral-grey tint so the glass surface remains perceptible without becoming heavy.
+- Keep the surface genuinely translucent so underlying content can peek through and influence its appearance.
+- On a white page, establish the glass edge with blur, highlights, border, and shadow rather than a nearly opaque grey fill.
 - Give persistent destinations equal visual weight unless product hierarchy clearly requires otherwise.
 - Emphasize the selected destination with a softly tinted frosted segment, colored icon, and stronger label.
 - Keep unselected destinations quiet but readable.
