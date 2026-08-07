@@ -1,7 +1,7 @@
 ---
 version: alpha
 name: Aswin Visual Taste
-description: A living visual identity built only from explicit design preferences.
+description: A living set of reusable visual principles built only from explicit design preferences.
 omitted:
   - section: colors
     reason: No general color preference has been established yet.
@@ -29,15 +29,15 @@ components:
 
 ## Overview
 
-This file grows only through explicit design choices. It currently describes one approved preference: floating translucent navigation.
+This file grows only through explicit design choices. Record principles at a level that can guide decisions across products, platforms, and feature areas. Product-specific implementations may serve as evidence, but should not become universal rules unless the underlying preference is broadly applicable.
 
 ## Elevation & Depth
 
-The navigation should read as a floating glass object. Use background blur, a thin luminous border, and a soft diffuse shadow. Content may move behind the bar so the translucency remains visible.
+Floating controls should read as lightweight glass objects rather than heavy containers. Use background blur, a thin luminous border, and a soft diffuse shadow. Allow content to move behind translucent surfaces when doing so reinforces depth without reducing legibility.
 
 ## Shapes
 
-Navigation uses a horizontal pill silhouette with fully rounded ends. The selected destination is emphasized with a second soft frosted pill nested inside the outer capsule.
+Use simple geometric silhouettes to make persistent controls feel approachable and self-contained. Horizontal navigation may use a pill with fully rounded ends, with selection communicated by a softer nested shape rather than a hard divider.
 
 ## Components
 
@@ -46,24 +46,25 @@ Navigation uses a horizontal pill silhouette with fully rounded ends. The select
 - Float above the bottom safe area as a narrow centered capsule.
 - Size the bar to provide only comfortable padding around its icons and labels; do not stretch it across the screen.
 - Keep the surface translucent rather than opaque.
-- Use two equal-width persistent destinations in Favourite Menu: **Add Dish** and **My Menu**.
+- Give persistent destinations equal visual weight unless product hierarchy clearly requires otherwise.
 - Emphasize the selected destination with a softly tinted frosted segment, colored icon, and stronger label.
 - Keep unselected destinations quiet but readable.
-- Use a small restrained dot for unseen menu content without changing the component’s alignment.
+- Use a small restrained dot for unseen content without changing the component’s alignment.
 - Preserve a minimum interactive height of 56px and expose selected state semantically.
 
 ### Floating primary action
 
-- Place the primary **Take photo** action in a circular floating button above the bottom navigation.
-- Use a camera icon without a persistent text label; provide an accessible semantic label.
-- Give the button a warm terracotta fill and a soft shadow so it is visually dominant without becoming oversized.
-- Keep photo-library access secondary in the gallery header.
+- When a screen has one frequent, unmistakable action, place it in a circular floating button above persistent navigation.
+- An icon-only action is appropriate when the symbol is widely understood; always provide an accessible semantic label.
+- Use a distinctive accent fill and soft shadow to establish primacy without making the control oversized.
+- Keep related alternatives available but visually secondary and closer to the content they affect.
 
-### Captured-dish gallery
+### Image-led collections
 
-- Make the home screen a visual record of previously captured dishes.
-- Use a two-column image-led grid with rounded photographs, dish name, and restaurant.
-- Show a calm, generous empty state before the first dish is captured.
+- When saved items are inherently visual, let their imagery lead the home-screen hierarchy.
+- Use a consistent grid, softly rounded imagery, and only the minimum metadata needed for recognition.
+- Treat the empty state as part of the product experience: keep it calm, generous, and focused on the first meaningful action.
+- Preserve clear hierarchy between collection browsing, the primary creation action, and secondary import or management actions.
 
 ## Do's and Don'ts
 
@@ -71,9 +72,10 @@ Navigation uses a horizontal pill silhouette with fully rounded ends. The select
 - Do use fully rounded ends on both the outer bar and selected segment.
 - Do keep the number of destinations minimal.
 - Do keep the capsule compact and content-sized.
-- Do reserve the floating circular action for the single primary capture task.
-- Do let previously captured images lead the home-screen hierarchy.
+- Do reserve a floating circular action for one clear, high-frequency primary task.
+- Do let visual content lead when recognition is faster through imagery than text.
 - Don’t replace the translucent glass treatment with a full-width opaque system tab bar.
 - Don’t make the floating capsule span the available screen width.
 - Don’t use separate floating buttons when the elements represent persistent destinations.
-- Don’t place multiple competing floating actions on the home screen.
+- Don’t place multiple competing floating actions on the same screen.
+- Don’t turn a product-specific label, content type, or workflow into a universal design rule.
