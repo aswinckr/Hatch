@@ -170,7 +170,7 @@ class _AddDishScreenState extends State<AddDishScreen> {
               const SizedBox(height: 18),
               const Text(
                 'Added to your menu',
-                style: TextStyle(fontFamily: 'Georgia', fontSize: 26),
+                style: TextStyle(fontFamily: 'NotoSerif', fontSize: 26),
               ),
               const SizedBox(height: 12),
               const Text('Open My Menu to see it in place.'),
@@ -211,7 +211,7 @@ class _ChoosePhoto extends StatelessWidget {
       const Text(
         'A menu made of\nyour best meals.',
         style: TextStyle(
-          fontFamily: 'Georgia',
+          fontFamily: 'NotoSerif',
           fontSize: 36,
           height: 1.1,
           fontWeight: FontWeight.w600,
