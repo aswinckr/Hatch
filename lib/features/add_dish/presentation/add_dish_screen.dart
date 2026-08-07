@@ -248,8 +248,6 @@ class _HomeGallery extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  SizedBox(height: 5),
-                  Text('Your latest food memories, in one place.'),
                 ],
               ),
             ),

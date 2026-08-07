@@ -111,6 +111,7 @@ Use fully rounded, pill-shaped corners for button surfaces. The radius should re
 - Do let visual content lead when recognition is faster through imagery than text.
 - Do make recency visible in chronological feeds without letting timestamps dominate.
 - Do keep content-feed headers focused on orientation rather than redundant actions.
+- Do let a clear screen title stand alone when supporting copy adds no new information.
 - Do carry a screen’s background through every edge and safe area.
 - Do remove redundant chrome when the content already supplies its own title and hierarchy.
 - Do use the same dark green to connect interactive elements across screens.
