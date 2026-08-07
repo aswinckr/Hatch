@@ -3,12 +3,13 @@ version: alpha
 name: Aswin Visual Taste
 description: A living set of reusable visual principles built only from explicit design preferences.
 omitted:
-  - section: colors
-    reason: No general color preference has been established yet.
   - section: typography
     reason: No general typography preference has been established yet.
   - section: spacing
     reason: No general spacing system has been established yet.
+colors:
+  primary: "#1F4D3A"
+  onPrimary: "#FFFFFF"
 rounded:
   full: 9999px
 components:
@@ -18,11 +19,11 @@ components:
     height: 72px
     width: 236px
   floating-navbar-selected:
-    backgroundColor: "rgba(244, 238, 231, 0.87)"
+    backgroundColor: "rgba(31, 77, 58, 0.10)"
     rounded: "{rounded.full}"
   floating-primary-action:
-    backgroundColor: "#B35B42"
-    textColor: "#FFFFFF"
+    backgroundColor: "{colors.primary}"
+    textColor: "{colors.onPrimary}"
     rounded: "{rounded.full}"
     size: 64px
   primary-page-surface:
@@ -40,6 +41,10 @@ Floating controls should read as lightweight glass objects rather than heavy con
 ## Page Surfaces
 
 Prefer one continuous background color across a primary screen. Use white when the interface should feel clean, spacious, and content-led. Navigation, safe areas, scrolling regions, and the space behind floating controls should share that surface rather than forming separate horizontal bands.
+
+## Color
+
+Use dark forest green as the consistent interactive accent for buttons, selected controls, active navigation, and closely related action icons. Pair it with white content for strong contrast. Use pale green tints for selected backgrounds when a full dark fill would feel too heavy.
 
 ## Shapes
 
@@ -87,6 +92,7 @@ Use fully rounded, pill-shaped corners for button surfaces. The radius should re
 - Do reserve a floating circular action for one clear, high-frequency primary task.
 - Do let visual content lead when recognition is faster through imagery than text.
 - Do carry a screen’s background through every edge and safe area.
+- Do use the same dark green to connect interactive elements across screens.
 - Don’t replace the translucent glass treatment with a full-width opaque system tab bar.
 - Don’t make the floating capsule span the available screen width.
 - Don’t use separate floating buttons when the elements represent persistent destinations.
@@ -94,3 +100,4 @@ Use fully rounded, pill-shaped corners for button surfaces. The radius should re
 - Don’t divide a continuous page into differently colored zones without a functional reason.
 - Don’t turn a product-specific label, content type, or workflow into a universal design rule.
 - Don’t mix mildly rounded rectangular buttons with pill-shaped buttons in the same interface.
+- Don’t introduce competing warm accent colors for standard actions.

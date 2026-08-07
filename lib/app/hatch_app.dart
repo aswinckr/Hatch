@@ -22,7 +22,7 @@ class HatchApp extends StatelessWidget {
     debugShowCheckedModeBanner: false,
     theme: const CupertinoThemeData(
       brightness: Brightness.light,
-      primaryColor: AppColors.terracotta,
+      primaryColor: AppColors.forestGreen,
       scaffoldBackgroundColor: AppColors.cream,
       textTheme: CupertinoTextThemeData(textStyle: AppTypography.body),
     ),

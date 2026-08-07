@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import '../../../core/design/app_colors.dart';
 import '../../../core/design/app_shapes.dart';
 import '../application/menu_controller.dart' as app_menu;
 import '../data/menu_repository.dart';
@@ -85,7 +86,7 @@ class _StylePicker extends StatelessWidget {
                 key: Key('theme-${value.name}'),
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 color: value == style
-                    ? CupertinoColors.activeOrange
+                    ? AppColors.forestGreen
                     : CupertinoColors.systemGrey5,
                 onPressed: () => onChanged(value),
                 child: Text(

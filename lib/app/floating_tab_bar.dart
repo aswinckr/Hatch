@@ -56,7 +56,7 @@ class FloatingTabBar extends StatelessWidget {
                       height: height - 10,
                       child: DecoratedBox(
                         decoration: BoxDecoration(
-                          color: const Color(0xDDF4EEE7),
+                          color: const Color(0x1A1F4D3A),
                           borderRadius: BorderRadius.circular(31),
                           border: Border.all(color: const Color(0xA6FFFFFF)),
                         ),
@@ -111,7 +111,7 @@ class _Destination extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = selected ? AppColors.terracotta : const Color(0xFF5F6068);
+    final color = selected ? AppColors.forestGreen : const Color(0xFF5F6068);
     return Semantics(
       button: true,
       selected: selected,

@@ -15,7 +15,7 @@ class MenuVisualTheme {
     MenuStyle.editorial => const MenuVisualTheme(
       paper: AppColors.cream,
       ink: AppColors.espresso,
-      accent: AppColors.terracotta,
+      accent: AppColors.forestGreen,
     ),
     MenuStyle.modern => const MenuVisualTheme(
       paper: Color(0xFFF7F7F4),

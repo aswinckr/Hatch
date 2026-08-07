@@ -176,7 +176,7 @@ class AddDishScreenState extends State<AddDishScreen> {
               const Icon(
                 CupertinoIcons.check_mark_circled_solid,
                 size: 64,
-                color: AppColors.terracotta,
+                color: AppColors.forestGreen,
               ),
               const SizedBox(height: 18),
               const Text(
@@ -297,7 +297,11 @@ class _EmptyGallery extends StatelessWidget {
     ),
     child: Column(
       children: [
-        const Icon(CupertinoIcons.photo, size: 38, color: AppColors.terracotta),
+        const Icon(
+          CupertinoIcons.photo,
+          size: 38,
+          color: AppColors.forestGreen,
+        ),
         const SizedBox(height: 14),
         const Text(
           'Your gallery is waiting',
@@ -372,7 +376,7 @@ class FloatingCameraButton extends StatelessWidget {
         width: 64,
         height: 64,
         decoration: const BoxDecoration(
-          color: AppColors.terracotta,
+          color: AppColors.forestGreen,
           shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
