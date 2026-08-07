@@ -32,8 +32,8 @@ void main() {
     final cameraRect = tester.getRect(
       find.byKey(const Key('floating-camera-button')),
     );
-    expect(cameraRect.left - navRect.right, 12);
-    expect(cameraRect.bottom, navRect.bottom);
+    expect(cameraRect.right, tester.getSize(find.byType(AppShell)).width - 20);
+    expect(navRect.top - cameraRect.bottom, 48);
   });
 
   testWidgets('finalized dish appears on persistent My Menu tab', (

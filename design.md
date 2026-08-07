@@ -62,7 +62,8 @@ Use simple geometric silhouettes to make persistent controls feel approachable a
 ### Floating primary action
 
 - When a screen has one frequent, unmistakable action, place it in a circular floating button near persistent navigation.
-- When the primary action and persistent navigation belong to the same interaction zone, align them along the bottom edge and place the action immediately beside the navigation with a compact gap.
+- Place a floating primary action in the lower trailing corner, above persistent navigation and clear of safe areas.
+- Keep deliberate breathing room between the action and navigation so each control reads as an independent layer.
 - An icon-only action is appropriate when the symbol is widely understood; always provide an accessible semantic label.
 - Use a distinctive accent fill and soft shadow to establish primacy without making the control oversized.
 - Keep related alternatives available but visually secondary and closer to the content they affect.

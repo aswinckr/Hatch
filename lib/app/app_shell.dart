@@ -72,27 +72,23 @@ class _AppShellState extends State<AppShell> {
           child: SafeArea(
             minimum: const EdgeInsets.only(bottom: 12),
             child: Center(
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  FloatingTabBar(
-                    key: const Key('floating-tab-bar'),
-                    selectedIndex: selectedIndex,
-                    hasNewMenuItem: hasNewDish,
-                    onSelected: _select,
-                  ),
-                  if (selectedIndex == 0 && showCaptureAction) ...[
-                    const SizedBox(width: 12),
-                    FloatingCameraButton(
-                      onPressed: () => addDishKey.currentState?.takePhoto(),
-                    ),
-                  ],
-                ],
+              child: FloatingTabBar(
+                key: const Key('floating-tab-bar'),
+                selectedIndex: selectedIndex,
+                hasNewMenuItem: hasNewDish,
+                onSelected: _select,
               ),
             ),
           ),
         ),
+        if (selectedIndex == 0 && showCaptureAction)
+          Positioned(
+            right: 20,
+            bottom: MediaQuery.paddingOf(context).bottom + 132,
+            child: FloatingCameraButton(
+              onPressed: () => addDishKey.currentState?.takePhoto(),
+            ),
+          ),
       ],
     ),
   );
