@@ -187,7 +187,11 @@ class _AddDishScreenState extends State<AddDishScreen> {
       ),
     };
     return CupertinoPageScaffold(
-      navigationBar: const CupertinoNavigationBar(middle: Text('Home')),
+      backgroundColor: CupertinoColors.white,
+      navigationBar: const CupertinoNavigationBar(
+        backgroundColor: CupertinoColors.white,
+        middle: Text('Home'),
+      ),
       child: SafeArea(
         child: Stack(
           children: [

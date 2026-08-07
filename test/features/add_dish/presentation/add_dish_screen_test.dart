@@ -19,6 +19,10 @@ void main() {
 
     expect(find.text('Your gallery is waiting'), findsOneWidget);
     expect(find.byKey(const Key('floating-camera-button')), findsOneWidget);
+    final page = tester.widget<CupertinoPageScaffold>(
+      find.byType(CupertinoPageScaffold),
+    );
+    expect(page.backgroundColor, CupertinoColors.white);
   });
 
   testWidgets('home gallery displays previously captured dishes', (

@@ -25,6 +25,8 @@ components:
     textColor: "#FFFFFF"
     rounded: "{rounded.full}"
     size: 64px
+  primary-page-surface:
+    backgroundColor: "#FFFFFF"
 ---
 
 ## Overview
@@ -34,6 +36,10 @@ This file grows only through explicit design choices. Record principles at a lev
 ## Elevation & Depth
 
 Floating controls should read as lightweight glass objects rather than heavy containers. Use background blur, a thin luminous border, and a soft diffuse shadow. Allow content to move behind translucent surfaces when doing so reinforces depth without reducing legibility.
+
+## Page Surfaces
+
+Prefer one continuous background color across a primary screen. Use white when the interface should feel clean, spacious, and content-led. Navigation, safe areas, scrolling regions, and the space behind floating controls should share that surface rather than forming separate horizontal bands.
 
 ## Shapes
 
@@ -74,8 +80,10 @@ Use simple geometric silhouettes to make persistent controls feel approachable a
 - Do keep the capsule compact and content-sized.
 - Do reserve a floating circular action for one clear, high-frequency primary task.
 - Do let visual content lead when recognition is faster through imagery than text.
+- Do carry a screen’s background through every edge and safe area.
 - Don’t replace the translucent glass treatment with a full-width opaque system tab bar.
 - Don’t make the floating capsule span the available screen width.
 - Don’t use separate floating buttons when the elements represent persistent destinations.
 - Don’t place multiple competing floating actions on the same screen.
+- Don’t divide a continuous page into differently colored zones without a functional reason.
 - Don’t turn a product-specific label, content type, or workflow into a universal design rule.
