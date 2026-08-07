@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hatch_menu/core/design/app_colors.dart';
 import 'package:hatch_menu/features/menu/application/menu_controller.dart'
     as app_menu;
 import 'package:hatch_menu/features/menu/data/menu_repository.dart';
@@ -23,6 +24,11 @@ void main() {
     expect(find.text('Editorial'), findsNothing);
     expect(find.text('Modern'), findsNothing);
     expect(find.text('Bistro'), findsNothing);
+    expect(find.byType(CupertinoNavigationBar), findsNothing);
+    final page = tester.widget<CupertinoPageScaffold>(
+      find.byType(CupertinoPageScaffold),
+    );
+    expect(page.backgroundColor, AppColors.cream);
   });
 
   testWidgets('controller update places dish in its meal section', (

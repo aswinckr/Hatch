@@ -49,6 +49,8 @@ Use Outfit throughout the interface and generated artifacts. Create hierarchy th
 
 Prefer one continuous background color across a primary screen. Use white when the interface should feel clean, spacious, and content-led. Navigation, safe areas, scrolling regions, and the space behind floating controls should share that surface rather than forming separate horizontal bands.
 
+When a screen represents a singular immersive artifact or canvas, let that artifact own the full viewport. Remove redundant top bars, carry its surface color to every edge, and preserve only essential safe-area and persistent-navigation clearance.
+
 ## Elevation & Depth
 
 Floating controls should read as lightweight glass objects rather than heavy containers. Use background blur, a thin luminous border, and a soft diffuse shadow. Allow content to move behind translucent surfaces when doing so reinforces depth without reducing legibility.
@@ -109,6 +111,7 @@ Use fully rounded, pill-shaped corners for button surfaces. The radius should re
 - Do let visual content lead when recognition is faster through imagery than text.
 - Do make recency visible in chronological feeds without letting timestamps dominate.
 - Do carry a screen’s background through every edge and safe area.
+- Do remove redundant chrome when the content already supplies its own title and hierarchy.
 - Do use the same dark green to connect interactive elements across screens.
 - Do use Outfit consistently for headings, body copy, controls, metadata, and generated outputs.
 - Do make a clear visual choice on the user’s behalf when alternatives add complexity without meaningful utility.
@@ -117,6 +120,7 @@ Use fully rounded, pill-shaped corners for button surfaces. The radius should re
 - Don’t use separate floating buttons when the elements represent persistent destinations.
 - Don’t place multiple competing floating actions on the same screen.
 - Don’t divide a continuous page into differently colored zones without a functional reason.
+- Don’t frame an immersive artifact inside a second page surface.
 - Don’t turn a product-specific label, content type, or workflow into a universal design rule.
 - Don’t mix mildly rounded rectangular buttons with pill-shaped buttons in the same interface.
 - Don’t introduce competing warm accent colors for standard actions.

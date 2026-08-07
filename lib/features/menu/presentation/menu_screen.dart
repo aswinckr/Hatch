@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import '../../../core/design/app_colors.dart';
 import '../application/menu_controller.dart' as app_menu;
 import '../domain/dish.dart';
 import 'dish_editor_sheet.dart';
@@ -10,8 +11,9 @@ class MenuScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => CupertinoPageScaffold(
-    navigationBar: const CupertinoNavigationBar(middle: Text('My Menu')),
+    backgroundColor: AppColors.cream,
     child: SafeArea(
+      bottom: false,
       child: AnimatedBuilder(
         animation: controller,
         builder: (context, _) => SingleChildScrollView(
