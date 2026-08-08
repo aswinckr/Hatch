@@ -1,77 +1,118 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatch_wireframe/app/app_shell.dart';
-import 'package:hatch_wireframe/features/add_dish/data/mock_dish_analyzer.dart';
+import 'package:hatch_wireframe/features/add_dish/domain/dish_analysis.dart';
+import 'package:hatch_wireframe/features/add_dish/domain/photo_picker.dart';
 import 'package:hatch_wireframe/features/menu/application/menu_controller.dart'
     as app_menu;
 import 'package:hatch_wireframe/features/menu/data/menu_repository.dart';
 import 'package:hatch_wireframe/features/menu/domain/dish.dart';
-import 'package:hatch_wireframe/features/menu/domain/menu_style.dart';
+import 'package:image_picker/image_picker.dart';
 
 void main() {
-  testWidgets('app shell keeps one white surface behind floating navigation', (
+  testWidgets('shell uses Material navigation, app bar, and capture action', (
     tester,
   ) async {
     final controller = app_menu.MenuController(MemoryRepository());
     await controller.initialize();
     await tester.pumpWidget(
-      CupertinoApp(
+      MaterialApp(
         home: AppShell(
           controller: controller,
-          analyzer: MockDishAnalyzer(delay: Duration.zero),
+          analyzer: FakeAnalyzer(),
+          photoPicker: FakePicker(),
         ),
       ),
     );
 
-    final background = tester.widget<ColoredBox>(
-      find.byKey(const Key('app-background')),
-    );
-    expect(background.color, CupertinoColors.white);
-
-    final navRect = tester.getRect(find.byKey(const Key('floating-tab-bar')));
-    final cameraRect = tester.getRect(
-      find.byKey(const Key('floating-camera-button')),
-    );
-    expect(cameraRect.right, tester.getSize(find.byType(AppShell)).width - 20);
-    expect(navRect.top - cameraRect.bottom, 48);
+    expect(find.byType(NavigationBar), findsOneWidget);
+    expect(find.byType(FloatingActionButton), findsOneWidget);
+    expect(find.byType(AppBar), findsOneWidget);
+    expect(find.text('Your dishes'), findsOneWidget);
+    expect(find.byType(BackdropFilter), findsNothing);
+    expect(find.text('Dishes'), findsOneWidget);
+    expect(find.text('My Menu'), findsOneWidget);
   });
 
-  testWidgets('menu tab renders the persistent menu poster', (tester) async {
-    final controller = app_menu.MenuController(MemoryRepository());
+  testWidgets('adding a dish marks My Menu until the destination opens', (
+    tester,
+  ) async {
+    final repository = MemoryRepository();
+    final controller = app_menu.MenuController(repository);
     await controller.initialize();
-    await controller.addDish(
-      Dish(
-        id: 'eggs',
-        imagePath: 'assets/demo/truffle_eggs.png',
-        name: 'Truffle Eggs Benedict',
-        restaurant: 'Café Morgenrot',
-        description: 'Poached eggs and truffle hollandaise',
-        mealSection: MealSection.breakfast,
-        createdAt: DateTime.utc(2026, 8, 7),
-        updatedAt: DateTime.utc(2026, 8, 7),
-      ),
-    );
     await tester.pumpWidget(
-      CupertinoApp(
+      MaterialApp(
         home: AppShell(
           controller: controller,
-          analyzer: MockDishAnalyzer(delay: Duration.zero),
+          analyzer: FakeAnalyzer(),
+          photoPicker: FakePicker('/tmp/photo.jpg'),
         ),
       ),
     );
+
+    await tester.tap(find.byType(FloatingActionButton));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Camera'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.byKey(const Key('add-to-menu')));
+    await tester.tap(find.byKey(const Key('add-to-menu')));
+    await tester.pumpAndSettle();
+
+    expect(tester.widget<Badge>(find.byType(Badge)).isLabelVisible, isTrue);
     await tester.tap(find.text('My Menu'));
     await tester.pumpAndSettle();
-    expect(find.byKey(const Key('menu-poster')), findsOneWidget);
+    expect(tester.widget<Badge>(find.byType(Badge)).isLabelVisible, isFalse);
+    expect(find.text('1 / 5'), findsOneWidget);
   });
 }
 
 class MemoryRepository implements MenuRepository {
-  MenuSnapshot value = const MenuSnapshot(
-    dishes: [],
-    style: MenuStyle.editorial,
-  );
+  MemoryRepository()
+    : value = MenuSnapshot(
+        dishes: List.generate(4, (index) {
+          final time = DateTime.utc(
+            2026,
+            8,
+            8,
+            12,
+          ).subtract(Duration(minutes: index));
+          return Dish(
+            id: 'seed-$index',
+            imagePath: 'wireframe://seed/$index',
+            name: 'Dish name',
+            restaurant: 'Restaurant name',
+            description: 'Short dish description',
+            mealSection: MealSection.values[index % 3],
+            createdAt: time,
+            updatedAt: time,
+          );
+        }),
+      );
+
+  MenuSnapshot value;
+
   @override
   Future<MenuSnapshot> load() async => value;
+
   @override
   Future<void> save(MenuSnapshot snapshot) async => value = snapshot;
+}
+
+class FakeAnalyzer implements DishAnalyzer {
+  @override
+  Future<DishAnalysis> analyze(String imagePath) async => const DishAnalysis(
+    name: 'Dish name',
+    restaurant: 'Restaurant name',
+    description: 'Short dish description',
+    mealSection: MealSection.dinner,
+  );
+}
+
+class FakePicker implements PhotoPicker {
+  FakePicker([this.path]);
+
+  final String? path;
+
+  @override
+  Future<String?> pick(ImageSource source) async => path;
 }

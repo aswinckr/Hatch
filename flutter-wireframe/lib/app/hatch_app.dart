@@ -1,24 +1,33 @@
-import 'package:flutter/cupertino.dart';
-import '../core/design/app_colors.dart';
-import '../core/design/app_typography.dart';
+import 'package:flutter/material.dart';
+
 import '../features/add_dish/domain/dish_analysis.dart';
+import '../features/add_dish/domain/photo_picker.dart';
 import '../features/menu/application/menu_controller.dart' as app_menu;
+import 'app_scroll_behavior.dart';
 import 'app_shell.dart';
 
 class HatchApp extends StatelessWidget {
-  const HatchApp({super.key, required this.controller, required this.analyzer});
+  const HatchApp({
+    super.key,
+    required this.controller,
+    required this.analyzer,
+    this.photoPicker,
+  });
+
   final app_menu.MenuController controller;
   final DishAnalyzer analyzer;
+  final PhotoPicker? photoPicker;
+
   @override
-  Widget build(BuildContext context) => CupertinoApp(
-    title: 'Favourite Menu',
+  Widget build(BuildContext context) => MaterialApp(
+    title: 'Favourite Menu Wireframe',
     debugShowCheckedModeBanner: false,
-    theme: const CupertinoThemeData(
-      brightness: Brightness.light,
-      primaryColor: AppColors.forestGreen,
-      scaffoldBackgroundColor: AppColors.cream,
-      textTheme: AppTypography.cupertino,
+    theme: ThemeData(useMaterial3: true),
+    scrollBehavior: const AppScrollBehavior(),
+    home: AppShell(
+      controller: controller,
+      analyzer: analyzer,
+      photoPicker: photoPicker,
     ),
-    home: AppShell(controller: controller, analyzer: analyzer),
   );
 }
