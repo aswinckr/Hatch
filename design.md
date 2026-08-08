@@ -103,6 +103,13 @@ Use fully rounded, pill-shaped corners for button surfaces. The radius should re
 - Keep configuration out of the primary experience when it does not change the user’s core outcome.
 - Avoid persistent output actions when viewing and maintaining the content is the primary task.
 
+### Editorial image menus
+
+- When transforming a personal visual collection into a menu, reuse the exact captured imagery so the artifact retains its provenance.
+- Use image-first poster layouts for a small number of high-value items: combine a generous food image, an organic color field, and a compact text panel.
+- Keep decorative shapes behind the image and information, so the dish remains the unmistakable focal point.
+- Limit each card to the section, name, short description, and venue; omit transactional details when the menu is a memory artifact rather than an order surface.
+
 ## Do's and Don'ts
 
 - Do use a single floating capsule for persistent navigation.
