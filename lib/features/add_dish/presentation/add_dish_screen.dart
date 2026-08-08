@@ -152,19 +152,8 @@ class AddDishScreenState extends State<AddDishScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const samplePaths = [
-      'assets/demo/truffle_eggs.png',
-      'assets/demo/miso_cod.png',
-      'assets/demo/tiramisu.png',
-      'assets/demo/mushroom_pasta.png',
-    ];
     final content = switch (stage) {
-      AddDishStage.choosePhoto => _HomeGallery(
-        dishes: widget.capturedDishes,
-        onSample: () => _analyze(
-          samplePaths[widget.capturedDishes.length % samplePaths.length],
-        ),
-      ),
+      AddDishStage.choosePhoto => _HomeGallery(dishes: widget.capturedDishes),
       AddDishStage.analyzing => const SizedBox(
         height: 520,
         child: Center(
@@ -251,9 +240,8 @@ class AddDishScreenState extends State<AddDishScreen> {
 }
 
 class _HomeGallery extends StatelessWidget {
-  const _HomeGallery({required this.dishes, required this.onSample});
+  const _HomeGallery({required this.dishes});
   final List<Dish> dishes;
-  final VoidCallback onSample;
   @override
   Widget build(BuildContext context) {
     final feed = [...dishes]
@@ -282,9 +270,7 @@ class _HomeGallery extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 24),
-        if (feed.isEmpty)
-          _EmptyGallery(onSample: onSample)
-        else
+        if (feed.isNotEmpty)
           for (var index = 0; index < feed.length; index++) ...[
             if (index > 0) const SizedBox(height: 32),
             _FeedPost(dish: feed[index]),
@@ -292,43 +278,6 @@ class _HomeGallery extends StatelessWidget {
       ],
     );
   }
-}
-
-class _EmptyGallery extends StatelessWidget {
-  const _EmptyGallery({required this.onSample});
-  final VoidCallback onSample;
-
-  @override
-  Widget build(BuildContext context) => Container(
-    width: double.infinity,
-    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 54),
-    decoration: BoxDecoration(
-      color: CupertinoColors.systemGrey6,
-      borderRadius: BorderRadius.circular(24),
-    ),
-    child: Column(
-      children: [
-        const Icon(
-          CupertinoIcons.photo,
-          size: 38,
-          color: AppColors.forestGreen,
-        ),
-        const SizedBox(height: 14),
-        const Text(
-          'Your gallery is waiting',
-          style: TextStyle(fontFamily: 'Outfit', fontSize: 22),
-        ),
-        const SizedBox(height: 8),
-        const Text('Capture your first favourite dish.'),
-        const SizedBox(height: 14),
-        CupertinoButton(
-          borderRadius: AppShapes.pill,
-          onPressed: onSample,
-          child: const Text('Try a sample dish'),
-        ),
-      ],
-    ),
-  );
 }
 
 class _FeedPost extends StatelessWidget {

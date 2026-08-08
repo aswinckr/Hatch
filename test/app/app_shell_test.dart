@@ -5,6 +5,7 @@ import 'package:hatch_menu/features/add_dish/data/mock_dish_analyzer.dart';
 import 'package:hatch_menu/features/menu/application/menu_controller.dart'
     as app_menu;
 import 'package:hatch_menu/features/menu/data/menu_repository.dart';
+import 'package:hatch_menu/features/menu/domain/dish.dart';
 import 'package:hatch_menu/features/menu/domain/menu_style.dart';
 
 void main() {
@@ -35,11 +36,21 @@ void main() {
     expect(navRect.top - cameraRect.bottom, 48);
   });
 
-  testWidgets('finalized dish renders in the persistent menu poster tab', (
-    tester,
-  ) async {
+  testWidgets('menu tab renders the persistent menu poster', (tester) async {
     final controller = app_menu.MenuController(MemoryRepository());
     await controller.initialize();
+    await controller.addDish(
+      Dish(
+        id: 'eggs',
+        imagePath: 'assets/demo/truffle_eggs.png',
+        name: 'Truffle Eggs Benedict',
+        restaurant: 'Café Morgenrot',
+        description: 'Poached eggs and truffle hollandaise',
+        mealSection: MealSection.breakfast,
+        createdAt: DateTime.utc(2026, 8, 7),
+        updatedAt: DateTime.utc(2026, 8, 7),
+      ),
+    );
     await tester.pumpWidget(
       CupertinoApp(
         home: AppShell(
@@ -48,11 +59,6 @@ void main() {
         ),
       ),
     );
-    await tester.tap(find.text('Try a sample dish'));
-    await tester.pumpAndSettle();
-    await tester.ensureVisible(find.text('Add to menu'));
-    await tester.tap(find.text('Add to menu'));
-    await tester.pumpAndSettle();
     await tester.tap(find.text('My Menu'));
     await tester.pumpAndSettle();
     expect(find.byKey(const Key('menu-poster')), findsOneWidget);

@@ -47,7 +47,9 @@ void main() {
   test(
     'preferences repository saves data and recovers from malformed JSON',
     () async {
-      SharedPreferences.setMockInitialValues({});
+      SharedPreferences.setMockInitialValues({
+        'hatch.menu.demo-feed-seeded.v1': true,
+      });
       final preferences = await SharedPreferences.getInstance();
       final repository = PreferencesMenuRepository(preferences);
       final snapshot = MenuSnapshot(
@@ -60,6 +62,22 @@ void main() {
       final recovered = await repository.load();
       expect(recovered.dishes, isEmpty);
       expect(recovered.style, MenuStyle.editorial);
+    },
+  );
+
+  test(
+    'preferences repository starts a new install with all demo dishes',
+    () async {
+      SharedPreferences.setMockInitialValues({});
+      final preferences = await SharedPreferences.getInstance();
+
+      final snapshot = await PreferencesMenuRepository(preferences).load();
+
+      expect(snapshot.dishes, hasLength(4));
+      expect(
+        snapshot.dishes.map((dish) => dish.imagePath).toSet(),
+        hasLength(4),
+      );
     },
   );
 

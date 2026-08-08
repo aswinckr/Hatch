@@ -14,11 +14,15 @@ class PreferencesMenuRepository implements MenuRepository {
   Future<MenuSnapshot> load() async {
     try {
       final source = _preferences.getString(_key);
-      if (source == null) return _empty;
-      final json = jsonDecode(source) as Map<String, Object?>;
-      final dishes = (json['dishes']! as List<Object?>)
-          .map((item) => Dish.fromJson((item! as Map).cast<String, Object?>()))
-          .toList(growable: false);
+      final dishes = source == null
+          ? <Dish>[]
+          : ((jsonDecode(source) as Map<String, Object?>)['dishes']!
+                    as List<Object?>)
+                .map(
+                  (item) =>
+                      Dish.fromJson((item! as Map).cast<String, Object?>()),
+                )
+                .toList(growable: false);
       final variedDishes = _varyRepeatedDemoDishes(dishes);
       final completeDishes = await _addMissingDemoDishes(variedDishes);
       final snapshot = MenuSnapshot(
@@ -73,10 +77,7 @@ class PreferencesMenuRepository implements MenuRepository {
   }
 
   Future<List<Dish>> _addMissingDemoDishes(List<Dish> dishes) async {
-    final hasDemoDish = dishes.any(
-      (dish) => _demoDishes.any((sample) => sample.imagePath == dish.imagePath),
-    );
-    if (!hasDemoDish || (_preferences.getBool(_demoFeedSeededKey) ?? false)) {
+    if (_preferences.getBool(_demoFeedSeededKey) ?? false) {
       return dishes;
     }
     final existingPaths = dishes.map((dish) => dish.imagePath).toSet();
