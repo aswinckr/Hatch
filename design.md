@@ -113,6 +113,7 @@ Use fully rounded, pill-shaped corners for button surfaces. The radius should re
 - For a set of full-bleed artifacts, use a direct-swipe carousel that gives every image the entire viewport instead of shrinking them into a grid.
 - Pair a swipe gesture with persistent position feedback—such as dots and a page count—so people can immediately see that more content is available.
 - In a carousel, reserve the collection title for the opening cover; subsequent pages should foreground only the individual item and its name.
+- Size individual-item titles by visual weight rather than word count so adjacent carousel pages retain a consistent editorial rhythm.
 
 ## Do's and Don'ts
 
