@@ -43,7 +43,7 @@ void main() {
 
 final dish = Dish(
   id: 'one',
-  imagePath: 'eggs.jpg',
+  imagePath: 'assets/demo/truffle_eggs.png',
   name: 'Truffle Eggs',
   restaurant: 'Café Morgenrot',
   description: 'Brioche and hollandaise',

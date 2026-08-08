@@ -110,6 +110,7 @@ Use fully rounded, pill-shaped corners for button surfaces. The radius should re
 - Keep decorative shapes behind the image and information, so the dish remains the unmistakable focal point.
 - When the experience calls for a single menu artifact, make it one uninterrupted composition rather than a page of independently framed cards.
 - Limit the poster copy to the section, name, short description, and venue; omit transactional details when the menu is a memory artifact rather than an order surface.
+- For a set of full-bleed artifacts, use a direct-swipe carousel that gives every image the entire viewport instead of shrinking them into a grid.
 
 ## Do's and Don'ts
 

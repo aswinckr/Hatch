@@ -52,11 +52,38 @@ void main() {
       findsNothing,
     );
   });
+
+  testWidgets('menu pages through a poster for every saved dish', (
+    tester,
+  ) async {
+    final controller = app_menu.MenuController(
+      MemoryRepository()
+        ..value = MenuSnapshot(
+          dishes: [
+            breakfastDish.copyWith(imagePath: 'assets/demo/truffle_eggs.png'),
+            breakfastDish.copyWith(imagePath: 'assets/demo/miso_cod.png'),
+          ],
+          style: MenuStyle.editorial,
+        ),
+    );
+    await controller.initialize();
+    await tester.pumpWidget(
+      CupertinoApp(home: MenuScreen(controller: controller)),
+    );
+
+    expect(find.byKey(const Key('menu-poster')), findsOneWidget);
+    await tester.drag(
+      find.byKey(const Key('menu-poster')),
+      const Offset(-1000, 0),
+    );
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('menu-poster-1')), findsOneWidget);
+  });
 }
 
 final breakfastDish = Dish(
   id: 'one',
-  imagePath: 'eggs.jpg',
+  imagePath: 'assets/demo/truffle_eggs.png',
   name: 'Truffle Eggs',
   restaurant: 'Café Morgenrot',
   description: 'Brioche and hollandaise',

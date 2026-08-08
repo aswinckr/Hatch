@@ -14,25 +14,12 @@ class MenuScreen extends StatelessWidget {
     backgroundColor: AppColors.cream,
     child: ColoredBox(
       color: AppColors.cream,
-      child: SafeArea(
-        bottom: false,
-        child: AnimatedBuilder(
-          animation: controller,
-          builder: (context, _) => LayoutBuilder(
-            builder: (context, constraints) => SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minWidth: constraints.maxWidth,
-                  minHeight: constraints.maxHeight,
-                ),
-                child: MenuPage(
-                  snapshot: controller.snapshot,
-                  bottomPadding: 140,
-                  onDishTap: (dish) => _edit(context, dish),
-                ),
-              ),
-            ),
-          ),
+      child: AnimatedBuilder(
+        animation: controller,
+        builder: (context, _) => MenuPage(
+          snapshot: controller.snapshot,
+          bottomPadding: 140,
+          onDishTap: (dish) => _edit(context, dish),
         ),
       ),
     ),
