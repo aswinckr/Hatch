@@ -1,10 +1,9 @@
 import '../domain/dish.dart';
-import '../domain/menu_style.dart';
 
 class MenuSnapshot {
-  const MenuSnapshot({required this.dishes, required this.style});
+  const MenuSnapshot({required this.dishes});
+
   final List<Dish> dishes;
-  final MenuStyle style;
 }
 
 abstract interface class MenuRepository {

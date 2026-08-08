@@ -3,129 +3,77 @@ import 'package:hatch_wireframe/features/menu/application/menu_controller.dart';
 import 'package:hatch_wireframe/features/menu/data/menu_repository.dart';
 import 'package:hatch_wireframe/features/menu/data/preferences_menu_repository.dart';
 import 'package:hatch_wireframe/features/menu/domain/dish.dart';
-import 'package:hatch_wireframe/features/menu/domain/menu_style.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  final breakfastDish = Dish(
-    id: 'one',
-    imagePath: 'eggs.jpg',
-    name: 'Truffle Eggs',
-    restaurant: 'Morgenrot',
-    description: 'Brioche and hollandaise',
-    mealSection: MealSection.breakfast,
-    createdAt: DateTime.utc(2026, 8, 7),
-    updatedAt: DateTime.utc(2026, 8, 7),
-  );
-
-  test(
-    'mutations update state, categorize dishes, and persist snapshots',
-    () async {
-      final repository = MemoryMenuRepository();
-      final controller = MenuController(repository);
-      await controller.initialize();
-      await controller.addDish(breakfastDish);
-      expect(controller.dishesFor(MealSection.breakfast), [breakfastDish]);
-      await controller.updateDish(breakfastDish.copyWith(name: 'New name'));
-      expect(controller.dishes.single.name, 'New name');
-      await controller.removeDish(breakfastDish.id);
-      expect(controller.dishes, isEmpty);
-      expect(repository.saveCount, 3);
-    },
-  );
-
-  test('initialize restores saved dishes in the single style', () async {
-    final repository = MemoryMenuRepository(
-      MenuSnapshot(dishes: [breakfastDish], style: MenuStyle.editorial),
+  test('clean storage is seeded with four generic records', () async {
+    SharedPreferences.setMockInitialValues({});
+    final preferences = await SharedPreferences.getInstance();
+    final repository = PreferencesMenuRepository(
+      preferences,
+      now: () => DateTime.utc(2026, 8, 8, 12),
     );
-    final controller = MenuController(repository);
-    await controller.initialize();
-    expect(controller.dishes, [breakfastDish]);
-    expect(controller.style, MenuStyle.editorial);
+
+    final snapshot = await repository.load();
+
+    expect(snapshot.dishes, hasLength(4));
+    expect(snapshot.dishes.map((dish) => dish.name).toSet(), {'Dish name'});
+    expect(snapshot.dishes.map((dish) => dish.restaurant).toSet(), {
+      'Restaurant name',
+    });
+    expect(snapshot.dishes.map((dish) => dish.description).toSet(), {
+      'Short dish description',
+    });
+    expect(
+      snapshot.dishes.every(
+        (dish) => dish.imagePath.startsWith('wireframe://seed/'),
+      ),
+      isTrue,
+    );
   });
 
-  test(
-    'preferences repository saves data and recovers from malformed JSON',
-    () async {
-      SharedPreferences.setMockInitialValues({
-        'hatch.menu.demo-feed-seeded.v1': true,
-      });
-      final preferences = await SharedPreferences.getInstance();
-      final repository = PreferencesMenuRepository(preferences);
-      final snapshot = MenuSnapshot(
-        dishes: [breakfastDish],
-        style: MenuStyle.editorial,
-      );
-      await repository.save(snapshot);
-      expect((await repository.load()).dishes, [breakfastDish]);
-      await preferences.setString('hatch.menu.snapshot.v1', '{broken');
-      final recovered = await repository.load();
-      expect(recovered.dishes, isEmpty);
-      expect(recovered.style, MenuStyle.editorial);
-    },
-  );
+  test('malformed storage recovers to the four generic records', () async {
+    SharedPreferences.setMockInitialValues({
+      'hatch.wireframe.menu.snapshot.v1': '{broken',
+    });
+    final preferences = await SharedPreferences.getInstance();
 
-  test(
-    'preferences repository starts a new install with all demo dishes',
-    () async {
-      SharedPreferences.setMockInitialValues({});
-      final preferences = await SharedPreferences.getInstance();
+    final snapshot = await PreferencesMenuRepository(preferences).load();
 
-      final snapshot = await PreferencesMenuRepository(preferences).load();
+    expect(snapshot.dishes, hasLength(4));
+    expect(snapshot.dishes.every((dish) => dish.name == 'Dish name'), isTrue);
+  });
 
-      expect(snapshot.dishes, hasLength(4));
-      expect(
-        snapshot.dishes.map((dish) => dish.imagePath).toSet(),
-        hasLength(4),
-      );
-    },
-  );
+  test('controller persists user additions and groups meal sections', () async {
+    final repository = MemoryMenuRepository();
+    final controller = MenuController(repository);
+    await controller.initialize();
+    final dish = Dish(
+      id: 'user-1',
+      imagePath: '/tmp/photo.jpg',
+      name: 'Workshop entry',
+      restaurant: 'Workshop venue',
+      description: 'Entered during the exercise',
+      mealSection: MealSection.lunch,
+      createdAt: DateTime.utc(2026, 8, 8),
+      updatedAt: DateTime.utc(2026, 8, 8),
+    );
 
-  test(
-    'preferences repository varies repeated built-in sample dishes',
-    () async {
-      SharedPreferences.setMockInitialValues({});
-      final preferences = await SharedPreferences.getInstance();
-      final repository = PreferencesMenuRepository(preferences);
-      final sample = breakfastDish.copyWith(
-        imagePath: 'assets/demo/truffle_eggs.png',
-      );
-      final duplicate = Dish(
-        id: 'two',
-        imagePath: sample.imagePath,
-        name: sample.name,
-        restaurant: sample.restaurant,
-        description: sample.description,
-        mealSection: sample.mealSection,
-        createdAt: sample.createdAt,
-        updatedAt: sample.updatedAt,
-      );
-      await repository.save(
-        MenuSnapshot(dishes: [sample, duplicate], style: MenuStyle.editorial),
-      );
+    await controller.addDish(dish);
 
-      final restored = await repository.load();
-
-      expect(
-        restored.dishes.map((dish) => dish.imagePath).toSet(),
-        hasLength(4),
-      );
-      expect(restored.dishes[1].name, 'Shoyu Ramen');
-    },
-  );
+    expect(controller.dishesFor(MealSection.lunch), [dish]);
+    expect(repository.value.dishes, [dish]);
+  });
 }
 
 class MemoryMenuRepository implements MenuRepository {
-  MemoryMenuRepository([
-    this.snapshot = const MenuSnapshot(dishes: [], style: MenuStyle.editorial),
-  ]);
-  MenuSnapshot snapshot;
-  int saveCount = 0;
+  MemoryMenuRepository([this.value = const MenuSnapshot(dishes: <Dish>[])]);
+
+  MenuSnapshot value;
+
   @override
-  Future<MenuSnapshot> load() async => snapshot;
+  Future<MenuSnapshot> load() async => value;
+
   @override
-  Future<void> save(MenuSnapshot next) async {
-    snapshot = next;
-    saveCount++;
-  }
+  Future<void> save(MenuSnapshot snapshot) async => value = snapshot;
 }

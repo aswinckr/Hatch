@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import '../data/menu_repository.dart';
 import '../domain/dish.dart';
-import '../domain/menu_style.dart';
 
 class MenuController extends ChangeNotifier {
   MenuController(this._repository);
@@ -9,8 +8,7 @@ class MenuController extends ChangeNotifier {
   final List<Dish> _dishes = [];
 
   List<Dish> get dishes => List.unmodifiable(_dishes);
-  MenuStyle get style => MenuStyle.editorial;
-  MenuSnapshot get snapshot => MenuSnapshot(dishes: dishes, style: style);
+  MenuSnapshot get snapshot => MenuSnapshot(dishes: dishes);
 
   List<Dish> dishesFor(MealSection section) =>
       _dishes
