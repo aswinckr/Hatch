@@ -5,15 +5,20 @@ description: Translate wireframes, screenshots, mockups, sketches, Figma designs
 
 # Flutter UI Design
 
-Implement working interfaces from visual references using the repository's
-canonical design language. Despite the name, adapt to the target project's
-native UI stack rather than forcing Flutter patterns into another framework.
+Implement working interfaces from visual references using the bundled design
+language. Despite the name, adapt to the target project's native UI stack
+rather than forcing Flutter patterns into another framework.
 
 ## Required context
 
-Before changing UI code, read `../../../design.md` completely. It is the
+Before changing UI code, read `references/design.md` completely. It is the
 single source of truth for visual preferences. Inspect the supplied reference
 and the target project's component, token, routing, and test conventions.
+
+When the target project does not already provide Outfit, copy
+`assets/Outfit.ttf` using its native font setup and retain `assets/OFL.txt`
+with the distributed font. Do not add the font if the user asks to preserve an
+existing brand typeface.
 
 If the design is a local image, inspect it visually. If it is an existing
 screen, examine its live behavior as well as its source. Ask only when a
@@ -27,7 +32,7 @@ the project.
    them.
 2. Reuse existing project primitives where possible. Add or refine tokens and
    components only when that makes the implementation more coherent.
-3. Translate the source through `design.md`:
+3. Translate the source through `references/design.md`:
    - Use Outfit, the forest-green interactive accent, and fully rounded button
      geometry consistently.
    - Prefer continuous, quiet surfaces; use a compact translucent glass
@@ -50,10 +55,10 @@ the project.
 ## Evolve the language deliberately
 
 When the user explicitly gives a new visual preference that generalizes across
-products, update `../../../design.md` at the principle level and apply it to
+products, update `references/design.md` at the principle level and apply it to
 the current UI. Keep product names, labels, content types, and one-off
 workflows out of the shared language. Do not infer a new universal preference
 from a single design request.
 
-Lint `design.md` after changing it. Keep the skill instructions focused on the
-workflow; keep evolving visual rules in `design.md`.
+Lint `references/design.md` after changing it. Keep the skill instructions
+focused on the workflow; keep evolving visual rules in the reference file.
