@@ -25,12 +25,10 @@ class MenuPage extends StatefulWidget {
     required this.snapshot,
     this.showEmptySections = true,
     this.bottomPadding = 48,
-    this.onDishTap,
   });
   final MenuSnapshot snapshot;
   final bool showEmptySections;
   final double bottomPadding;
-  final ValueChanged<Dish>? onDishTap;
 
   @override
   State<MenuPage> createState() => _MenuPageState();
@@ -72,7 +70,6 @@ class _MenuPageState extends State<MenuPage> {
                   ? const Key('menu-poster')
                   : Key('menu-poster-$index'),
               slide: slides[index],
-              onTap: widget.onDishTap,
             ),
           ),
           Positioned(
@@ -93,23 +90,17 @@ class _MenuPageState extends State<MenuPage> {
     final savedByImage = {
       for (final dish in widget.snapshot.dishes) dish.imagePath: dish,
     };
-    final demoSlides = _demoPosters
-        .map(
-          (poster) => _PosterSlide(
-            imagePath: poster.imagePath,
-            posterPath: poster.posterPath,
-            label: poster.label,
-            dish: savedByImage.remove(poster.imagePath),
-          ),
-        )
-        .toList();
+    final demoSlides = _demoPosters.map((poster) {
+      savedByImage.remove(poster.imagePath);
+      return _PosterSlide(
+        imagePath: poster.imagePath,
+        posterPath: poster.posterPath,
+        label: poster.label,
+      );
+    }).toList();
     final uploadedSlides = savedByImage.values
         .map(
-          (dish) => _PosterSlide(
-            imagePath: dish.imagePath,
-            label: dish.name,
-            dish: dish,
-          ),
+          (dish) => _PosterSlide(imagePath: dish.imagePath, label: dish.name),
         )
         .toList();
     return [...demoSlides, ...uploadedSlides];
@@ -117,18 +108,14 @@ class _MenuPageState extends State<MenuPage> {
 }
 
 class _MenuPosterPage extends StatelessWidget {
-  const _MenuPosterPage({super.key, required this.slide, this.onTap});
+  const _MenuPosterPage({super.key, required this.slide});
   final _PosterSlide slide;
-  final ValueChanged<Dish>? onTap;
 
   @override
   Widget build(BuildContext context) => Semantics(
-    button: onTap != null && slide.dish != null,
+    image: true,
     label: 'Menu poster featuring ${slide.label}',
-    child: GestureDetector(
-      onTap: slide.dish == null ? null : () => onTap?.call(slide.dish!),
-      child: _MenuPosterImage(slide: slide),
-    ),
+    child: _MenuPosterImage(slide: slide),
   );
 }
 
@@ -200,11 +187,9 @@ class _PosterSlide {
     required this.imagePath,
     required this.label,
     this.posterPath,
-    this.dish,
   });
   final String imagePath, label;
   final String? posterPath;
-  final Dish? dish;
 }
 
 class _DemoPoster {

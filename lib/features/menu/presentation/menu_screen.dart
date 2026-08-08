@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import '../../../core/design/app_colors.dart';
 import '../application/menu_controller.dart' as app_menu;
-import '../domain/dish.dart';
-import 'dish_editor_sheet.dart';
 import 'menu_page.dart';
 
 class MenuScreen extends StatelessWidget {
@@ -16,22 +14,9 @@ class MenuScreen extends StatelessWidget {
       color: AppColors.cream,
       child: AnimatedBuilder(
         animation: controller,
-        builder: (context, _) => MenuPage(
-          snapshot: controller.snapshot,
-          bottomPadding: 140,
-          onDishTap: (dish) => _edit(context, dish),
-        ),
+        builder: (context, _) =>
+            MenuPage(snapshot: controller.snapshot, bottomPadding: 140),
       ),
     ),
   );
-
-  Future<void> _edit(BuildContext context, Dish dish) =>
-      showCupertinoModalPopup<void>(
-        context: context,
-        builder: (_) => DishEditorSheet(
-          dish: dish,
-          onSave: controller.updateDish,
-          onDelete: () => controller.removeDish(dish.id),
-        ),
-      );
 }
