@@ -71,6 +71,7 @@ Use fully rounded, pill-shaped corners for button surfaces. The radius should re
 - On a white page, establish the glass edge with blur, highlights, border, and shadow rather than a nearly opaque grey fill.
 - Give persistent destinations equal visual weight unless product hierarchy clearly requires otherwise.
 - Name destinations after the content or place they represent, and use representative icons rather than action-oriented symbols.
+- Prefer a simple, recognizable object silhouette for primary destinations over a more detailed or metaphorical symbol.
 - Emphasize the selected destination with a softly tinted frosted segment, colored icon, and stronger label.
 - Keep unselected destinations quiet but readable.
 - Use a small restrained dot for unseen content without changing the component’s alignment.
