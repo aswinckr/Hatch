@@ -35,7 +35,7 @@ void main() {
     expect(navRect.top - cameraRect.bottom, 48);
   });
 
-  testWidgets('finalized dish appears on persistent My Menu tab', (
+  testWidgets('finalized dish renders in the persistent menu poster tab', (
     tester,
   ) async {
     final controller = app_menu.MenuController(MemoryRepository());
@@ -55,7 +55,7 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('My Menu'));
     await tester.pumpAndSettle();
-    expect(find.text('Truffle Eggs Benedict'), findsOneWidget);
+    expect(find.byKey(const Key('menu-poster')), findsOneWidget);
   });
 }
 

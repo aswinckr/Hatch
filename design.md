@@ -108,7 +108,8 @@ Use fully rounded, pill-shaped corners for button surfaces. The radius should re
 - When transforming a personal visual collection into a menu, reuse the exact captured imagery so the artifact retains its provenance.
 - Use image-first poster layouts for a small number of high-value items: combine a generous food image, an organic color field, and a compact text panel.
 - Keep decorative shapes behind the image and information, so the dish remains the unmistakable focal point.
-- Limit each card to the section, name, short description, and venue; omit transactional details when the menu is a memory artifact rather than an order surface.
+- When the experience calls for a single menu artifact, make it one uninterrupted composition rather than a page of independently framed cards.
+- Limit the poster copy to the section, name, short description, and venue; omit transactional details when the menu is a memory artifact rather than an order surface.
 
 ## Do's and Don'ts
 

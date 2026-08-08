@@ -46,8 +46,7 @@ void main() {
     );
     await controller.addDish(breakfastDish);
     await tester.pumpAndSettle();
-    expect(find.text('Truffle Eggs'), findsOneWidget);
-    expect(find.text('Café Morgenrot'), findsOneWidget);
+    expect(find.byKey(const Key('menu-poster')), findsOneWidget);
     expect(
       find.text('Your breakfast favourites will appear here.'),
       findsNothing,

@@ -65,6 +65,7 @@ flutter:
 
   assets:
     - assets/demo/
+    - assets/menu/
     - assets/fonts/
 
   fonts:

@@ -14,7 +14,7 @@ void main() {
     await tester.pumpWidget(
       CupertinoApp(home: MenuScreen(controller: controller)),
     );
-    await tester.tap(find.text('Truffle Eggs'));
+    await tester.tap(find.byKey(const Key('menu-poster')));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Lunch'));
     await tester.ensureVisible(find.text('Save changes'));
@@ -29,7 +29,7 @@ void main() {
     await tester.pumpWidget(
       CupertinoApp(home: MenuScreen(controller: controller)),
     );
-    await tester.tap(find.text('Truffle Eggs'));
+    await tester.tap(find.byKey(const Key('menu-poster')));
     await tester.pumpAndSettle();
     await tester.ensureVisible(find.text('Delete dish'));
     await tester.tap(find.text('Delete dish'));
