@@ -114,6 +114,7 @@ Use fully rounded, pill-shaped corners for button surfaces. The radius should re
 - Pair a swipe gesture with persistent position feedback—such as dots and a page count—so people can immediately see that more content is available.
 - In a carousel, reserve the collection title for the opening cover; subsequent pages should foreground only the individual item and its name.
 - Size individual-item titles by visual weight rather than word count so adjacent carousel pages retain a consistent editorial rhythm.
+- On individual visual-menu pages, pair the dish name with a concise ingredient or preparation description; the cover can carry the collection-level context.
 
 ## Do's and Don'ts
 
