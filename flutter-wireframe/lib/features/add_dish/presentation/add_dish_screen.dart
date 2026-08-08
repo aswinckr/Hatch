@@ -1,11 +1,13 @@
-import 'dart:io';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../../core/design/app_colors.dart';
-import '../../../core/design/app_shapes.dart';
+
+import '../../../shared/presentation/wireframe_image_placeholder.dart';
 import '../../menu/domain/dish.dart';
+import '../data/image_picker_photo_picker.dart';
 import '../domain/dish_analysis.dart';
+import '../domain/photo_picker.dart';
+import 'dish_feed.dart';
 import 'dish_review_form.dart';
 
 enum AddDishStage { choosePhoto, analyzing, review, complete }
@@ -15,82 +17,90 @@ class AddDishScreen extends StatefulWidget {
     super.key,
     required this.analyzer,
     required this.onDishFinalized,
-    ImagePicker? imagePicker,
+    PhotoPicker? photoPicker,
     this.capturedDishes = const [],
     this.showEmbeddedCameraAction = true,
     this.onHomeStageChanged,
-  }) : imagePicker = imagePicker ?? ImagePicker();
+  }) : photoPicker = photoPicker ?? ImagePickerPhotoPicker();
+
   final DishAnalyzer analyzer;
   final Future<void> Function(Dish dish) onDishFinalized;
-  final ImagePicker imagePicker;
+  final PhotoPicker photoPicker;
   final List<Dish> capturedDishes;
   final bool showEmbeddedCameraAction;
   final ValueChanged<bool>? onHomeStageChanged;
+
   @override
   State<AddDishScreen> createState() => AddDishScreenState();
 }
 
 class AddDishScreenState extends State<AddDishScreen> {
   AddDishStage stage = AddDishStage.choosePhoto;
-  String? imagePath, errorText;
+  String? imagePath;
+  String? errorText;
   MealSection section = MealSection.breakfast;
   final name = TextEditingController();
   final restaurant = TextEditingController();
   final description = TextEditingController();
-  final _scrollController = ScrollController();
-  bool _showScrollTitle = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController.addListener(_updateScrollTitle);
-  }
-
-  void _updateScrollTitle() {
-    final visible =
-        stage == AddDishStage.choosePhoto && _scrollController.offset > 48;
-    if (visible != _showScrollTitle) setState(() => _showScrollTitle = visible);
-  }
+  final formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
     name.dispose();
     restaurant.dispose();
     description.dispose();
-    _scrollController
-      ..removeListener(_updateScrollTitle)
-      ..dispose();
     super.dispose();
   }
 
+  Future<void> choosePhotoSource() async {
+    final source = await showModalBottomSheet<ImageSource>(
+      context: context,
+      builder: (context) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.camera_alt_outlined),
+              title: const Text('Camera'),
+              onTap: () => Navigator.pop(context, ImageSource.camera),
+            ),
+            ListTile(
+              leading: const Icon(Icons.photo_library_outlined),
+              title: const Text('Photo library'),
+              onTap: () => Navigator.pop(context, ImageSource.gallery),
+            ),
+          ],
+        ),
+      ),
+    );
+    if (source != null) await _pick(source);
+  }
+
+  Future<void> takePhoto() => _pick(ImageSource.camera);
+
   Future<void> _pick(ImageSource source) async {
     try {
-      final selected = await widget.imagePicker.pickImage(
-        source: source,
-        imageQuality: 88,
-      );
-      if (selected != null) await _analyze(selected.path);
+      final selectedPath = await widget.photoPicker.pick(source);
+      if (selectedPath != null) await _analyze(selectedPath);
     } on PlatformException {
       if (!mounted) return;
-      await showCupertinoDialog<void>(
+      await showDialog<void>(
         context: context,
-        builder: (_) => CupertinoAlertDialog(
+        builder: (context) => AlertDialog(
           title: const Text('Photo access needed'),
           content: const Text(
-            'Allow access in Settings, or try a sample dish instead.',
+            'Allow camera or photo access in system settings and try again.',
           ),
           actions: [
-            CupertinoDialogAction(
-              child: const Text('OK'),
+            TextButton(
               onPressed: () => Navigator.pop(context),
+              child: const Text('OK'),
             ),
           ],
         ),
       );
     }
   }
-
-  Future<void> takePhoto() => _pick(ImageSource.camera);
 
   Future<void> _analyze(String path) async {
     widget.onHomeStageChanged?.call(false);
@@ -99,6 +109,7 @@ class AddDishScreenState extends State<AddDishScreen> {
       stage = AddDishStage.analyzing;
       errorText = null;
     });
+
     try {
       final result = await widget.analyzer.analyze(path);
       name.text = result.name;
@@ -109,16 +120,15 @@ class AddDishScreenState extends State<AddDishScreen> {
       name.clear();
       restaurant.clear();
       description.clear();
-      errorText = 'We couldn’t identify it. Add the details yourself.';
+      errorText = "We couldn't analyze this photo. Enter the details manually.";
     }
+
     if (mounted) setState(() => stage = AddDishStage.review);
   }
 
   Future<void> _submit() async {
-    if (name.text.trim().isEmpty || restaurant.text.trim().isEmpty) {
-      setState(() => errorText = 'Add a dish name and restaurant.');
-      return;
-    }
+    if (!formKey.currentState!.validate() || imagePath == null) return;
+
     final now = DateTime.now();
     await widget.onDishFinalized(
       Dish(
@@ -145,33 +155,51 @@ class AddDishScreenState extends State<AddDishScreen> {
       restaurant.clear();
       description.clear();
       section = MealSection.breakfast;
-      _showScrollTitle = false;
     });
-    if (_scrollController.hasClients) _scrollController.jumpTo(0);
   }
 
   @override
-  Widget build(BuildContext context) {
-    final content = switch (stage) {
-      AddDishStage.choosePhoto => _HomeGallery(dishes: widget.capturedDishes),
-      AddDishStage.analyzing => const SizedBox(
-        height: 520,
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CupertinoActivityIndicator(radius: 16),
-              SizedBox(height: 14),
-              Text('Finding the story of this dish…'),
-            ],
+  Widget build(BuildContext context) => switch (stage) {
+    AddDishStage.choosePhoto => Stack(
+      children: [
+        DishFeed(dishes: widget.capturedDishes),
+        if (widget.showEmbeddedCameraAction)
+          Positioned(
+            right: 16,
+            bottom: 16,
+            child: FloatingActionButton(
+              tooltip: 'Choose a photo source',
+              onPressed: choosePhotoSource,
+              child: const Icon(Icons.add_a_photo_outlined),
+            ),
           ),
-        ),
-      ),
-      AddDishStage.review => Column(
+      ],
+    ),
+    AddDishStage.analyzing => const Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          _FoodPreview(path: imagePath!),
-          const SizedBox(height: 18),
+          CircularProgressIndicator(),
+          SizedBox(height: 16),
+          Text('Analyzing photo'),
+        ],
+      ),
+    ),
+    AddDishStage.review => SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const AspectRatio(
+            aspectRatio: 1,
+            child: WireframeImagePlaceholder(
+              key: Key('selected-image-placeholder'),
+              semanticLabel: 'Selected dish image placeholder',
+            ),
+          ),
+          const SizedBox(height: 16),
           DishReviewForm(
+            formKey: formKey,
             nameController: name,
             restaurantController: restaurant,
             descriptionController: description,
@@ -182,263 +210,29 @@ class AddDishScreenState extends State<AddDishScreen> {
           ),
         ],
       ),
-      AddDishStage.complete => SizedBox(
-        height: 520,
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(
-                CupertinoIcons.check_mark_circled_solid,
-                size: 64,
-                color: AppColors.forestGreen,
-              ),
-              const SizedBox(height: 18),
-              const Text(
-                'Added to your menu',
-                style: TextStyle(fontFamily: 'Outfit', fontSize: 26),
-              ),
-              const SizedBox(height: 12),
-              const Text('Open My Menu to see it in place.'),
-              const SizedBox(height: 20),
-              CupertinoButton(
-                borderRadius: AppShapes.pill,
-                onPressed: _reset,
-                child: const Text('Add another dish'),
-              ),
-            ],
-          ),
-        ),
-      ),
-    };
-    return CupertinoPageScaffold(
-      backgroundColor: CupertinoColors.white,
-      navigationBar: CupertinoNavigationBar(
-        backgroundColor: CupertinoColors.white,
-        middle: _showScrollTitle ? const Text('Your dishes') : null,
-      ),
-      child: SafeArea(
-        child: Stack(
+    ),
+    AddDishStage.complete => Center(
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            SingleChildScrollView(
-              controller: _scrollController,
-              padding: const EdgeInsets.fromLTRB(20, 20, 20, 156),
-              child: content,
-            ),
-            if (stage == AddDishStage.choosePhoto &&
-                widget.showEmbeddedCameraAction)
-              Positioned(
-                right: 20,
-                bottom: 12,
-                child: FloatingCameraButton(onPressed: takePhoto),
-              ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _HomeGallery extends StatelessWidget {
-  const _HomeGallery({required this.dishes});
-  final List<Dish> dishes;
-  @override
-  Widget build(BuildContext context) {
-    final feed = [...dishes]
-      ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            const Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Your dishes',
-                    style: TextStyle(
-                      fontFamily: 'Outfit',
-                      fontSize: 34,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 24),
-        if (feed.isNotEmpty)
-          for (var index = 0; index < feed.length; index++) ...[
-            if (index > 0) const SizedBox(height: 32),
-            _FeedPost(dish: feed[index]),
-          ],
-      ],
-    );
-  }
-}
-
-class _FeedPost extends StatelessWidget {
-  const _FeedPost({required this.dish});
-  final Dish dish;
-
-  @override
-  Widget build(BuildContext context) => Semantics(
-    container: true,
-    label: '${dish.name}, posted ${_postedAt(dish.createdAt)}',
-    child: Column(
-      key: Key('feed-post-${dish.id}'),
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          children: [
-            Container(
-              width: 38,
-              height: 38,
-              decoration: const BoxDecoration(
-                color: Color(0x1A1F4D3A),
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(
-                CupertinoIcons.location_solid,
-                color: AppColors.forestGreen,
-                size: 18,
-              ),
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Text(
-                dish.restaurant,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
+            const Icon(Icons.check_circle_outline, size: 64),
+            const SizedBox(height: 16),
             Text(
-              _postedAt(dish.createdAt),
-              key: Key('posted-time-${dish.id}'),
-              style: const TextStyle(
-                fontSize: 13,
-                color: CupertinoColors.systemGrey,
-              ),
+              'Added to your menu',
+              style: Theme.of(context).textTheme.headlineSmall,
+            ),
+            const SizedBox(height: 8),
+            const Text('The new entry is now available in both tabs.'),
+            const SizedBox(height: 16),
+            OutlinedButton(
+              onPressed: _reset,
+              child: const Text('Add another dish'),
             ),
           ],
-        ),
-        const SizedBox(height: 12),
-        ClipRRect(
-          borderRadius: BorderRadius.circular(24),
-          child: AspectRatio(
-            aspectRatio: 1,
-            child: SizedBox(
-              width: double.infinity,
-              child: _DishImage(path: dish.imagePath),
-            ),
-          ),
-        ),
-        const SizedBox(height: 12),
-        Text(
-          dish.name,
-          style: const TextStyle(fontSize: 19, fontWeight: FontWeight.w700),
-        ),
-        if (dish.description.trim().isNotEmpty) ...[
-          const SizedBox(height: 4),
-          Text(
-            dish.description,
-            style: const TextStyle(
-              fontSize: 15,
-              height: 1.35,
-              color: CupertinoColors.secondaryLabel,
-            ),
-          ),
-        ],
-      ],
-    ),
-  );
-}
-
-String _postedAt(DateTime createdAt, [DateTime? currentTime]) {
-  final now = currentTime ?? DateTime.now();
-  final difference = now.difference(createdAt);
-  if (difference.isNegative || difference.inMinutes < 1) return 'Just now';
-  if (difference.inHours < 1) return '${difference.inMinutes}m';
-  if (difference.inDays < 1) return '${difference.inHours}h';
-  if (difference.inDays < 7) return '${difference.inDays}d';
-  const months = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
-  ];
-  final year = createdAt.year == now.year ? '' : ', ${createdAt.year}';
-  return '${months[createdAt.month - 1]} ${createdAt.day}$year';
-}
-
-class FloatingCameraButton extends StatelessWidget {
-  const FloatingCameraButton({super.key, required this.onPressed});
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) => Semantics(
-    button: true,
-    label: 'Take a photo',
-    child: CupertinoButton(
-      key: key ?? const Key('floating-camera-button'),
-      borderRadius: AppShapes.pill,
-      padding: EdgeInsets.zero,
-      onPressed: onPressed,
-      child: Container(
-        width: 64,
-        height: 64,
-        decoration: const BoxDecoration(
-          color: AppColors.forestGreen,
-          shape: BoxShape.circle,
-          boxShadow: [
-            BoxShadow(
-              color: Color(0x33000000),
-              blurRadius: 18,
-              offset: Offset(0, 8),
-            ),
-          ],
-        ),
-        child: const Icon(
-          CupertinoIcons.camera_fill,
-          color: CupertinoColors.white,
-          size: 27,
         ),
       ),
     ),
-  );
-}
-
-class _DishImage extends StatelessWidget {
-  const _DishImage({required this.path});
-  final String path;
-
-  @override
-  Widget build(BuildContext context) => path.startsWith('assets/')
-      ? Image.asset(path, fit: BoxFit.cover)
-      : Image.file(File(path), fit: BoxFit.cover);
-}
-
-class _FoodPreview extends StatelessWidget {
-  const _FoodPreview({required this.path});
-  final String path;
-  @override
-  Widget build(BuildContext context) => ClipRRect(
-    borderRadius: BorderRadius.circular(22),
-    child: AspectRatio(aspectRatio: 1.5, child: _DishImage(path: path)),
-  );
+  };
 }
