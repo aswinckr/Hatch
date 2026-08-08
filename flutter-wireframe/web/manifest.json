@@ -1,11 +1,11 @@
 {
-    "name": "hatch_menu",
-    "short_name": "hatch_menu",
+    "name": "Favourite Menu Wireframe",
+    "short_name": "Favourite Menu Wireframe",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "A functional Material wireframe for a Flutter UI design workshop.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

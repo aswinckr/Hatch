@@ -65,11 +65,15 @@ class _AppShellState extends State<AppShell> {
       ],
     ),
     floatingActionButton: selectedIndex == 0 && showCaptureAction
-        ? FloatingActionButton(
-            key: const Key('capture-dish'),
-            tooltip: 'Add a dish photo',
-            onPressed: () => addDishKey.currentState?.choosePhotoSource(),
-            child: const Icon(Icons.add_a_photo_outlined),
+        ? Semantics(
+            button: true,
+            label: 'Add a dish photo',
+            child: FloatingActionButton(
+              key: const Key('capture-dish'),
+              tooltip: 'Add a dish photo',
+              onPressed: () => addDishKey.currentState?.choosePhotoSource(),
+              child: const Icon(Icons.add_a_photo_outlined),
+            ),
           )
         : null,
     bottomNavigationBar: NavigationBar(

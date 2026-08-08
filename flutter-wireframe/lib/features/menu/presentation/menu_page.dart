@@ -40,36 +40,41 @@ class _MenuPageState extends State<MenuPage> {
             return SingleChildScrollView(
               key: Key('menu-page-$index'),
               padding: const EdgeInsets.fromLTRB(24, 24, 24, 88),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  if (index == 0) ...[
-                    Text(
-                      'The Menu',
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                    const SizedBox(height: 24),
-                  ],
-                  AspectRatio(
-                    aspectRatio: 4 / 5,
-                    child: WireframeImagePlaceholder(
-                      key: Key('menu-image-${dish.id}'),
-                      semanticLabel: 'Menu dish image placeholder',
-                    ),
+              child: Center(
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 720),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      if (index == 0) ...[
+                        Text(
+                          'The Menu',
+                          style: Theme.of(context).textTheme.headlineMedium,
+                        ),
+                        const SizedBox(height: 24),
+                      ],
+                      AspectRatio(
+                        aspectRatio: 4 / 5,
+                        child: WireframeImagePlaceholder(
+                          key: Key('menu-image-${dish.id}'),
+                          semanticLabel: 'Menu dish image placeholder',
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+                      Text(
+                        dish.mealSection.label,
+                        style: Theme.of(context).textTheme.labelLarge,
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        dish.name,
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                      const SizedBox(height: 8),
+                      Text(dish.description),
+                    ],
                   ),
-                  const SizedBox(height: 24),
-                  Text(
-                    dish.mealSection.label,
-                    style: Theme.of(context).textTheme.labelLarge,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    dish.name,
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(dish.description),
-                ],
+                ),
               ),
             );
           },

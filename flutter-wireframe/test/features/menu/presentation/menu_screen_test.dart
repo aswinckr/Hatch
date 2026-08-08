@@ -48,4 +48,26 @@ void main() {
     expect(find.text('Dish name'), findsOneWidget);
     expect(find.text('Short dish description'), findsOneWidget);
   });
+
+  testWidgets('menu content is constrained on wide screens', (tester) async {
+    tester.view.physicalSize = const Size(1280, 800);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final dishes = buildWireframeSeed(DateTime.utc(2026, 8, 8, 12));
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: MenuPage(snapshot: MenuSnapshot(dishes: dishes)),
+        ),
+      ),
+    );
+
+    expect(
+      tester
+          .getSize(find.byKey(const Key('menu-image-wireframe-seed-1')))
+          .width,
+      lessThanOrEqualTo(720),
+    );
+  });
 }

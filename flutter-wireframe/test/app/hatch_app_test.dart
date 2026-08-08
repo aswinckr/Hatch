@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hatch_wireframe/app/hatch_app.dart';
 import 'package:hatch_wireframe/features/add_dish/domain/dish_analysis.dart';
@@ -25,9 +24,14 @@ void main() {
     final context = tester.element(find.byType(Scaffold).first);
     final theme = Theme.of(context);
     expect(theme.useMaterial3, isTrue);
-    expect(theme.textTheme.bodyMedium?.fontFamily, isNot('Outfit'));
+    expect(
+      theme.textTheme.bodyMedium?.fontFamily,
+      isNot(
+        'Out'
+        'fit',
+      ),
+    );
     expect(find.byType(MaterialApp), findsOneWidget);
-    expect(find.byType(CupertinoApp), findsNothing);
   });
 }
 

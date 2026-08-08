@@ -10,11 +10,14 @@ class WireframeImagePlaceholder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Semantics(
+    container: true,
     label: semanticLabel,
     image: false,
     child: ColoredBox(
       color: Colors.grey.shade300,
-      child: const Center(child: Icon(Icons.image_outlined, color: Colors.grey)),
+      child: const Center(
+        child: Icon(Icons.image_outlined, color: Colors.grey),
+      ),
     ),
   );
 }

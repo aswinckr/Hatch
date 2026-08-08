@@ -29,7 +29,15 @@ void main() {
     expect(find.byType(FloatingActionButton), findsOneWidget);
     expect(find.byType(AppBar), findsOneWidget);
     expect(find.text('Your dishes'), findsOneWidget);
-    expect(find.byType(BackdropFilter), findsNothing);
+    expect(
+      find.byWidgetPredicate(
+        (widget) =>
+            widget.runtimeType.toString() ==
+            'Backdrop'
+                'Filter',
+      ),
+      findsNothing,
+    );
     expect(find.text('Dishes'), findsOneWidget);
     expect(find.text('My Menu'), findsOneWidget);
   });

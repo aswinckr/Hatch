@@ -14,48 +14,53 @@ class DishFeed extends StatelessWidget {
       ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
     return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(16, 16, 16, 96),
-      child: Column(
-        children: [
-          for (final dish in feed) ...[
-            Card(
-              key: Key('feed-post-${dish.id}'),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ListTile(
-                    leading: const Icon(Icons.location_on_outlined),
-                    title: Text(dish.restaurant),
-                    trailing: Text(
-                      postedAt(dish.createdAt),
-                      key: Key('posted-time-${dish.id}'),
-                    ),
-                  ),
-                  AspectRatio(
-                    aspectRatio: 1,
-                    child: WireframeImagePlaceholder(
-                      key: Key('wireframe-image-${dish.id}'),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          dish.name,
-                          style: Theme.of(context).textTheme.titleMedium,
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 720),
+          child: Column(
+            children: [
+              for (final dish in feed) ...[
+                Card(
+                  key: Key('feed-post-${dish.id}'),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ListTile(
+                        leading: const Icon(Icons.location_on_outlined),
+                        title: Text(dish.restaurant),
+                        trailing: Text(
+                          postedAt(dish.createdAt),
+                          key: Key('posted-time-${dish.id}'),
                         ),
-                        const SizedBox(height: 4),
-                        Text(dish.description),
-                      ],
-                    ),
+                      ),
+                      AspectRatio(
+                        aspectRatio: 1,
+                        child: WireframeImagePlaceholder(
+                          key: Key('wireframe-image-${dish.id}'),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              dish.name,
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            const SizedBox(height: 4),
+                            Text(dish.description),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-            if (dish != feed.last) const SizedBox(height: 12),
-          ],
-        ],
+                ),
+                if (dish != feed.last) const SizedBox(height: 12),
+              ],
+            ],
+          ),
+        ),
       ),
     );
   }

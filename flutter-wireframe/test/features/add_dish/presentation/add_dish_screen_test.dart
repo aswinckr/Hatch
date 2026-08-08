@@ -40,6 +40,35 @@ void main() {
     expect(find.byKey(const Key('wireframe-image-seed-0')), findsOneWidget);
   });
 
+  testWidgets('feed keeps cards readable on wide screens', (tester) async {
+    tester.view.physicalSize = const Size(1280, 800);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final now = DateTime.utc(2026, 8, 8, 12);
+    final dish = Dish(
+      id: 'wide-feed',
+      imagePath: 'wireframe://seed/wide',
+      name: 'Dish name',
+      restaurant: 'Restaurant name',
+      description: 'Short dish description',
+      mealSection: MealSection.lunch,
+      createdAt: now,
+      updatedAt: now,
+    );
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(body: DishFeed(dishes: [dish])),
+      ),
+    );
+
+    expect(
+      tester.getSize(find.byKey(const Key('feed-post-wide-feed'))).width,
+      lessThanOrEqualTo(720),
+    );
+  });
+
   testWidgets('camera source analyzes and opens generic editable review', (
     tester,
   ) async {

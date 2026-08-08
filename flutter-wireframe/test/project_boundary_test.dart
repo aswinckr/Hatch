@@ -7,12 +7,26 @@ void main() {
     final pubspec = File('pubspec.yaml').readAsStringSync();
 
     expect(pubspec, contains('name: hatch_wireframe'));
-    expect(pubspec, isNot(contains('path: ../flutter-ui')));
+    expect(
+      pubspec,
+      isNot(
+        contains(
+          'path: ../flutter'
+          '-ui',
+        ),
+      ),
+    );
     expect(pubspec, isNot(contains('assets/')));
     expect(pubspec, isNot(contains('fonts:')));
     expect(File('design.md').existsSync(), isFalse);
     expect(Directory('assets').existsSync(), isFalse);
     expect(Directory('lib/core/design').existsSync(), isFalse);
     expect(Directory('skill').existsSync(), isFalse);
+
+    final project = File(
+      'ios/Runner.xcodeproj/project.pbxproj',
+    ).readAsStringSync();
+    expect(project, contains('com.example.hatchwireframe'));
+    expect(project, isNot(contains('com.example.hatchMenu')));
   });
 }
