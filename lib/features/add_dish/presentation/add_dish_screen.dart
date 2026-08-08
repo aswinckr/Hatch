@@ -37,12 +37,29 @@ class AddDishScreenState extends State<AddDishScreen> {
   final name = TextEditingController();
   final restaurant = TextEditingController();
   final description = TextEditingController();
+  final _scrollController = ScrollController();
+  bool _showScrollTitle = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_updateScrollTitle);
+  }
+
+  void _updateScrollTitle() {
+    final visible =
+        stage == AddDishStage.choosePhoto && _scrollController.offset > 48;
+    if (visible != _showScrollTitle) setState(() => _showScrollTitle = visible);
+  }
 
   @override
   void dispose() {
     name.dispose();
     restaurant.dispose();
     description.dispose();
+    _scrollController
+      ..removeListener(_updateScrollTitle)
+      ..dispose();
     super.dispose();
   }
 
@@ -128,7 +145,9 @@ class AddDishScreenState extends State<AddDishScreen> {
       restaurant.clear();
       description.clear();
       section = MealSection.breakfast;
+      _showScrollTitle = false;
     });
+    if (_scrollController.hasClients) _scrollController.jumpTo(0);
   }
 
   @override
@@ -205,14 +224,15 @@ class AddDishScreenState extends State<AddDishScreen> {
     };
     return CupertinoPageScaffold(
       backgroundColor: CupertinoColors.white,
-      navigationBar: const CupertinoNavigationBar(
+      navigationBar: CupertinoNavigationBar(
         backgroundColor: CupertinoColors.white,
-        middle: Text('Home'),
+        middle: _showScrollTitle ? const Text('Your dishes') : null,
       ),
       child: SafeArea(
         child: Stack(
           children: [
             SingleChildScrollView(
+              controller: _scrollController,
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 156),
               child: content,
             ),

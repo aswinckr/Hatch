@@ -19,6 +19,7 @@ void main() {
     );
 
     expect(find.text('Your gallery is waiting'), findsOneWidget);
+    expect(find.text('Home'), findsNothing);
     expect(find.byKey(const Key('floating-camera-button')), findsOneWidget);
     final page = tester.widget<CupertinoPageScaffold>(
       find.byType(CupertinoPageScaffold),

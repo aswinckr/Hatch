@@ -85,6 +85,7 @@ Use fully rounded, pill-shaped corners for button surfaces. The radius should re
 - An icon-only action is appropriate when the symbol is widely understood; always provide an accessible semantic label.
 - Use a distinctive accent fill and soft shadow to establish primacy without making the control oversized.
 - Keep headers free of secondary actions when the primary creation path is already clear and persistent.
+- On long visual feeds, let the persistent navigation title adopt the page’s content title only after that in-page heading has scrolled away.
 
 ### Image-led collections
 
