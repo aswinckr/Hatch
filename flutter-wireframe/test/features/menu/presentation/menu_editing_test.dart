@@ -1,44 +1,25 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hatch_wireframe/features/menu/application/menu_controller.dart'
-    as app_menu;
 import 'package:hatch_wireframe/features/menu/data/menu_repository.dart';
-import 'package:hatch_wireframe/features/menu/domain/dish.dart';
-import 'package:hatch_wireframe/features/menu/domain/menu_style.dart';
-import 'package:hatch_wireframe/features/menu/presentation/menu_screen.dart';
+import 'package:hatch_wireframe/features/menu/data/wireframe_seed.dart';
+import 'package:hatch_wireframe/features/menu/presentation/menu_page.dart';
 
 void main() {
-  testWidgets('tapping a menu poster does not open the review sheet', (
+  testWidgets('tapping a wireframe page does not open dish editing', (
     tester,
   ) async {
-    final controller = app_menu.MenuController(MemoryRepository(seed));
-    await controller.initialize();
+    final dishes = buildWireframeSeed(DateTime.utc(2026, 8, 8, 12));
     await tester.pumpWidget(
-      CupertinoApp(home: MenuScreen(controller: controller)),
+      MaterialApp(
+        home: Scaffold(
+          body: MenuPage(snapshot: MenuSnapshot(dishes: dishes)),
+        ),
+      ),
     );
-    await tester.tap(find.byKey(const Key('menu-poster')));
+
+    await tester.tap(find.byKey(const Key('menu-page-0')));
     await tester.pumpAndSettle();
+
     expect(find.text('Review your dish'), findsNothing);
   });
-}
-
-final dish = Dish(
-  id: 'one',
-  imagePath: 'assets/demo/truffle_eggs.png',
-  name: 'Truffle Eggs',
-  restaurant: 'Café Morgenrot',
-  description: 'Brioche and hollandaise',
-  mealSection: MealSection.breakfast,
-  createdAt: DateTime.utc(2026, 8, 7),
-  updatedAt: DateTime.utc(2026, 8, 7),
-);
-final seed = MenuSnapshot(dishes: [dish], style: MenuStyle.editorial);
-
-class MemoryRepository implements MenuRepository {
-  MemoryRepository(this.value);
-  MenuSnapshot value;
-  @override
-  Future<MenuSnapshot> load() async => value;
-  @override
-  Future<void> save(MenuSnapshot snapshot) async => value = snapshot;
 }

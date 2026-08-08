@@ -1,104 +1,51 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hatch_wireframe/core/design/app_colors.dart';
-import 'package:hatch_wireframe/features/menu/application/menu_controller.dart'
-    as app_menu;
 import 'package:hatch_wireframe/features/menu/data/menu_repository.dart';
-import 'package:hatch_wireframe/features/menu/domain/dish.dart';
-import 'package:hatch_wireframe/features/menu/domain/menu_style.dart';
+import 'package:hatch_wireframe/features/menu/data/wireframe_seed.dart';
 import 'package:hatch_wireframe/features/menu/presentation/menu_page.dart';
-import 'package:hatch_wireframe/features/menu/presentation/menu_screen.dart';
 
 void main() {
-  testWidgets('empty menu shows all sections with no style or print controls', (
+  testWidgets('four dishes render four full-screen placeholder pages', (
     tester,
   ) async {
-    final controller = app_menu.MenuController(MemoryRepository());
-    await controller.initialize();
+    final dishes = buildWireframeSeed(DateTime.utc(2026, 8, 8, 12));
     await tester.pumpWidget(
-      CupertinoApp(home: MenuScreen(controller: controller)),
-    );
-    expect(find.text('BREAKFAST'), findsOneWidget);
-    expect(find.text('LUNCH'), findsOneWidget);
-    expect(find.text('DINNER'), findsOneWidget);
-    expect(find.text('Print menu'), findsNothing);
-    expect(find.text('Editorial'), findsNothing);
-    expect(find.text('Modern'), findsNothing);
-    expect(find.text('Bistro'), findsNothing);
-    expect(find.byType(CupertinoNavigationBar), findsNothing);
-    final page = tester.widget<CupertinoPageScaffold>(
-      find.byType(CupertinoPageScaffold),
-    );
-    expect(page.backgroundColor, AppColors.cream);
-    expect(
-      tester.getSize(find.byType(MenuPage)).width,
-      tester.getSize(find.byType(MenuScreen)).width,
-    );
-  });
-
-  testWidgets('controller update places dish in its meal section', (
-    tester,
-  ) async {
-    final controller = app_menu.MenuController(MemoryRepository());
-    await controller.initialize();
-    await tester.pumpWidget(
-      CupertinoApp(home: MenuScreen(controller: controller)),
-    );
-    await controller.addDish(breakfastDish);
-    await tester.pumpAndSettle();
-    expect(find.byKey(const Key('menu-poster')), findsOneWidget);
-    expect(
-      find.text('Your breakfast favourites will appear here.'),
-      findsNothing,
-    );
-  });
-
-  testWidgets('menu pages through a poster for every saved dish', (
-    tester,
-  ) async {
-    final controller = app_menu.MenuController(
-      MemoryRepository()
-        ..value = MenuSnapshot(
-          dishes: [
-            breakfastDish.copyWith(imagePath: 'assets/demo/truffle_eggs.png'),
-            breakfastDish.copyWith(imagePath: 'assets/demo/miso_cod.png'),
-          ],
-          style: MenuStyle.editorial,
+      MaterialApp(
+        home: Scaffold(
+          body: MenuPage(snapshot: MenuSnapshot(dishes: dishes)),
         ),
-    );
-    await controller.initialize();
-    await tester.pumpWidget(
-      CupertinoApp(home: MenuScreen(controller: controller)),
+      ),
     );
 
-    expect(find.byKey(const Key('menu-poster')), findsOneWidget);
+    expect(find.byKey(const Key('menu-page-0')), findsOneWidget);
+    expect(find.text('The Menu'), findsOneWidget);
+    expect(find.text('1 / 4'), findsOneWidget);
+    expect(find.byType(Image), findsNothing);
+    expect(find.byType(LinearProgressIndicator), findsOneWidget);
+  });
+
+  testWidgets('menu swipes and only the first page has the menu heading', (
+    tester,
+  ) async {
+    final dishes = buildWireframeSeed(DateTime.utc(2026, 8, 8, 12));
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: MenuPage(snapshot: MenuSnapshot(dishes: dishes)),
+        ),
+      ),
+    );
+
     await tester.drag(
-      find.byKey(const Key('menu-poster')),
-      const Offset(-1000, 0),
+      find.byKey(const Key('menu-page-0')),
+      const Offset(-600, 0),
     );
     await tester.pumpAndSettle();
-    expect(find.byKey(const Key('menu-poster-1')), findsOneWidget);
+
+    expect(find.byKey(const Key('menu-page-1')), findsOneWidget);
+    expect(find.text('2 / 4'), findsOneWidget);
+    expect(find.text('The Menu'), findsNothing);
+    expect(find.text('Dish name'), findsOneWidget);
+    expect(find.text('Short dish description'), findsOneWidget);
   });
-}
-
-final breakfastDish = Dish(
-  id: 'one',
-  imagePath: 'assets/demo/truffle_eggs.png',
-  name: 'Truffle Eggs',
-  restaurant: 'Café Morgenrot',
-  description: 'Brioche and hollandaise',
-  mealSection: MealSection.breakfast,
-  createdAt: DateTime.utc(2026, 8, 7),
-  updatedAt: DateTime.utc(2026, 8, 7),
-);
-
-class MemoryRepository implements MenuRepository {
-  MenuSnapshot value = const MenuSnapshot(
-    dishes: [],
-    style: MenuStyle.editorial,
-  );
-  @override
-  Future<MenuSnapshot> load() async => value;
-  @override
-  Future<void> save(MenuSnapshot snapshot) async => value = snapshot;
 }
