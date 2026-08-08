@@ -1,7 +1,3 @@
-.worktrees/
-.DS_Store
-
-
 # Flutter generated files
 .dart_tool/
 .flutter-plugins
