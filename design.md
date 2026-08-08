@@ -112,6 +112,7 @@ Use fully rounded, pill-shaped corners for button surfaces. The radius should re
 - Limit the poster copy to the section, name, short description, and venue; omit transactional details when the menu is a memory artifact rather than an order surface.
 - For a set of full-bleed artifacts, use a direct-swipe carousel that gives every image the entire viewport instead of shrinking them into a grid.
 - Pair a swipe gesture with persistent position feedback—such as dots and a page count—so people can immediately see that more content is available.
+- In a carousel, reserve the collection title for the opening cover; subsequent pages should foreground only the individual item and its name.
 
 ## Do's and Don'ts
 
