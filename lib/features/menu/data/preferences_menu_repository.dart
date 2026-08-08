@@ -7,6 +7,7 @@ import 'menu_repository.dart';
 class PreferencesMenuRepository implements MenuRepository {
   PreferencesMenuRepository(this._preferences);
   static const _key = 'hatch.menu.snapshot.v1';
+  static const _demoFeedSeededKey = 'hatch.menu.demo-feed-seeded.v1';
   final SharedPreferences _preferences;
 
   @override
@@ -19,11 +20,12 @@ class PreferencesMenuRepository implements MenuRepository {
           .map((item) => Dish.fromJson((item! as Map).cast<String, Object?>()))
           .toList(growable: false);
       final variedDishes = _varyRepeatedDemoDishes(dishes);
+      final completeDishes = await _addMissingDemoDishes(variedDishes);
       final snapshot = MenuSnapshot(
-        dishes: variedDishes,
+        dishes: completeDishes,
         style: MenuStyle.editorial,
       );
-      if (!_sameDishes(dishes, variedDishes)) await save(snapshot);
+      if (!_sameDishes(dishes, completeDishes)) await save(snapshot);
       return snapshot;
     } catch (_) {
       return _empty;
@@ -68,6 +70,35 @@ class PreferencesMenuRepository implements MenuRepository {
           );
         })
         .toList(growable: false);
+  }
+
+  Future<List<Dish>> _addMissingDemoDishes(List<Dish> dishes) async {
+    final hasDemoDish = dishes.any(
+      (dish) => _demoDishes.any((sample) => sample.imagePath == dish.imagePath),
+    );
+    if (!hasDemoDish || (_preferences.getBool(_demoFeedSeededKey) ?? false)) {
+      return dishes;
+    }
+    final existingPaths = dishes.map((dish) => dish.imagePath).toSet();
+    final now = DateTime.now();
+    final additions = _demoDishes
+        .where((sample) => !existingPaths.contains(sample.imagePath))
+        .toList();
+    await _preferences.setBool(_demoFeedSeededKey, true);
+    return [
+      ...dishes,
+      for (var index = 0; index < additions.length; index++)
+        Dish(
+          id: 'demo-${additions[index].mealSection.name}-$index',
+          imagePath: additions[index].imagePath,
+          name: additions[index].name,
+          restaurant: additions[index].restaurant,
+          description: additions[index].description,
+          mealSection: additions[index].mealSection,
+          createdAt: now.subtract(Duration(minutes: additions.length - index)),
+          updatedAt: now.subtract(Duration(minutes: additions.length - index)),
+        ),
+    ];
   }
 
   bool _sameDishes(List<Dish> first, List<Dish> second) =>

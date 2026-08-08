@@ -96,6 +96,7 @@ Use fully rounded, pill-shaped corners for button surfaces. The radius should re
 - Use large, consistently proportioned, softly rounded imagery and only the metadata needed for recognition and context.
 - Prefer natural, handheld photography with believable restaurant context over polished stock imagery; slight framing imperfections and mixed ambient light make personal collections feel authentic.
 - In visual collections, vary the subject, composition, and setting across adjacent items so the feed feels alive rather than templated.
+- When demonstrating a multi-item visual format, keep the source feed and its derived presentation in sync so people can trace every showcased item back to the collection.
 - Treat the empty state as part of the product experience: keep it calm, generous, and focused on the first meaningful action.
 - Preserve clear hierarchy between collection browsing, the primary creation action, and secondary import or management actions.
 

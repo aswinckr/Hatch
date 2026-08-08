@@ -90,7 +90,7 @@ void main() {
 
       expect(
         restored.dishes.map((dish) => dish.imagePath).toSet(),
-        hasLength(2),
+        hasLength(4),
       );
       expect(restored.dishes[1].name, 'Shoyu Ramen');
     },
