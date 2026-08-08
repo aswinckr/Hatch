@@ -1,19 +1,18 @@
 ---
 name: flutter-ui-design
-description: Translate wireframes, screenshots, mockups, sketches, Figma designs, or existing screens into working UI that follows Aswin's visual design language. Use when implementing or restyling application interfaces in Flutter, web, SwiftUI, React Native, or another UI stack while preserving the source design's information architecture and interactions.
+description: Translate wireframes, screenshots, mockups, sketches, Figma designs, or existing screens into working Flutter interfaces using an iOS visual design language. Use when implementing or restyling Flutter application UI while preserving the source design's information architecture and interactions.
 ---
 
 # Flutter UI Design
 
-Implement working interfaces from visual references using the bundled design
-language. Despite the name, adapt to the target project's native UI stack
-rather than forcing Flutter patterns into another framework.
+Implement working Flutter interfaces from visual references using the bundled
+iOS visual design language.
 
 ## Required context
 
 Before changing UI code, read `references/design.md` completely. It is the
 single source of truth for visual preferences. Inspect the supplied reference
-and the target project's component, token, routing, and test conventions.
+and the Flutter app's component, token, routing, state, and test conventions.
 
 When the target project does not already provide Outfit, copy
 `assets/Outfit.ttf` using its native font setup and retain `assets/OFL.txt`
@@ -30,8 +29,11 @@ the project.
 1. Extract the source's content hierarchy, layout regions, responsive intent,
    and interaction model. Preserve these unless the request says to change
    them.
-2. Reuse existing project primitives where possible. Add or refine tokens and
-   components only when that makes the implementation more coherent.
+2. Reuse existing Flutter primitives where possible. Prefer Cupertino widgets
+   and iOS interaction conventions; retain an established Material component
+   only when the existing app or a platform integration requires it. Add or
+   refine tokens and components only when that makes the implementation more
+   coherent.
 3. Translate the source through `references/design.md`:
    - Use Outfit, the forest-green interactive accent, and fully rounded button
      geometry consistently.
@@ -41,16 +43,16 @@ the project.
      available viewport when their content warrants it.
    - Apply editorial hierarchy and restraint without importing food, menu, or
      other product-specific content into unrelated interfaces.
-4. Implement real, responsive components with semantic labels, touch targets,
-   focus behavior, selected and disabled states, and suitable empty, loading,
-   and error states when those states exist in the product.
+4. Implement real, responsive Flutter widgets with semantic labels, accessible
+   touch targets, focus behavior, selected and disabled states, and suitable
+   empty, loading, and error states when those states exist in the product.
 5. Use generated imagery only when the request needs a new visual asset. Do
    not replace an interface implementation with a flattened image.
-6. Run the project-appropriate formatter, tests, static checks, and a visual
-   check in a browser, simulator, or screenshot at the relevant viewport. If
-   the target cannot be launched visually, report that limitation explicitly.
-   Fix visible hierarchy, spacing, clipping, and contrast issues before
-   handing off.
+6. Run `dart format`, `flutter test`, and `flutter analyze`, then perform a
+   visual check in an iOS simulator, browser, or screenshot at the relevant
+   viewport. If the app cannot be launched visually, report that limitation
+   explicitly. Fix visible hierarchy, spacing, clipping, and contrast issues
+   before handing off.
 
 ## Evolve the language deliberately
 

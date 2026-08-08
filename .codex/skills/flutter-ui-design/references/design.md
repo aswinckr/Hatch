@@ -1,7 +1,7 @@
 ---
 version: alpha
-name: Aswin Visual Taste
-description: A living set of reusable visual principles built only from explicit design preferences.
+name: iOS Visual Design Language
+description: A living set of reusable iOS visual principles built only from explicit design preferences.
 omitted:
   - section: spacing
     reason: No general spacing system has been established yet.

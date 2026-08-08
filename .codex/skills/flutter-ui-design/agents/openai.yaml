@@ -1,4 +1,4 @@
 interface:
   display_name: "Flutter UI Design"
-  short_description: "Turn wireframes into UI using Aswin’s style"
-  default_prompt: "Use $flutter-ui-design to implement this design in the current project using my visual language."
+  short_description: "Build Flutter UI with an iOS visual language"
+  default_prompt: "Use $flutter-ui-design to implement this wireframe as polished Flutter UI with an iOS visual design language."
