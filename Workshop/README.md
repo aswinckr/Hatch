@@ -24,6 +24,6 @@ The design QA block lasts **165 minutes**: version 1 (40), version 2 (55), break
 
 ## Teaching the workshop
 
-[Teacher guide with exact prompts](instructor/TEACHER-GUIDE.md) · [Presenter notes](instructor/SLIDE-NOTES.md) · [Editable instructor deck](presentation/Hatch-workshop-instructor.pptx) · [Instructor materials](instructor/README.md) · [Three review passes and test results](instructor/EVALUATION.md) · [Delivery plan](EXECUTION-PLAN.md)
+[Teacher guide with exact prompts](instructor/TEACHER-GUIDE.md) · [Presenter notes](instructor/SLIDE-NOTES.md) · [Editable instructor deck](presentation/Hatch-workshop-instructor.pptx) · [Instructor materials](instructor/README.md) · [Three review passes and test results](instructor/EVALUATION.md) · [Delivery plan](EXECUTION-PLAN.md) · [Publication and recovery](instructor/DELIVERY.md)
 
 The repository is the human handout. A strict audit agent should receive only its frozen skill, approved screenshots, and the app URL in an isolated environment. Do not attach this repository or its history: teaching references and old commits can reveal answers. The participant ZIP excludes the answer key and source tree; browser/tool restrictions are still necessary.

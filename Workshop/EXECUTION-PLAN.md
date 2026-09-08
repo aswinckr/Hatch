@@ -35,7 +35,7 @@ Added output requirement: every skill produces an HTML discrepancy report. Versi
 - [x] Exercise packages and fallback
 - [x] Completed instructor and participant presentations
 - [x] Three simplification/evaluation passes
-- [ ] GitHub publication and remote verification
+- [x] GitHub publication and remote verification
 
 The original backup is at `/Users/aswin/Documents/1-Projects/Hatch Backups/2026-09-08_21-41-06_before-workshop-preparation`. It includes Git state and the original presentation. Personal introduction and project stories are the only intentionally unfinished presentation content. The event year remains as supplied: Hatch 2027.
 

@@ -13,7 +13,7 @@ With OpenSSL available, run this in an instructor-only folder, replacing the key
 ```sh
 openssl enc -d -aes-256-cbc -pbkdf2 -iter 200000 \
   -in instructor-materials.zip.enc -out instructor-materials.zip \
-  -pass file:/absolute/path/to/instructor-pack.key
+  -pass 'file:/absolute/path/to/instructor-pack.key'
 ```
 
 Extract the ZIP. In `instructor-app`, run `npm ci` then `npm run dev`. Open `/` for the original, `/practice` for the intentionally imperfect app, and `/compare` for the explanation. The finished warmup is `warmup-completed/index.html`. Open rehearsal HTML files directly in a browser; their evidence is embedded. Reports are frozen test outputs and deliberately include their original limitations.
@@ -22,4 +22,4 @@ The encryption is a practical distribution barrier, not a substitute for audit i
 
 ## Recovery
 
-A verified full project backup includes the original Git index, staged/unstaged work, all untracked files, original deck PPTX/PDF, and a current editable Figma `.fig` backup. Existing local work was preserved; publication uses an isolated Git worktree. [Figma organization record](FIGMA-ORGANIZATION.md).
+A verified full project backup includes the original Git index, staged/unstaged work, all untracked files, original deck PPTX/PDF, and a current editable Figma `.fig` backup. Existing local work was preserved; publication uses an isolated Git worktree. [Figma organization record](FIGMA-ORGANIZATION.md) · [Publication and local checkout details](DELIVERY.md).

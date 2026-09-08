@@ -29,12 +29,12 @@
     {
       "path": "Workshop/EXECUTION-PLAN.md",
       "bytes": 4360,
-      "sha256": "20478210721419f587ebfc461afde8af16c20d4b3bbc634883f76e5f429e4013"
+      "sha256": "b6fd3c24c6d371cd849d0c85107a382d03a99fbafb77069f025bce2a0e534c34"
     },
     {
       "path": "Workshop/README.md",
-      "bytes": 2177,
-      "sha256": "6d14153d1bfdf012344dfc6473ebe0a6dfca5420a0871d2616b5b23826d39cf4"
+      "bytes": 2231,
+      "sha256": "e12fc9db496bf10a9365127ff304a245284f548dcb1b3c136d57200fb4a458da"
     },
     {
       "path": "Workshop/exercise/REFERENCE.md",
@@ -492,6 +492,11 @@
       "sha256": "c2b37254a33e5db072686b5a11e57917c42280e103687129613be36bc4b85fee"
     },
     {
+      "path": "Workshop/instructor/DELIVERY.md",
+      "bytes": 1743,
+      "sha256": "c12948c0586916c2be218aae742ed822c521c6ce7ff754b2cbd2ea23546ea911"
+    },
+    {
       "path": "Workshop/instructor/EVALUATION.md",
       "bytes": 5048,
       "sha256": "da36d6aaaf77d3a1a5e51ee7bce2a4c6cbc7c9202cb9ea0e507275eb26b6f909"
@@ -503,8 +508,8 @@
     },
     {
       "path": "Workshop/instructor/README.md",
-      "bytes": 2235,
-      "sha256": "e011199992bf3db3dae638ab5ed1b028f95eb70f3668ccc6bd3c437de68cb9de"
+      "bytes": 2294,
+      "sha256": "d027da4616286ba8e7d34e25b8f6bcd5c0d1bdfbece4bf23f8d80c1c0a3f9c70"
     },
     {
       "path": "Workshop/instructor/RESEARCH-NOTES.md",
@@ -544,7 +549,7 @@
     {
       "path": "Workshop/instructor/validation/package-checks.json",
       "bytes": 278,
-      "sha256": "f63d8a72712c75d29d54cabc2a2fa601cefb27e20eac431f1d63cb50dab54229"
+      "sha256": "177810e4fcbf606757f79772bfcf6390b2a7776b7c331967a02eebdd6b2b5720"
     },
     {
       "path": "Workshop/instructor/validation/participant-validation.json",
@@ -687,7 +692,7 @@
       "sha256": "27a2518427f124c0f6a787c0999e56e976ae99a3db391564971a3678815e1805"
     }
   ],
-  "file_count": 137,
+  "file_count": 138,
   "checks": {
     "slide_count": 51,
     "qa_minutes": 165,
@@ -697,6 +702,7 @@
     "simplification_review_passes": 3,
     "participant_build": "passed",
     "decrypted_instructor_build": "passed",
-    "original_local_index_preserved": true
+    "original_local_index_preserved": true,
+    "remote_artifact_blobs_verified": 10
   }
 }
