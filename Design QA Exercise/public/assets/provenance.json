@@ -1,0 +1,175 @@
+{
+  "figma": {
+    "magnifier": [
+      "5-25990",
+      "imgMagnifyingGlass"
+    ],
+    "cellular": [
+      "5-25990",
+      "imgCellularConnection"
+    ],
+    "wifi": [
+      "5-25990",
+      "imgWifi"
+    ],
+    "battery": [
+      "5-25990",
+      "imgBattery"
+    ],
+    "chevron": [
+      "5-25990",
+      "imgTrailingAccessory"
+    ],
+    "header-blob-yellow": [
+      "5-25990",
+      "imgBlob"
+    ],
+    "header-blob-cream": [
+      "5-25990",
+      "imgBlob1"
+    ],
+    "header-curve": [
+      "5-25990",
+      "imgCurve"
+    ],
+    "arrow": [
+      "5-24137",
+      "imgIcon1"
+    ],
+    "thumb": [
+      "5-24137",
+      "imgIcon"
+    ],
+    "thumb-blob": [
+      "5-24137",
+      "imgSocialRatingInfoLeadingIconBlob"
+    ],
+    "delivery": [
+      "5-24137",
+      "imgStoreDeliveryPricingInfoFeeIcon"
+    ],
+    "promo-blob": [
+      "5-24137",
+      "imgIconBlob"
+    ],
+    "promo-icon": [
+      "5-24137",
+      "imgIcon2"
+    ],
+    "nudes": [
+      "5-24149",
+      "imgRectangle3303"
+    ],
+    "jalebi": [
+      "5-24149",
+      "imgRectangle3304"
+    ],
+    "smoothie": [
+      "5-24149",
+      "imgImage"
+    ],
+    "juices": [
+      "5-24149",
+      "imgImage1"
+    ],
+    "wrap": [
+      "5-24149",
+      "imgImage2"
+    ],
+    "jalebi-cup": [
+      "5-24149",
+      "imgImage3"
+    ],
+    "jalebi-bowl": [
+      "5-24149",
+      "imgImage4"
+    ],
+    "jalebi-curry": [
+      "5-24149",
+      "imgImage5"
+    ],
+    "card-curve": [
+      "5-24149",
+      "imgVector154"
+    ],
+    "grosso": [
+      "5-24293",
+      "imgImage"
+    ],
+    "mayura": [
+      "5-24293",
+      "imgImage1"
+    ],
+    "heart": [
+      "5-24293",
+      "imgIcon3"
+    ],
+    "grocery-curve-top": [
+      "5-24296",
+      "imgCurve"
+    ],
+    "grocery-curve-bottom": [
+      "5-24296",
+      "imgCurve1"
+    ],
+    "store-badge-blob": [
+      "5-24296",
+      "imgIconBlob"
+    ],
+    "store-badge": [
+      "5-24296",
+      "imgIcon1"
+    ],
+    "store-promo-blob": [
+      "5-24296",
+      "imgIconBlob1"
+    ],
+    "store-promo": [
+      "5-24296",
+      "imgIcon2"
+    ],
+    "info": [
+      "5-24439",
+      "imgIcon1"
+    ],
+    "goiko": [
+      "5-24439",
+      "imgRectangle3303"
+    ],
+    "popeyes": [
+      "5-24439",
+      "imgRectangle3304"
+    ]
+  },
+  "archiveImages": {
+    "gonzalez-logo": "78c88262aa475c2af2ccd3505f006d434e1acc8c",
+    "healthy-logo": "e75529739bb3e85f929cd51b62a254260fa9e6a5",
+    "redant-logo": "8b50040111cd55f12053e6c4e87b0c14873086ed",
+    "elg-logo": "6ff049bf48e27cf61f30ff05cdbe93a9fa24a2d9",
+    "honest-logo": "004923cecbe6922901251eb7bbb0dd41371b4e9b",
+    "goiko-logo": "92442b4b4b6f29c80134ce4e221851368e1d5941",
+    "condis-logo": "8124f109af199ca374ce34790baaa5bb4d3bce8a",
+    "dia-logo": "0f53dacde145ac4dc2de56702d8f3acf1919c792",
+    "caprabo-logo": "0ac56a24ca7b951c12fb4f2867d41d902b45dd8d",
+    "ametller-logo": "12d139849b5f6a223ea9d85582ab70d6a92a8b3a",
+    "manolo-logo": "0e6aec5e0dd21f6e570e6334a9aadc27cec1e210",
+    "super-logo": "cf8d028401770dc37c42d9887a280a94d7b97df8",
+    "glovo-logo": "ee1885dd292860084d1516bd7bda2f919f4c7056",
+    "carrefour-logo": "1a53cfdbff2840293f21db5ffa73b0d8b0e440f5",
+    "friend-curry": "10bc3133856a3801ffb3d02f91ef6821382537aa",
+    "friend-burger": "c5cdad8c95571bb1a22efdba61c61ed064f8e875",
+    "friend-chicken": "7baeb3ca4f4c7397875fffa2dcb23a18c844a9db",
+    "friend-wings": "7c1f796c8057b747a9fbb390f7cf2dceaee17f23",
+    "friend-bowl": "a527dc8fea78cbcdba5b55f21890fde8057feb0f",
+    "friend-pizza": "76f4833fdc75d46c3c4ddc00908f1b70415bcbb6",
+    "burrito": "862e5d7f29164fd8180899dac66d28ce91d3c730",
+    "caraquena": "68ab31f112afb2c8a441859446c4d044d0c85652",
+    "pita": "45ed75f86e640a3ceac487aa35bb58c7b5325176",
+    "burger": "5c090f1586215cd782bdecbb3d62df659fe604cb",
+    "kiena": "df5f25f452b46d7169c68b3eafe8bf53701d18bd",
+    "kemako": "38ba1b1ff808883ee0ee046c6582f171032b55cc",
+    "healthy-product-logo": "e22e14fc28f7caa3667a389368ace58eeeb690fa",
+    "incheon-logo": "128f7c76141d7fbfcc3351560c9484a611c621e4"
+  },
+  "glyphs": "Navigation, search, and ordered glyphs, plus grocery badge: cropped from original 3x Figma export, node 5:24131"
+}

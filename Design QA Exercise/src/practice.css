@@ -1,0 +1,202 @@
+/* Intentional audit exercise. Practice-only styling; preserve ALL content and icons. */
+
+/* UX-01: Brand yellow is too pale */
+.practice-copy .hero { background: #ffcf68; }
+
+/* UX-02: Pill corners become shallow corners */
+.practice-copy .address-button { border-radius: 10px; }
+
+/* UX-03: Horizontal padding is too generous */
+.practice-copy .address-button { padding-inline: 20px; }
+
+/* UX-04: Greeting is shifted off the content grid */
+.practice-copy .greeting { left: 24px; }
+
+/* UX-05: Helper text is too far from its heading */
+.practice-copy .greeting p { margin-top: 12px; }
+
+/* UX-06: Curved bottom edge is missing */
+.practice-copy .hero-curve { visibility: hidden; }
+
+/* UX-07: Search field loses its pill shape */
+.practice-copy .search-wrap { border-radius: 12px; }
+
+/* UX-08: Icon is crowded against the field edge */
+.practice-copy .search-wrap { padding-inline: 8px; }
+
+/* UX-09: Placeholder contrast is reduced */
+.practice-copy .search-wrap input::placeholder { color: #b1b2b5; }
+
+/* UX-10: Section heading is too light */
+.practice-copy .top-section h2 { font-weight: 500; }
+
+/* UX-11: Subtitle sits too close to the heading */
+.practice-copy .top-section .section-subtitle { transform: translateY(-4px); }
+
+/* UX-12: Ranked card corners are too square */
+.practice-copy .ranked-card { border-radius: 6px; }
+
+/* UX-13: Card content is inset too little */
+.practice-copy .ranked-card { padding-inline: 10px; }
+
+/* UX-14: Ranking numerals lose emphasis */
+.practice-copy .rank { font-size: 24px; }
+
+/* UX-15: All promotion badges are clipped into circles */
+.practice-copy .promo-badge { border-radius: 50%; overflow: hidden; }
+
+/* UX-16: Cards cast an overly dark, low shadow */
+.practice-copy .visited-section .tall-card { box-shadow: 0 8px 10px #16171740; }
+
+/* UX-17: Image-to-body curve is missing */
+.practice-copy .visited-section .card-curve { visibility: hidden; }
+
+/* UX-18: Product thumbnails are straight instead of tilted */
+.practice-copy .visited-section .mini-product { transform: rotate(0deg); }
+
+/* UX-19: Thumbnail outlines are missing */
+.practice-copy .visited-section .mini-product { border-color: transparent; }
+
+/* UX-20: Delivery price wraps onto an orphaned next line */
+.practice-copy .fast-section .store-card > .rating { flex-wrap: wrap; height: auto; }
+
+/* UX-21: Photo gutters are too wide */
+.practice-copy .friends-top, .practice-copy .friends-bottom, .practice-copy .friends-side, .practice-copy .friends-grid { gap: 12px; }
+
+/* UX-22: Friend avatars no longer overlap */
+.practice-copy .friend-avatar + .friend-avatar { margin-left: 3px; }
+
+/* UX-23: Featured price badge becomes a pill */
+.practice-copy .friend-price { border-radius: 999px; padding-inline: 9px; }
+
+/* UX-24: Cream background has straight boundaries */
+.practice-copy .grocery-section { background: #f9efdc; border-radius: 0; }
+
+/* UX-25: All grocery badges are displaced inward */
+.practice-copy .grocery-badge { right: 2px; top: 2px; }
+
+/* UX-26: All help icons are undersized */
+.practice-copy .info-button img, .practice-copy .in-store > .inline-icon { width: 12px; height: 12px; }
+
+/* UX-27: All save affordances are undersized */
+.practice-copy .save-button, .practice-copy .save-button img { width: 16px; height: 16px; }
+
+/* UX-28: All exclusivity labels become pills */
+.practice-copy .exclusive { border-radius: 999px; padding-inline: 10px; }
+
+/* UX-29: Review copy is too small */
+.practice-copy .review-quote { font-size: 12px; line-height: 16px; }
+
+/* UX-30: Review timestamps are displaced to the right */
+.practice-copy .review-age { left: auto; right: 12px; }
+
+/* UX-31: Product cards sit too close together */
+.practice-copy .product-rail { gap: 8px; }
+
+/* UX-32: Product image corners are too square */
+.practice-copy .product-picture { border-radius: 4px; }
+
+/* UX-33: Discount badge is on the wrong side */
+.practice-copy .discount-badge { left: auto; right: 8px; }
+
+/* UX-34: Original prices have too much emphasis */
+.practice-copy .product-price del { font-size: 14px; font-weight: 700; color: #161617; }
+
+/* UX-35: All highlighted delivery badges lose emphasis */
+.practice-copy .yellow-tag { background: #f2f2f3; font-weight: 400; }
+
+/* UX-36: All order-count icons are too small */
+.practice-copy .ordered > img { width: 16px; height: 16px; }
+
+/* UX-37: Supporting copy has too much emphasis */
+.practice-copy .new-section .section-subtitle { color: #161617; font-weight: 500; }
+
+/* UX-38: Selected tab label loses its active emphasis */
+.practice-copy .bottom-nav button.active { color: #838486; }
+
+/* UX-39: Every section arrow loses its circular background */
+.practice-copy .arrow-button { background: transparent; }
+
+/* UX-40: Confirmation toasts have hard square corners */
+.practice-copy .toast { border-radius: 0; }
+
+/* UX-41: Address control casts a hard downward shadow */
+.practice-copy .address-button { box-shadow: 0 4px 0 #16161726; }
+
+/* UX-42: Search field has an incorrect inset shadow */
+.practice-copy .search-wrap { box-shadow: inset 0 2px 5px #16161726; }
+
+/* UX-43: All ranked logos become circular */
+.practice-copy .ranked-logo, .practice-copy .ranked-logo > img { border-radius: 50%; }
+
+/* UX-44: Ranked cards have hard offset shadows */
+.practice-copy .ranked-card { box-shadow: 3px 3px 0 #16161726; }
+
+/* UX-45: Tall restaurant cards are nearly square */
+.practice-copy .visited-section .tall-card { border-radius: 3px; }
+
+/* UX-46: Straight product thumbnails also lose corner rounding */
+.practice-copy .mini-product { border-radius: 0; }
+
+/* UX-47: Product thumbnails cast excessive shadows */
+.practice-copy .mini-product { box-shadow: 0 5px 5px #16161740; }
+
+/* UX-48: Every food tile has sharp corners */
+.practice-copy .friend-tile, .practice-copy .friend-tile.featured { border-radius: 3px; }
+
+/* UX-49: Friend avatar circles become rounded squares */
+.practice-copy .friend-avatar { border-radius: 5px; }
+
+/* UX-50: All restaurant photo corners are exaggerated */
+.practice-copy .store-picture { border-radius: 30px; }
+
+/* UX-51: All restaurant photos have incorrect drop shadows */
+.practice-copy .store-picture { box-shadow: 0 5px 7px #16161733; }
+
+/* UX-52: Every grocery logo has square corners */
+.practice-copy .grocery-logo, .practice-copy .grocery-logo > img { border-radius: 0; }
+
+/* UX-53: All grocery logos cast hard offset shadows */
+.practice-copy .grocery-logo { box-shadow: 3px 3px 0 #16161726; }
+
+/* UX-54: Review cards have excessive corner rounding */
+.practice-copy .review-card { border-radius: 30px; }
+
+/* UX-55: Review card shadows are hard and lean left */
+.practice-copy .review-card { box-shadow: -5px 5px 0 #16161726; }
+
+/* UX-56: Product photos have overly heavy shadows */
+.practice-copy .product-picture { box-shadow: 0 7px 8px #16161740; }
+
+/* UX-57: Every overlaid restaurant logo becomes circular */
+.practice-copy .product-picture .product-logo { border-radius: 50%; }
+
+/* UX-58: All delivery labels have square corners */
+.practice-copy .delivery-tag { border-radius: 0; }
+
+/* UX-59: Discount badge has square corners */
+.practice-copy .discount-badge { border-radius: 0; }
+
+/* UX-60: Navigation casts a hard upward shadow */
+.practice-copy .bottom-nav { box-shadow: 0 -5px 0 #1616171a; }
+
+/* UX-61: Bottom sheets have nearly square upper corners */
+.practice-copy .sheet { border-radius: 4px 4px 0 0; }
+
+/* UX-62: All primary and secondary actions lose their pill shape */
+.practice-copy .primary-button, .practice-copy .secondary-button { border-radius: 6px; }
+
+/* UX-63: Detail imagery loses its rounded corners */
+.practice-copy .detail-image { border-radius: 0; }
+
+/* UX-64: Address field has an incorrect inset shadow */
+.practice-copy .address-input { border-radius: 2px; box-shadow: inset 2px 2px 4px #16161726; }
+
+/* Supporting declarations: wrap the fee, flatten only decorative boundaries. */
+.practice-copy .fast-section .rating-delivery-fee { flex-basis: 100%; }
+.practice-copy .grocery-curve { display: none; }
+/* Keep the deliberately wrapped fee fully visible inside its scrolling rail. */
+.practice-copy .fast-section .store-card { height: 204px; }
+.practice-copy .fast-section { height: 288px; }
+/* Allow the added photo shadows to render below the cards. */
+.practice-copy .store-rail { padding-bottom: 10px; margin-bottom: -10px; }
