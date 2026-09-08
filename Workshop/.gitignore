@@ -1,0 +1,5 @@
+instructor/rehearsal/
+**/node_modules/
+**/dist/
+*.tsbuildinfo
+*.key

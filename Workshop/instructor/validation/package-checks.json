@@ -1,0 +1,16 @@
+{
+  "relative_links_checked": 61,
+  "slides": {
+    "instructor": {
+      "slides": 51,
+      "has_private_notes": true
+    },
+    "participant": {
+      "slides": 51,
+      "has_private_notes": false
+    }
+  },
+  "participant_zip_files": 77,
+  "errors": [],
+  "passed": true
+}

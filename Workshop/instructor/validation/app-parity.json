@@ -1,0 +1,20 @@
+{
+  "original_size": [
+    428,
+    3704
+  ],
+  "participant_size": [
+    428,
+    3704
+  ],
+  "difference_bbox": [
+    138,
+    1019,
+    414,
+    1565
+  ],
+  "identical": false,
+  "max_channel_delta": 14,
+  "changed_pixels": 12560,
+  "mean_channel_delta": 0.003763086803523008
+}

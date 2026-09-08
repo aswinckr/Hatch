@@ -1,13 +1,10 @@
-.worktrees/
+node_modules/
+dist/
+*.tsbuildinfo
 .DS_Store
-
-
-# Flutter generated files
-.dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-.packages
-build/
-coverage/
-ios/Flutter/ephemeral/
-ios/Pods/
+.env
+.env.*
+!.env.example
+*.key
+Workshop/instructor/rehearsal/
+.worktrees/
