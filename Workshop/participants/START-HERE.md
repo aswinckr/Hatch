@@ -2,6 +2,8 @@
 
 You will build three versions of a skill that compares a rendered app with a design reference. The goal is to learn how to teach your process, then test whether the instructions help.
 
+The exercise is an independent app at its root URL, with no original/comparison routes. [Separate app setup](../exercise/SEPARATE-APPS.md).
+
 ## Before the exercise
 
 1. Download the [participant app](../exercise/participant-app.zip) and extract it outside the Hatch repository. Start it with the instructions inside the download.

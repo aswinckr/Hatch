@@ -2,6 +2,8 @@
 
 Read the [research decisions](RESEARCH-NOTES.md), [teacher guide](TEACHER-GUIDE.md), [full-day schedule](RUN-OF-SHOW.md), and [evaluation record](EVALUATION.md). The instructor PPTX contains private presenter notes; the participant deck and PDF omit those notes. The published teacher guide is readable by repository members.
 
+For the current workshop, use [the independent apps](../exercise/SEPARATE-APPS.md). The combined demo below is retained for recovery and instructor answer discussions.
+
 ## Finished demo and rehearsal outputs
 
 [instructor-materials.zip.enc](instructor-materials.zip.enc) contains the full original/practice/comparison app, answer map, the completed warmup page, actual HTML reports from all three skill versions, matched test screenshots, and a clean control report. Keep this material out of audit environments. This package preserves the finished demo while the participant ZIP contains only the exercise site.

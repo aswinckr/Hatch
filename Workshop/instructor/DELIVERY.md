@@ -15,3 +15,7 @@ The verified original project and deck backup is at `/Users/aswin/Documents/1-Pr
 ## Remaining presenter choices
 
 Fill the two personal TODO slides, choose the model used by attendees, rehearse the account-specific tool path, and arrange participant access. The repository retains its existing private visibility. These are event preparation choices; the deck, handouts, reference skills, app packages, and evaluation records are delivered.
+
+## 9 September: independent apps
+
+Added a separate original app alongside the already independent participant app. Both have their own builds and downloadable ZIPs. The local exercise now runs at the root of port 5173 and the original at port 5174. The combined app servers were stopped. The standalone launcher serves compiled files from separate temporary roots, rejects old comparison routes and source paths, and has no write endpoint. [Instructions](../exercise/SEPARATE-APPS.md).

@@ -14,6 +14,8 @@ A hands-on day for designers. Turn your design judgment into a reusable skill, t
 
 The design QA block lasts **165 minutes**: version 1 (40), version 2 (55), break (10), version 3 (60). Each round teaches a different way to improve instructions. More findings do not automatically mean a better skill.
 
+See [the two independent apps](exercise/SEPARATE-APPS.md) for the exercise and original addresses.
+
 ## Reference library
 
 - [Three actual skill versions](skills/README.md) · [Download all reference skills](skills/reference-skills.zip)
