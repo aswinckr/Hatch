@@ -1,23 +1,32 @@
-# Hatch — building skills that work for you
+# Hatch
 
-Start with the [workshop handout](Workshop/README.md).
+Two independent web apps for a design QA exercise. Start your own skills from scratch.
 
-- [Participant instructions](Workshop/participants/START-HERE.md)
-- [Slide handout (PDF)](Workshop/presentation/Hatch-workshop-participant.pdf)
-- [Three reference skills](Workshop/skills/README.md)
-- [Teacher guide and exact prompts](Workshop/instructor/TEACHER-GUIDE.md)
-- [Full-day schedule](Workshop/instructor/RUN-OF-SHOW.md)
-- [HTML discrepancy example](Workshop/skills/design-qa-v3/assets/discrepancy-template.html)
-- [Exercise application](Design%20QA%20Exercise/README.md)
+| Folder | What it contains | Local address |
+| --- | --- | --- |
+| `app-with-mistakes/` | The screen with intentional mistakes | http://127.0.0.1:5173/ |
+| `app-original/` | The original screen | http://127.0.0.1:5174/ |
+| `skills/` | Empty workspace for the skills you create | — |
 
-The QA skills section lasts 165 minutes and uses three versions. Follow the current round before opening later reference solutions.
+## Run an app
 
-## Folder guide
+Requires Node.js/npm and Python 3. In a terminal:
 
-`Workshop/participants` contains student activities. `Workshop/presentation` contains editable instructor/participant decks and the PDF. `Workshop/skills` contains actual reusable skill files. `Workshop/exercise` contains the app download, reproducible participant source, reference images, and warmup. `Workshop/instructor` contains facilitation instructions, evaluation records, and a sealed finished-demo package.
+```sh
+cd app-with-mistakes
+npm ci
+npm run build
+npm start
+```
 
-The older Flutter projects and superseded skill were removed from the current handout after a verified local backup. They remain recoverable from the backup and prior Git commits. The original app and comparison remain available to Aswin in the instructor pack and original local folder. No historical commits were rewritten.
+For the original, open another terminal and run the same commands inside `app-original`. Each app runs independently. Stop it with Ctrl+C. Use `npm run dev` instead when actively editing the app; for the audit exercise, use `npm start` to serve only the compiled build.
 
-GitHub is a handout for people, not an audit-agent workspace. A strict blind run needs a separate environment exposing only the selected skill, approved screenshots, and the app URL. Older commits contain answers. Written instructions and folder names alone do not enforce isolation.
+## Figma reference
 
-This repository retains its existing visibility and access permissions. The workshop host must arrange attendee access or distribute the participant downloads before the day.
+[Open the expected screen in Figma](https://www.figma.com/design/GWYvRH1opeuY2lZpIs7Esi/Hatch-Conference---MCP?node-id=5-24131).
+
+Give the audit skill the mistakes-app URL and the Figma reference. Neither app contains a comparison page or a switch to the other version. Keep source files and the original app out of the audit agent’s accessible inputs when testing screenshot-only comparison.
+
+The local `skills/` folder is intentionally empty. Git does not track empty directories; after a fresh clone, create it with `mkdir -p skills` (or create a folder named `skills` in your file manager).
+
+Earlier workshop materials and exercises are preserved in a local backup outside this folder and in prior GitHub commits.
