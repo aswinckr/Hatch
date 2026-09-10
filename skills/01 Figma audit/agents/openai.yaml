@@ -1,0 +1,3 @@
+interface:
+  display_name: "01 Figma audit"
+  short_description: "Compare app screens to Figma and report discrepancies"

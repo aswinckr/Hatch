@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Food delivery home — visual QA audit</title>
+    <style>
+      :root { color-scheme: light; --ink:#151617; --muted:#626364; --line:#dddeda; --paper:#fff; --canvas:#f5f5f2; --fail:#c83227; --warn:#986300; --pass:#087a5f; --accent:#ffc042; }
+      * { box-sizing: border-box; }
+      html { background: var(--canvas); scroll-behavior: smooth; }
+      body { margin: 0; color: var(--ink); font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height: 1.45; }
+      a { color: inherit; text-underline-offset: 3px; }
+      .wrap { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
+      header { padding: 56px 0 30px; border-bottom: 1px solid var(--line); background: var(--paper); }
+      .eyebrow { margin: 0 0 10px; font-size: 12px; font-weight: 750; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); }
+      h1 { margin: 0; max-width: 760px; font-size: clamp(32px, 5vw, 52px); line-height: 1.02; letter-spacing: -.045em; }
+      .intro { max-width: 730px; margin: 18px 0 0; color: var(--muted); font-size: 17px; }
+      nav { display:flex; flex-wrap:wrap; gap:10px; margin-top: 24px; }
+      nav a { padding: 8px 12px; border:1px solid var(--line); border-radius: 999px; text-decoration:none; font-size:14px; font-weight:650; background:#fff; }
+      main { padding: 34px 0 80px; }
+      h2 { margin:0 0 16px; font-size:25px; letter-spacing:-.025em; }
+      h3 { margin:0; font-size:18px; letter-spacing:-.015em; }
+      section { margin-top: 46px; }
+      .summary { display:grid; grid-template-columns: 1.45fr repeat(3, .55fr); gap:12px; }
+      .card { background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:18px; }
+      .card b { display:block; font-size:28px; letter-spacing:-.04em; }
+      .card span { display:block; margin-top:4px; color:var(--muted); font-size:13px; }
+      .card.primary { background:var(--ink); color:#fff; border-color:var(--ink); }
+      .card.primary span { color:#d7d7d4; }
+      .card.fail b { color:var(--fail); }
+      .card.warn b { color:var(--warn); }
+      .metadata { display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 28px; background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:4px 18px; }
+      .metadata div { display:flex; gap:12px; justify-content:space-between; padding:13px 0; border-bottom:1px solid #eee; font-size:14px; }
+      .metadata div:nth-last-child(-n+2) { border-bottom:0; }
+      .metadata strong { color:var(--muted); font-weight:600; }
+      .metadata span { text-align:right; }
+      .comparison-list { display:grid; gap:24px; }
+      .mismatch-card { overflow:hidden; border:1px solid var(--line); border-radius:16px; background:var(--paper); }
+      .mismatch-heading { display:flex; align-items:baseline; gap:10px; padding:16px 18px; border-bottom:1px solid var(--line); }
+      .mismatch-heading b { color:var(--fail); font-size:12px; letter-spacing:.06em; }
+      .mismatch-heading span { color:var(--muted); font-size:14px; }
+      .comparison-scroll { overflow-x:auto; padding:16px 18px; }
+      .compare { display:grid; grid-template-columns:repeat(2, 428px); gap:24px; width:max-content; }
+      figure { margin:0; overflow:hidden; border:1px solid var(--line); border-radius:16px; background:var(--paper); }
+      figcaption { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 16px; border-bottom:1px solid var(--line); font-size:14px; font-weight:750; }
+      figcaption span { font-weight:500; color:var(--muted); }
+      figure img { display:block; width:428px; height:auto; cursor:zoom-in; }
+      .annotation-stage { position:relative; width:428px; line-height:0; }
+      .annotation { position:absolute; z-index:2; border:2px solid #d9342b; box-shadow:0 0 0 1px #fff, 0 2px 8px #0004; pointer-events:none; }
+      .annotation span { position:absolute; top:-2px; left:-2px; padding:3px 6px; transform:translateY(-100%); border-radius:4px 4px 0 0; background:#d9342b; color:#fff; font:700 11px/1.15 Inter, ui-sans-serif, system-ui, sans-serif; letter-spacing:.01em; white-space:nowrap; }
+      .annotation.label-inside span { top:0; transform:none; }
+      .note { padding:14px 16px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; }
+      .issues { display:grid; gap:12px; }
+      details { overflow:hidden; border:1px solid var(--line); border-radius:14px; background:var(--paper); }
+      summary { display:grid; grid-template-columns: 72px 1fr auto; align-items:center; gap:14px; padding:16px 18px; cursor:pointer; list-style:none; }
+      summary::-webkit-details-marker { display:none; }
+      .id { color:var(--fail); font-size:12px; font-weight:800; letter-spacing:.06em; }
+      .severity { border-radius:999px; padding:3px 8px; background:#ffe4e0; color:#9d261e; font-size:12px; font-weight:800; }
+      .severity.p2 { background:#fff2cb; color:#855600; }
+      .detail { padding:0 18px 18px; border-top:1px solid var(--line); }
+      .detail p { margin:14px 0; color:var(--muted); }
+      table { width:100%; border-collapse:collapse; font-size:14px; }
+      th { color:var(--muted); font-size:12px; font-weight:750; text-align:left; text-transform:uppercase; letter-spacing:.045em; }
+      td, th { padding:9px 8px; border-bottom:1px solid #eee; vertical-align:top; }
+      td:first-child, th:first-child { padding-left:0; }
+      td:last-child, th:last-child { padding-right:0; }
+      .code { font: 12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space:nowrap; }
+      .unavailable { border-left:4px solid var(--warn); background:#fff9e8; border-radius:10px; padding:14px 16px; color:#604800; font-size:14px; }
+      footer { padding:28px 0 48px; border-top:1px solid var(--line); color:var(--muted); font-size:13px; }
+      dialog { width:min(92vw, 700px); max-height:90vh; padding:0; border:0; border-radius:14px; box-shadow:0 24px 80px #0006; background:#fff; }
+      dialog::backdrop { background:#0009; }
+      dialog img { display:block; width:100%; height:auto; }
+      dialog button { position:fixed; right:20px; top:20px; border:0; padding:8px 12px; border-radius:999px; background:#fff; color:#111; font:700 14px inherit; cursor:pointer; }
+      @media (max-width:700px) { .wrap { width:min(100% - 28px, 1180px); } header { padding-top:38px; } .summary { grid-template-columns:1fr; } .metadata { grid-template-columns:1fr; } .metadata div:nth-last-child(2) { border-bottom:1px solid #eee; } summary { grid-template-columns:60px 1fr; } .severity { justify-self:start; } table { font-size:12px; } .code { white-space:normal; } }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="wrap">
+        <p class="eyebrow">Visual QA · food delivery app</p>
+        <h1>Home screen audit</h1>
+        <p class="intro">Comparison of the Discover default state against the supplied Penpot reference. The report isolates confirmed differences in structure, geometry, typography, color, and component treatment.</p>
+        <nav><a href="#evidence">Capture evidence</a><a href="#issues">Confirmed issues</a><a href="visual-audit/qa-report.md">Full data report</a><a href="https://design.penpot.app/#/workspace?team-id=40e06342-8830-80d6-8008-9cfbf3a437a3&file-id=c828d3cf-7d4e-8145-8008-9cfe2c7c0992&page-id=c828d3cf-7d4e-8145-8008-9cfe2c7c0993&board-id=ff0d05ea-5e35-8009-8008-9df8b67262bc">Open Penpot reference ↗</a></nav>
+      </div>
+    </header>
+    <main class="wrap">
+      <section class="summary" aria-label="Audit result summary">
+        <div class="card primary"><b>Discover — default</b><span>Comparable home-screen state at 428px</span></div>
+        <div class="card fail"><b>54</b><span>failed comparison records</span></div>
+        <div class="card fail"><b>9</b><span>root-cause issues</span></div>
+        <div class="card warn"><b>4</b><span>unavailable app-only states</span></div>
+      </section>
+
+      <section aria-labelledby="contract"><h2 id="contract">Audit contract</h2>
+        <div class="metadata">
+          <div><strong>Reference</strong><span>Penpot board <span class="code">ff0d05ea…62bc</span></span></div>
+          <div><strong>App</strong><span><span class="code">http://127.0.0.1:5173/</span></span></div>
+          <div><strong>Viewport</strong><span>428 × 3680 CSS px · DPR 1</span></div>
+          <div><strong>Environment</strong><span>Chrome · 100% zoom · en-US · light</span></div>
+          <div><strong>State reset</strong><span>Empty search, empty cart, no saved items</span></div>
+          <div><strong>Revision</strong><span><span class="code">6b21e4c</span> + local changes</span></div>
+        </div>
+      </section>
+
+      <section id="evidence" aria-labelledby="evidence-title"><h2 id="evidence-title">Capture evidence</h2>
+        <p class="intro">Each row below uses direct, unmodified pixel crops from the supplied Penpot capture and the matched app capture. Every expected/actual pair is presented side by side, and rows run from top to bottom in screen order.</p>
+        <div class="comparison-list">
+          <article class="mismatch-card"><div class="mismatch-heading"><b>QA-01</b><span>Hero, address and search</span></div><div class="comparison-scroll"><div class="compare"><figure><figcaption>Expected <span>Penpot</span></figcaption><img src="visual-audit/crops/qa-01-expected.png" alt="Expected hero, address and search crop" data-full="visual-audit/crops/qa-01-expected.png" /></figure><figure><figcaption>Actual <span>App</span></figcaption><img src="visual-audit/crops/qa-01-actual.png" alt="Actual hero, address and search crop" data-full="visual-audit/crops/qa-01-actual.png" /></figure></div></div></article>
+          <article class="mismatch-card"><div class="mismatch-heading"><b>QA-02</b><span>Heading and navigation-state emphasis</span></div><div class="comparison-scroll"><div class="compare"><figure><figcaption>Expected <span>Penpot heading</span></figcaption><img src="visual-audit/crops/qa-02a-expected.png" alt="Expected top restaurant heading crop" data-full="visual-audit/crops/qa-02a-expected.png" /></figure><figure><figcaption>Actual <span>App heading</span></figcaption><img src="visual-audit/crops/qa-02a-actual.png" alt="Actual top restaurant heading crop" data-full="visual-audit/crops/qa-02a-actual.png" /></figure></div></div><div class="comparison-scroll"><div class="compare"><figure><figcaption>Expected <span>Penpot navigation</span></figcaption><img src="visual-audit/crops/qa-02b-expected.png" alt="Expected bottom navigation crop" data-full="visual-audit/crops/qa-02b-expected.png" /></figure><figure><figcaption>Actual <span>App navigation</span></figcaption><img src="visual-audit/crops/qa-02b-actual.png" alt="Actual bottom navigation crop" data-full="visual-audit/crops/qa-02b-actual.png" /></figure></div></div></article>
+          <article class="mismatch-card"><div class="mismatch-heading"><b>QA-03</b><span>Top restaurant ranking cards</span></div><div class="comparison-scroll"><div class="compare"><figure><figcaption>Expected <span>Penpot</span></figcaption><img src="visual-audit/crops/qa-03-expected.png" alt="Expected ranking cards crop" data-full="visual-audit/crops/qa-03-expected.png" /></figure><figure><figcaption>Actual <span>App</span></figcaption><img src="visual-audit/crops/qa-03-actual.png" alt="Actual ranking cards crop" data-full="visual-audit/crops/qa-03-actual.png" /></figure></div></div></article>
+          <article class="mismatch-card"><div class="mismatch-heading"><b>QA-04</b><span>You visited before cards</span></div><div class="comparison-scroll"><div class="compare"><figure><figcaption>Expected <span>Penpot</span></figcaption><img src="visual-audit/crops/qa-04-expected.png" alt="Expected visited cards crop" data-full="visual-audit/crops/qa-04-expected.png" /></figure><figure><figcaption>Actual <span>App</span></figcaption><img src="visual-audit/crops/qa-04-actual.png" alt="Actual visited cards crop" data-full="visual-audit/crops/qa-04-actual.png" /></figure></div></div></article>
+          <article class="mismatch-card"><div class="mismatch-heading"><b>QA-05</b><span>Friends grid and avatars</span></div><div class="comparison-scroll"><div class="compare"><figure><figcaption>Expected <span>Penpot</span></figcaption><img src="visual-audit/crops/qa-05-expected.png" alt="Expected friends grid crop" data-full="visual-audit/crops/qa-05-expected.png" /></figure><figure><figcaption>Actual <span>App</span></figcaption><img src="visual-audit/crops/qa-05-actual.png" alt="Actual friends grid crop" data-full="visual-audit/crops/qa-05-actual.png" /></figure></div></div></article>
+          <article class="mismatch-card"><div class="mismatch-heading"><b>QA-06</b><span>Fast restaurant cards and controls</span></div><div class="comparison-scroll"><div class="compare"><figure><figcaption>Expected <span>Penpot</span></figcaption><img src="visual-audit/crops/qa-06-expected.png" alt="Expected fast restaurant cards crop" data-full="visual-audit/crops/qa-06-expected.png" /></figure><figure><figcaption>Actual <span>App</span></figcaption><img src="visual-audit/crops/qa-06-actual.png" alt="Actual fast restaurant cards crop" data-full="visual-audit/crops/qa-06-actual.png" /></figure></div></div></article>
+          <article class="mismatch-card"><div class="mismatch-heading"><b>QA-07</b><span>Top grocery stores surface</span></div><div class="comparison-scroll"><div class="compare"><figure><figcaption>Expected <span>Penpot</span></figcaption><img src="visual-audit/crops/qa-07-expected.png" alt="Expected grocery section crop" data-full="visual-audit/crops/qa-07-expected.png" /></figure><figure><figcaption>Actual <span>App</span></figcaption><img src="visual-audit/crops/qa-07-actual.png" alt="Actual grocery section crop" data-full="visual-audit/crops/qa-07-actual.png" /></figure></div></div></article>
+          <article class="mismatch-card"><div class="mismatch-heading"><b>QA-08</b><span>Local-favourite reviews</span></div><div class="comparison-scroll"><div class="compare"><figure><figcaption>Expected <span>Penpot</span></figcaption><img src="visual-audit/crops/qa-08-expected.png" alt="Expected local favourite cards crop" data-full="visual-audit/crops/qa-08-expected.png" /></figure><figure><figcaption>Actual <span>App</span></figcaption><img src="visual-audit/crops/qa-08-actual.png" alt="Actual local favourite cards crop" data-full="visual-audit/crops/qa-08-actual.png" /></figure></div></div></article>
+          <article class="mismatch-card"><div class="mismatch-heading"><b>QA-09</b><span>Lunch product rail and promotion labels</span></div><div class="comparison-scroll"><div class="compare"><figure><figcaption>Expected <span>Penpot</span></figcaption><img src="visual-audit/crops/qa-09-expected.png" alt="Expected lunch product rail crop" data-full="visual-audit/crops/qa-09-expected.png" /></figure><figure><figcaption>Actual <span>App</span></figcaption><img src="visual-audit/crops/qa-09-actual.png" alt="Actual lunch product rail crop" data-full="visual-audit/crops/qa-09-actual.png" /></figure></div></div></article>
+        </div>
+      </section>
+
+      <section id="issues" aria-labelledby="issues-title"><h2 id="issues-title">Confirmed issues</h2>
+        <div class="issues">
+          <details open><summary><span class="id">QA-01</span><h3>Hero, address, and search controls are off-spec</h3><span class="severity">P1</span></summary><div class="detail"><p>These above-the-fold changes alter the intended first impression and control affordance.</p><table><thead><tr><th>Property</th><th>Expected</th><th>Actual</th></tr></thead><tbody><tr><td>Hero fill</td><td>#ffc042</td><td>#ffcf68</td></tr><tr><td>Address/search radius</td><td>999px pill</td><td>10px / 12px</td></tr><tr><td>Greeting left / paragraph top</td><td>16px / 4px</td><td>24px / 12px</td></tr><tr><td>Search placeholder</td><td>#838486</td><td>#b1b2b5</td></tr><tr><td>Decorative effects</td><td>Visible curve; no added shadows</td><td>Curve hidden; address and search shadows added</td></tr></tbody></table><p><b>Fix:</b> restore the base hero and input tokens, original spacing, and the visible header curve.</p></div></details>
+          <details><summary><span class="id">QA-02</span><h3>Headings, affordances, and active navigation lose emphasis</h3><span class="severity">P1</span></summary><div class="detail"><table><thead><tr><th>Property</th><th>Expected</th><th>Actual</th></tr></thead><tbody><tr><td>Top-restaurants heading</td><td>700</td><td>500</td></tr><tr><td>Arrow button</td><td>neutral filled circle</td><td>transparent</td></tr><tr><td>Info icon</td><td>16px</td><td>12px</td></tr><tr><td>Discover nav</td><td>black active label</td><td>muted label</td></tr><tr><td>Newcomers subtitle</td><td>muted, regular</td><td>ink, 500</td></tr></tbody></table><p><b>Fix:</b> restore the supplied hierarchy and navigation-state tokens.</p></div></details>
+          <details><summary><span class="id">QA-03</span><h3>Top restaurant ranking cards have the wrong geometry</h3><span class="severity">P1</span></summary><div class="detail"><table><thead><tr><th>Property</th><th>Expected</th><th>Actual</th></tr></thead><tbody><tr><td>Card radius / padding</td><td>16px / 16px</td><td>6px / 10px</td></tr><tr><td>Rank type</td><td>28px</td><td>24px</td></tr><tr><td>Restaurant logo</td><td>16px corners</td><td>circular</td></tr><tr><td>Promo badge</td><td>8px corners</td><td>circular</td></tr><tr><td>Card shadow</td><td>none</td><td>3px offset shadow</td></tr></tbody></table><p><b>Fix:</b> apply the reference card, logo, badge and typography measurements.</p></div></details>
+          <details><summary><span class="id">QA-04</span><h3>Visited cards have altered surface, curve, and product styling</h3><span class="severity">P1</span></summary><div class="detail"><table><thead><tr><th>Property</th><th>Expected</th><th>Actual</th></tr></thead><tbody><tr><td>Card treatment</td><td>16px corners; shared soft shadow</td><td>3px corners; heavy custom shadow</td></tr><tr><td>Image/card curve</td><td>visible</td><td>hidden</td></tr><tr><td>Product cards</td><td>rotated with subtle border</td><td>rotation removed; border hidden; added shadow</td></tr></tbody></table><p><b>Fix:</b> use the normal tall-card recipe and keep the individual product transforms.</p></div></details>
+          <details><summary><span class="id">QA-05</span><h3>Friends grid and avatar treatment are visibly different</h3><span class="severity">P1</span></summary><div class="detail"><table><thead><tr><th>Property</th><th>Expected</th><th>Actual</th></tr></thead><tbody><tr><td>Grid gaps</td><td>7.9779px</td><td>12px</td></tr><tr><td>Tile corners</td><td>16px; featured 24px</td><td>3px</td></tr><tr><td>Avatar stack</td><td>circular, -4px overlap</td><td>5px corners, +3px separation</td></tr><tr><td>Price badge</td><td>4px radius, compact padding</td><td>pill with 9px horizontal padding</td></tr></tbody></table><p><b>Fix:</b> restore the supplied grid rhythm, tile radii, and overlapping circular avatars.</p></div></details>
+          <details><summary><span class="id">QA-06</span><h3>Restaurant media, save controls, and labels do not match</h3><span class="severity">P1</span></summary><div class="detail"><table><thead><tr><th>Property</th><th>Expected</th><th>Actual</th></tr></thead><tbody><tr><td>Store-image corners</td><td>16px</td><td>30px</td></tr><tr><td>Store-image shadow</td><td>none</td><td>added 0 5px 7px shadow</td></tr><tr><td>Save control</td><td>24px</td><td>16px</td></tr><tr><td>Exclusive label</td><td>4px compact label</td><td>wide pill</td></tr><tr><td>Fast rating</td><td>standard one-line flow</td><td>wrapping flow</td></tr></tbody></table><p><b>Fix:</b> reset the media and icon dimensions and avoid special wrapping in the fast-card rating.</p></div></details>
+          <details><summary><span class="id">QA-07</span><h3>Grocery section loses the intended curved surface</h3><span class="severity">P1</span></summary><div class="detail"><table><thead><tr><th>Property</th><th>Expected</th><th>Actual</th></tr></thead><tbody><tr><td>Top/bottom SVG curves</td><td>visible</td><td>not displayed</td></tr><tr><td>Logo tiles</td><td>16px rounded; no shadow</td><td>square; 3px offset shadow</td></tr><tr><td>In-store badge</td><td>-4px top/right offset</td><td>2px inset</td></tr></tbody></table><p><b>Fix:</b> display the supplied curves and restore logo-card radius and badge offset.</p></div></details>
+          <details><summary><span class="id">QA-08</span><h3>Local-favourite review typography and metadata alignment are wrong</h3><span class="severity p2">P2</span></summary><div class="detail"><table><thead><tr><th>Property</th><th>Expected</th><th>Actual</th></tr></thead><tbody><tr><td>Review quote</td><td>16px / 20px</td><td>12px / 16px</td></tr><tr><td>Timestamp</td><td>left-aligned</td><td>right-aligned</td></tr></tbody></table><p><b>Fix:</b> restore the review type scale and left 12px timestamp placement.</p></div></details>
+          <details><summary><span class="id">QA-09</span><h3>Lunch product rail and offer labels use wrong spacing and tokens</h3><span class="severity">P1</span></summary><div class="detail"><table><thead><tr><th>Property</th><th>Expected</th><th>Actual</th></tr></thead><tbody><tr><td>Rail gap / image radius</td><td>16px / 16px</td><td>8px / 4px</td></tr><tr><td>Discount label</td><td>left; 4px radius</td><td>right; square</td></tr><tr><td>Old price</td><td>12px, regular, muted</td><td>14px, bold, ink</td></tr><tr><td>Delivery tag</td><td>yellow, bold, 4px radius</td><td>neutral, regular, square</td></tr><tr><td>Ordered icon</td><td>24px</td><td>16px</td></tr></tbody></table><p><b>Fix:</b> restore product-rail rhythm and the visual token set for promotional labels.</p></div></details>
+        </div>
+      </section>
+      <section aria-labelledby="scope"><h2 id="scope">Scope and limits</h2><div class="unavailable">Search, detail sheet, cart, profile, address, toast, loading, and focused states do not have matching supplied Penpot frames. They are recorded as unavailable rather than visual failures. Source review indicates some shared sheet/button/toast token regressions; they are not counted in the default-frame failure total.</div></section>
+    </main>
+    <footer><div class="wrap">Created 10 Sep 2026 · Evidence and structured comparison data: <a href="visual-audit/qa-report.md">qa-report.md</a> · <a href="visual-audit/run-manifest.json">run-manifest.json</a></div></footer>
+    <dialog id="preview"><button aria-label="Close image preview">Close</button><img alt="Expanded audit capture" /></dialog>
+    <script>
+      const annotations = {
+        'qa-01-actual.png': [{x:0,y:0,w:100,h:83,label:'Hero color and curve'}, {x:26,y:10,w:48,h:15,label:'Address radius'}, {x:3,y:88,w:94,h:12,label:'Search radius / shadow'}],
+        'qa-02a-actual.png': [{x:2,y:8,w:96,h:70,label:'Heading weight and arrow fill'}],
+        'qa-02b-actual.png': [{x:0,y:0,w:100,h:100,label:'Discover active state'}],
+        'qa-03-actual.png': [{x:2,y:2,w:96,h:96,label:'Card corners, rank, logo and shadow'}],
+        'qa-04-actual.png': [{x:2,y:4,w:96,h:92,label:'Card curve, corners and product treatment'}],
+        'qa-05-actual.png': [{x:2,y:4,w:96,h:92,label:'Grid gaps, tile corners and avatars'}],
+        'qa-06-actual.png': [{x:2,y:4,w:96,h:92,label:'Store image radius, save control and label'}],
+        'qa-07-actual.png': [{x:0,y:3,w:100,h:94,label:'Curves, logo-card corners and badge offset'}],
+        'qa-08-actual.png': [{x:2,y:4,w:96,h:92,label:'Review typography and timestamp alignment'}],
+        'qa-09-actual.png': [{x:2,y:4,w:96,h:92,label:'Rail rhythm, image corners and offer labels'}]
+      };
+      document.querySelectorAll('img[data-full]').forEach((img) => {
+        const source = img.getAttribute('src');
+        const notes = Object.entries(annotations).find(([name]) => source.endsWith(name))?.[1];
+        if (!notes) return;
+        const stage = document.createElement('div');
+        stage.className = 'annotation-stage';
+        img.before(stage); stage.append(img);
+        notes.forEach((note, index) => {
+          const mark = document.createElement('div');
+          mark.className = `annotation ${note.y < 12 ? 'label-inside' : ''}`;
+          mark.style.cssText = `left:${note.x}%;top:${note.y}%;width:${note.w}%;height:${note.h}%;`;
+          const label = document.createElement('span'); label.textContent = note.label; mark.append(label); stage.append(mark);
+        });
+      });
+      const preview = document.querySelector('#preview');
+      const image = preview.querySelector('img');
+      document.querySelectorAll('[data-full]').forEach((thumb) => thumb.addEventListener('click', () => { image.src = thumb.dataset.full; preview.showModal(); }));
+      preview.querySelector('button').addEventListener('click', () => preview.close());
+      preview.addEventListener('click', (event) => { if (event.target === preview) preview.close(); });
+    </script>
+  </body>
+</html>

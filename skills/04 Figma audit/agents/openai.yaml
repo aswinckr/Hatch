@@ -1,0 +1,3 @@
+interface:
+  display_name: "03 Design reference audit"
+  short_description: "Reproducibly compare a web app to Penpot or Figma designs"

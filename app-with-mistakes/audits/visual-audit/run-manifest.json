@@ -1,0 +1,33 @@
+{
+  "audit_id": "food-delivery-home-2026-09-10",
+  "design": {
+    "tool": "penpot",
+    "board_id": "df77d7bb-581c-802a-8008-9cfedd0a50ef",
+    "reference_board_id": "ff0d05ea-5e35-8009-8008-9df8b67262bc",
+    "export": "penpot-reference.png"
+  },
+  "implementation": {
+    "url": "http://127.0.0.1:5173/",
+    "route": "/",
+    "revision": "6b21e4c",
+    "capture": "app-actual.png"
+  },
+  "environment": {
+    "browser": "Chrome",
+    "viewport_css_px": { "width": 428, "height": 3680 },
+    "device_pixel_ratio": 1,
+    "zoom": "100%",
+    "locale": "en-US",
+    "theme": "light"
+  },
+  "state": {
+    "id": "discover-default",
+    "reset": "Empty search; no cart or saved-item persistence assumed."
+  },
+  "artifacts": {
+    "report": "qa-report.md",
+    "design_capture": "penpot-reference.png",
+    "app_capture": "app-actual.png"
+  },
+  "results": { "fail": 54, "pass": 0, "unavailable": 4, "needs_review": 0 }
+}

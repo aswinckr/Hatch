@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>QA Issues | {{REPORT_TITLE}}</title>
+  <style>
+ *{box-sizing:border-box}body{margin:0;color:#202123;background:#fff;font:15px/1.55 Arial,Helvetica,sans-serif;letter-spacing:0}header{background:#f3f4f4;border-bottom:1px solid #d9dddd;padding:48px max(24px,calc((100% - 1272px)/2)) 36px}.eyebrow{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0;color:#5d6565;margin:0 0 12px}h1{font-size:36px;line-height:1.15;margin:0 0 16px}header p{max-width:850px;margin:8px 0;color:#535c5c}.meta{font-size:13px}.meta a{color:#1d5a68}main{max-width:1320px;margin:auto;padding:24px}.toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:16px;padding-bottom:24px;border-bottom:1px solid #ddd}.toolbar input[type=search]{font:inherit;padding:10px 12px;border:1px solid #bbc3c3;border-radius:4px;flex:1;min-width:180px}.toolbar label{display:flex;align-items:center;gap:8px;font-size:13px}#count{font-size:13px;color:#5d6565}article{padding:36px 0;border-bottom:1px solid #cbd1d1;scroll-margin-top:16px}.entry-title{display:flex;gap:14px;align-items:baseline;margin-bottom:20px}.number{font-size:14px;color:#626969;font-variant-numeric:tabular-nums}h2{font-size:21px;line-height:1.35;margin:0;flex:1}.status{color:#616a6a;font-size:12px;white-space:nowrap}.comparison{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px 16px}.label{font-size:17px;font-weight:700;border:1px solid #d2d9d9;padding:14px 20px;background:#f4f6f6}.label span{display:block;font-size:12px;font-weight:400;color:#5a6666}.before{border-top:3px solid #be4d50}.after{border-top:3px solid #28836f}.values{padding:14px 20px;border:1px solid #d2d9d9;font-size:13px;min-width:0;overflow-wrap:anywhere}.values span{display:block}.values b{font-weight:500;color:#536161;margin-right:8px}figure{margin:0;border:1px solid #d2d9d9;background:#f5f6f6;display:flex;align-items:center;justify-content:center;padding:40px 24px;overflow:hidden}.image{position:relative;width:100%;max-width:428px;line-height:0}.image img{display:block;width:100%;height:auto}.mark{position:absolute;outline:2px solid #e44855;outline-offset:3px;pointer-events:none}.note{font-size:13px;color:#735a26;background:#fff9e9;padding:12px 16px}details{font-size:12px;color:#586363;margin-top:14px}summary{cursor:pointer;width:fit-content}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f6f7f7;padding:12px}footer{max-width:1320px;margin:auto;padding:32px 24px;font-size:12px;color:#606969}a{color:#215c67}input:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid #217363;outline-offset:3px}#empty{padding:40px 0;color:#596565}[hidden]{display:none!important}@media(max-width:640px){header{padding:32px 20px}h1{font-size:28px}main{padding:20px 12px}.entry-title{flex-wrap:wrap;gap:8px}h2{font-size:18px;min-width:70%}.status{margin-left:28px}.comparison{gap:8px}.label,.values{padding:10px;font-size:12px}.label{font-size:15px}figure{padding:24px 8px}.toolbar{gap:12px}}@media print{header{padding:24px}.toolbar,details{display:none}article{break-inside:avoid}.image img{max-height:450px;object-fit:contain}main{padding:0}.mark{display:none}}
+ 
+
+ header{margin:28px;border:7px solid #171b34;border-radius:28px;padding:38px 70px;background-color:#303239;background-image:linear-gradient(#ffffff03 1px,transparent 1px),linear-gradient(90deg,#ffffff03 1px,transparent 1px);background-size:44px 44px;color:white}header h1{margin:0;font-size:40px;line-height:1.15}main{padding-top:32px;max-width:1320px}.toolbar{border:0;padding-bottom:4px}.entry-title{margin-bottom:12px}h2{font-size:16px;font-weight:500;color:#4a4f55}article{border:0;padding:24px 0 16px}.label{background:#303239;color:#fff;border:0;border-radius:14px;font-size:15px;padding:16px 24px}.values{border:0;border-radius:14px;background:#f4f4f4;display:flex;align-items:center;padding:16px 24px;font-size:15px;color:#4c5158;min-height:56px}figure{border:0;border-radius:24px;background:#f4f4f4;padding:48px 32px}.image{max-width:330px;overflow:visible}.mark{outline:2px solid red;outline-offset:3px}.comparison figure:nth-of-type(2) .mark{outline-color:#169923}footer{max-width:1272px}.report-note{color:#676c72;font-size:13px;margin:0 0 16px;max-width:950px}@media(max-width:640px){header{margin:12px;border-width:5px;border-radius:20px;padding:24px}header h1{font-size:28px}main{padding-top:12px}.label,.values{font-size:12px;padding:12px;border-radius:8px}figure{padding:24px 8px;border-radius:12px}.comparison{gap:8px}.image{width:100%}h2{font-size:14px}}@media print{header{margin:0}figure{padding:16px}.toolbar{display:none}.image{max-width:220px}article{break-inside:avoid}}
+ </style>
+  <style>
+    .placeholder-image { background: #e5e8eb; aspect-ratio: 428 / 900; }
+    .placeholder-label { position: absolute; inset: 0; display: grid; place-items: center; padding: 16px; text-align: center; color: #707981; font-size: 14px; line-height: 1.5; }
+  </style>
+</head>
+<body>
+  <header><h1>QA Issues</h1></header>
+  <main>
+    <p class="report-note">{{REPORT_SUMMARY}}</p>
+    <div class="toolbar">
+      <label><input type="checkbox" id="only">Visual changes only</label>
+      <label><input type="checkbox" id="outlines" checked>Highlights</label>
+      <span id="count" aria-live="polite"></span>
+    </div>
+
+    <!-- Repeat an article for each finding; placeholders and highlight bounds are illustrative only. -->
+    <article id="issue-1" data-same="false">
+      <div class="entry-title"><span class="number">01</span><h2>{{ISSUE_1_TITLE}}</h2></div>
+      <div class="comparison">
+        <div class="label">Expected behaviour</div>
+        <div class="label">Current behaviour</div>
+        <div class="values">{{ISSUE_1_EXPECTED_DESCRIPTION}}</div>
+        <div class="values">{{ISSUE_1_CURRENT_DESCRIPTION}}</div>
+        <figure>
+          <div class="image" style="aspect-ratio:428/900">
+            <img class="placeholder-image" width="428" height="900" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="{{ISSUE_1_EXPECTED_IMAGE_ALT}}">
+            <span class="placeholder-label">Expected screenshot</span>
+            <span class="mark" style="left:8%;top:40%;width:84%;height:12%"></span>
+          </div>
+        </figure>
+        <figure>
+          <div class="image" style="aspect-ratio:428/900">
+            <img class="placeholder-image" width="428" height="900" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="{{ISSUE_1_CURRENT_IMAGE_ALT}}">
+            <span class="placeholder-label">Current screenshot</span>
+            <span class="mark" style="left:8%;top:40%;width:84%;height:12%"></span>
+          </div>
+        </figure>
+      </div>
+      <details>
+        <summary>Source evidence</summary>
+        <p>{{ISSUE_1_SOURCE_FILE}}:{{ISSUE_1_SOURCE_LINE}} ({{ISSUE_1_SELECTOR}})</p>
+        <pre>{{ISSUE_1_SOURCE_CODE}}</pre>
+        <p>Expected values</p><span>{{ISSUE_1_EXPECTED_VALUES}}</span>
+        <p>Current values</p><span>{{ISSUE_1_CURRENT_VALUES}}</span>
+      </details>
+    </article>
+
+    <article id="issue-2" data-same="false">
+      <div class="entry-title"><span class="number">02</span><h2>{{ISSUE_2_TITLE}}</h2></div>
+      <div class="comparison">
+        <div class="label">Expected behaviour</div>
+        <div class="label">Current behaviour</div>
+        <div class="values">{{ISSUE_2_EXPECTED_DESCRIPTION}}</div>
+        <div class="values">{{ISSUE_2_CURRENT_DESCRIPTION}}</div>
+        <figure>
+          <div class="image" style="aspect-ratio:428/900">
+            <img class="placeholder-image" width="428" height="900" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="{{ISSUE_2_EXPECTED_IMAGE_ALT}}">
+            <span class="placeholder-label">Expected screenshot</span>
+            <span class="mark" style="left:8%;top:28%;width:84%;height:8%"></span>
+          </div>
+        </figure>
+        <figure>
+          <div class="image" style="aspect-ratio:428/900">
+            <img class="placeholder-image" width="428" height="900" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="{{ISSUE_2_CURRENT_IMAGE_ALT}}">
+            <span class="placeholder-label">Current screenshot</span>
+            <span class="mark" style="left:8%;top:28%;width:84%;height:8%"></span>
+          </div>
+        </figure>
+      </div>
+      <details>
+        <summary>Source evidence</summary>
+        <p>{{ISSUE_2_SOURCE_FILE}}:{{ISSUE_2_SOURCE_LINE}} ({{ISSUE_2_SELECTOR}})</p>
+        <pre>{{ISSUE_2_SOURCE_CODE}}</pre>
+        <p>Expected values</p><span>{{ISSUE_2_EXPECTED_VALUES}}</span>
+        <p>Current values</p><span>{{ISSUE_2_CURRENT_VALUES}}</span>
+      </details>
+    </article>
+  </main>
+  <footer>{{AUDIT_SCOPE_AND_LIMITATIONS}}</footer>
+  <script>
+    const articles = [...document.querySelectorAll('article')];
+    const only = document.querySelector('#only');
+    function filter() {
+      let count = 0;
+      for (const article of articles) {
+        article.hidden = only.checked && article.dataset.same === 'true';
+        if (!article.hidden) count++;
+      }
+      document.querySelector('#count').textContent = count + ' of ' + articles.length + ' entries';
+    }
+    only.addEventListener('change', filter);
+    document.querySelector('#outlines').addEventListener('change', event => {
+      document.querySelectorAll('.mark').forEach(mark => mark.hidden = !event.target.checked);
+    });
+    filter();
+  </script>
+</body>
+</html>

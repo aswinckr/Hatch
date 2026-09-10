@@ -103,7 +103,7 @@ export default function App() {
     {review ? <><span className="card-kicker">Featured review</span><p className="review-quote">“Super large portions and arrived hot. Do not skip the sweet potato fries”</p><span className="review-age">2 hours ago</span></> : <><span className="card-kicker">{item.name === 'Nudes' ? 'Products you looked at' : 'Highlights'}</span><div className="mini-products">{(item.name === 'Nudes' ? ['smoothie', 'juices', 'wrap'] : ['jalebi-cup', 'jalebi-bowl', 'jalebi-curry']).map((name, i) => <Picture key={name} name={name} className={`mini-product mini-${i}`} />)}</div></>}
   </button>;
 
-  return <div className="app-shell exercise-surface">
+  return <div className="app-shell">
     <div className="design-surface">
       <header className="hero">
         <div className="status-bar" aria-hidden="true"><span className="status-time">9:41</span><div className="status-icons"><Picture name="cellular" /><Picture name="wifi" /><Picture name="battery" /></div></div>
