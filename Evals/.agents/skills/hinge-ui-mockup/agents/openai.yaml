@@ -1,0 +1,5 @@
+interface:
+  display_name: "Hinge UI Mockup"
+  short_description: "Generate Hinge feature mockups via OpenRouter"
+  brand_color: "#702963"
+  default_prompt: "Use $hinge-ui-mockup to turn my Hinge feature concept into a high-fidelity iOS mockup."

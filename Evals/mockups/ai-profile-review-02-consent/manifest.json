@@ -1,0 +1,43 @@
+{
+  "created_at": "2026-09-11T10:47:21.810115+00:00",
+  "feature_prompt": "Screen 2 of a three-screen Hinge AI profile-review flow: a native iOS consent screen opened from Profile. Use a warm white page with a small friendly editorial line illustration and the heading “A thoughtful look at your profile”. Briefly explain that the coach checks photo variety, prompt clarity, and profile completeness; it offers suggestions, not judgments. Include a short privacy reassurance (“Only you can see this review”) and one deep-plum full-width button “Review my profile”. Include a subtle text option “Not now”. Make one dominant action and preserve user control; no attractiveness ratings or comparison to other people.",
+  "expanded_prompt": "Create one high-fidelity iOS mobile product UI mockup for a proposed feature inside Hinge.\n\nFEATURE CONCEPT\nScreen 2 of a three-screen Hinge AI profile-review flow: a native iOS consent screen opened from Profile. Use a warm white page with a small friendly editorial line illustration and the heading “A thoughtful look at your profile”. Briefly explain that the coach checks photo variety, prompt clarity, and profile completeness; it offers suggestions, not judgments. Include a short privacy reassurance (“Only you can see this review”) and one deep-plum full-width button “Review my profile”. Include a subtle text option “Not now”. Make one dominant action and preserve user control; no attractiveness ratings or comparison to other people.\n\nREFERENCE RULES\nThe supplied screenshots are references for design language only. Infer layout rhythm, hierarchy, typography roles, color roles, corner radii, button treatment, icon style, illustration character, and native iOS framing. Do not copy any person's face, name, profile answer, photo, or identifying detail. Use fictional, non-identifying placeholder content. This is an exploratory concept, not an official Hinge screen.\n\nDESIGN-LANGUAGE NOTES\n# Hinge design language\n\nUse the four bundled screenshots as visual references, not as an official Hinge specification.\n\n## Visual system\n\n- Design a native-looking iOS screen in a narrow portrait layout.\n- Use warm white or pale gray backgrounds, near-black text, and generous spacing.\n- Use a clean sans serif for most text. Reserve an editorial serif for an occasional expressive heading.\n- Build hierarchy with type size and weight rather than many colors.\n- Use deep plum for the main action. Use dark teal only when it serves a distinct context; do not make both colors compete.\n- Use wide pill buttons, rounded white cards or modals, thin dividers, and simple black line icons.\n- Keep one dominant section and one primary action on the screen.\n- Illustrations may use black outlines, light texture, and muted pastel fills.\n- Avoid gradients, glass effects, neon, 3D renders, dense dashboards, and decorative AI sparkles.\n\n## Voice\n\n- Write warm, direct, encouraging copy.\n- Explain the benefit in plain language and keep interface text short.\n- Describe AI as helpful guidance, not an authority or judge.\n- Emphasize privacy, consent, and the user's ability to ignore a recommendation.\n\n## AI profile reviewer\n\nMake the feature feel like a thoughtful profile coach. Depending on the requested screen, show only the elements needed from this set:\n\n- what the reviewer will examine\n- consent before analysis\n- a simple overall result\n- a few prioritized recommendations with clear reasons\n- a direct action such as improving a photo or rewriting an answer\n- a way to dismiss the advice or keep the current profile\n\nNever rate attractiveness or rank the user against other people.\n\n## What each reference provides\n\n- `Profile.png`: profile editing, media grids, tabs, rows, and dividers.\n- `Prompt Guide.png`: education layout, illustration, and fixed bottom action.\n- `Boost.png`: empty-state composition, serif heading, buttons, and bottom navigation.\n- `Verification Modal.png`: scrim, rounded modal, benefit rows, progress dots, and primary action.\n\nOUTPUT REQUIREMENTS\n- Produce exactly one portrait mobile app screen, not a mood board, presentation slide, device-on-desk render, or marketing poster.\n- Show the complete screen edge to edge in a believable iOS state, with clean safe areas and no external phone frame.\n- Make the feature purpose and primary action immediately understandable.\n- Prefer one dominant action, restrained accent color, generous whitespace, and a small number of coherent components.\n- For AI behavior, use warm human language, explain recommendations clearly, preserve user control, and avoid attractiveness ratings.\n- Render all visible interface text carefully and legibly. Keep copy short enough for reliable text rendering.\n- Do not place annotations, arrows, measurements, color swatches, or explanatory captions outside the interface.",
+  "model": "google/gemini-3-pro-image",
+  "endpoint": "https://openrouter.ai/api/v1/images",
+  "references": [
+    "/Users/aswin/Documents/1-Projects/Hatch/Evals/.agents/skills/hinge-ui-mockup/assets/hinge-references/Boost.png",
+    "/Users/aswin/Documents/1-Projects/Hatch/Evals/.agents/skills/hinge-ui-mockup/assets/hinge-references/Profile.png",
+    "/Users/aswin/Documents/1-Projects/Hatch/Evals/.agents/skills/hinge-ui-mockup/assets/hinge-references/Prompt Guide.png",
+    "/Users/aswin/Documents/1-Projects/Hatch/Evals/.agents/skills/hinge-ui-mockup/assets/hinge-references/Verification Modal.png"
+  ],
+  "parameters": {
+    "aspect_ratio": "9:16",
+    "resolution": "2K",
+    "n": 1
+  },
+  "outputs": [
+    "/Users/aswin/Documents/1-Projects/Hatch/Evals/mockups/ai-profile-review-02-consent/mockup-01.png"
+  ],
+  "usage": {
+    "prompt_tokens": 3082,
+    "completion_tokens": 1120,
+    "total_tokens": 4202,
+    "cost": 0.140564,
+    "is_byok": false,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "cache_write_tokens": 0,
+      "audio_tokens": 0,
+      "video_tokens": 0
+    },
+    "cost_details": {
+      "upstream_inference_cost": 0.140564,
+      "upstream_inference_prompt_cost": 0.006164,
+      "upstream_inference_completions_cost": 0.1344
+    },
+    "completion_tokens_details": {
+      "reasoning_tokens": 0,
+      "image_tokens": 1120
+    }
+  }
+}
